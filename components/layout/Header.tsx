@@ -1,0 +1,88 @@
+"use client";
+
+import Link from "next/link";
+import { Menu, Search, X } from "lucide-react";
+import { useState } from "react";
+import { AccountAccess } from "@/components/personalization/AccountAccess";
+import { navItems } from "@/lib/site";
+import { Button } from "@/components/ui/Button";
+
+export function Header() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-40 min-h-20 border-b border-gold/15 bg-obsidian/92 py-3 backdrop-blur">
+      <nav className="mx-auto flex min-h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8" aria-label="Main">
+        <Link href="/" className="focus-ring flex shrink-0 items-center rounded" aria-label="Aetherica Podcast home">
+          <span
+            className="aetherica-header-word font-cinzel-brand whitespace-nowrap text-lg leading-none text-ivory sm:text-2xl"
+            data-text="Ætherica Podcast"
+          >
+            Ætherica Podcast
+          </span>
+        </Link>
+
+        <div className="hidden min-w-0 flex-1 items-center justify-center gap-1 min-[1800px]:flex">
+          {navItems.map(([label, href]) => (
+            <Link key={href} href={href} className="focus-ring font-cinzel-brand whitespace-nowrap rounded px-2.5 py-2 text-sm text-parchment hover:text-ivory">
+              {label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="hidden shrink-0 items-center gap-2 min-[1800px]:flex">
+          <Link href="/search" className="focus-ring rounded p-2 text-parchment hover:text-ivory" aria-label="Search site">
+            <Search size={20} />
+          </Link>
+          <AccountAccess surface="header" />
+          <Button href="/episodes">Listen Now</Button>
+        </div>
+
+        <div className="hidden shrink-0 items-center gap-2 xl:flex min-[1800px]:hidden">
+          <Link href="/search" className="focus-ring rounded p-2 text-parchment hover:text-ivory" aria-label="Search site">
+            <Search size={20} />
+          </Link>
+          <span className="font-cinzel-brand rounded border border-gold/25 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-parchment/80" title="Profiles and sign in are coming soon">
+            Profile Soon
+          </span>
+        </div>
+
+        <button
+          type="button"
+          className="focus-ring rounded p-2 text-ivory min-[1800px]:hidden"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? <X /> : <Menu />}
+        </button>
+      </nav>
+
+      {open ? (
+        <div className="border-t border-gold/15 bg-charcoal px-4 py-4 min-[1800px]:hidden">
+          <div className="font-cinzel-brand grid gap-1">
+            {navItems.map(([label, href]) => (
+              <Link
+                key={href}
+                href={href}
+                className="focus-ring rounded px-3 py-3 text-parchment hover:bg-ivory/5"
+                onClick={() => setOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
+            <div className="grid gap-2 border-t border-gold/15 pt-3">
+              <span className="rounded border border-gold/30 px-3 py-3 text-parchment/80">
+                Sign In Coming Soon
+              </span>
+              <span className="rounded border border-gold/30 bg-gold/10 px-3 py-3 font-semibold text-gold">
+                Profile Creation Coming Soon
+              </span>
+            </div>
+            <Button href="/episodes">Listen Now</Button>
+          </div>
+        </div>
+      ) : null}
+    </header>
+  );
+}

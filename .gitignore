@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Next.js and generated build output
+.next/
+out/
+dist/
+.turbo/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Tests and generated reports
+coverage/
+playwright-report/
+test-results/
+
+# Local tooling caches and generated artifacts
+work/
+outputs/
+*.tsbuildinfo
+*.log
+*.swp
+
+# Operating system and editor files
+.DS_Store
