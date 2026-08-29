@@ -9,33 +9,33 @@ import Link from "next/link";
  */
 
 const PLANET_GLYPHS = [
-  { glyph: "☉", name: "Sun", meaning: "The luminary of day; vitality, sovereignty, the visible self" },
-  { glyph: "☽", name: "Moon", meaning: "The luminary of night; body, memory, the daily life" },
-  { glyph: "☿", name: "Mercury", meaning: "Speech, exchange, craft — the go-between" },
-  { glyph: "♀", name: "Venus", meaning: "Concord, beauty, desire — the lesser benefic" },
-  { glyph: "♂", name: "Mars", meaning: "Severance, courage, heat — the lesser malefic" },
-  { glyph: "♃", name: "Jupiter", meaning: "Increase, counsel, law — the greater benefic" },
-  { glyph: "♄", name: "Saturn", meaning: "Limit, time, structure — the greater malefic" },
-  { glyph: "♅", name: "Uranus", meaning: "Modern: rupture and invention (1781)" },
-  { glyph: "♆", name: "Neptune", meaning: "Modern: dissolution and glamour (1846)" },
-  { glyph: "♇", name: "Pluto", meaning: "Modern: the underworld register (1930)" },
-  { glyph: "☊", name: "North Node", meaning: "The Moon's ascending crossing; increase, appetite" },
-  { glyph: "☋", name: "South Node", meaning: "The descending crossing; release, depletion" }
+  { glyph: "☉\uFE0E", name: "Sun", meaning: "The luminary of day; vitality, sovereignty, the visible self" },
+  { glyph: "☽\uFE0E", name: "Moon", meaning: "The luminary of night; body, memory, the daily life" },
+  { glyph: "☿\uFE0E", name: "Mercury", meaning: "Speech, exchange, craft — the go-between" },
+  { glyph: "♀\uFE0E", name: "Venus", meaning: "Concord, beauty, desire — the lesser benefic" },
+  { glyph: "♂\uFE0E", name: "Mars", meaning: "Severance, courage, heat — the lesser malefic" },
+  { glyph: "♃\uFE0E", name: "Jupiter", meaning: "Increase, counsel, law — the greater benefic" },
+  { glyph: "♄\uFE0E", name: "Saturn", meaning: "Limit, time, structure — the greater malefic" },
+  { glyph: "♅\uFE0E", name: "Uranus", meaning: "Modern: rupture and invention (1781)" },
+  { glyph: "♆\uFE0E", name: "Neptune", meaning: "Modern: dissolution and glamour (1846)" },
+  { glyph: "♇\uFE0E", name: "Pluto", meaning: "Modern: the underworld register (1930)" },
+  { glyph: "☊\uFE0E", name: "North Node", meaning: "The Moon's ascending crossing; increase, appetite" },
+  { glyph: "☋\uFE0E", name: "South Node", meaning: "The descending crossing; release, depletion" }
 ];
 
 const SIGN_GLYPHS = [
-  { glyph: "♈", name: "Aries", quality: "Cardinal fire", ruler: "Mars" },
-  { glyph: "♉", name: "Taurus", quality: "Fixed earth", ruler: "Venus" },
-  { glyph: "♊", name: "Gemini", quality: "Mutable air", ruler: "Mercury" },
-  { glyph: "♋", name: "Cancer", quality: "Cardinal water", ruler: "Moon" },
-  { glyph: "♌", name: "Leo", quality: "Fixed fire", ruler: "Sun" },
-  { glyph: "♍", name: "Virgo", quality: "Mutable earth", ruler: "Mercury" },
-  { glyph: "♎", name: "Libra", quality: "Cardinal air", ruler: "Venus" },
-  { glyph: "♏", name: "Scorpio", quality: "Fixed water", ruler: "Mars" },
-  { glyph: "♐", name: "Sagittarius", quality: "Mutable fire", ruler: "Jupiter" },
-  { glyph: "♑", name: "Capricorn", quality: "Cardinal earth", ruler: "Saturn" },
-  { glyph: "♒", name: "Aquarius", quality: "Fixed air", ruler: "Saturn" },
-  { glyph: "♓", name: "Pisces", quality: "Mutable water", ruler: "Jupiter" }
+  { glyph: "♈\uFE0E", name: "Aries", quality: "Cardinal fire", ruler: "Mars" },
+  { glyph: "♉\uFE0E", name: "Taurus", quality: "Fixed earth", ruler: "Venus" },
+  { glyph: "♊\uFE0E", name: "Gemini", quality: "Mutable air", ruler: "Mercury" },
+  { glyph: "♋\uFE0E", name: "Cancer", quality: "Cardinal water", ruler: "Moon" },
+  { glyph: "♌\uFE0E", name: "Leo", quality: "Fixed fire", ruler: "Sun" },
+  { glyph: "♍\uFE0E", name: "Virgo", quality: "Mutable earth", ruler: "Mercury" },
+  { glyph: "♎\uFE0E", name: "Libra", quality: "Cardinal air", ruler: "Venus" },
+  { glyph: "♏\uFE0E", name: "Scorpio", quality: "Fixed water", ruler: "Mars" },
+  { glyph: "♐\uFE0E", name: "Sagittarius", quality: "Mutable fire", ruler: "Jupiter" },
+  { glyph: "♑\uFE0E", name: "Capricorn", quality: "Cardinal earth", ruler: "Saturn" },
+  { glyph: "♒\uFE0E", name: "Aquarius", quality: "Fixed air", ruler: "Saturn" },
+  { glyph: "♓\uFE0E", name: "Pisces", quality: "Mutable water", ruler: "Jupiter" }
 ];
 
 /** Cusp angles (degrees, 0 = left/ascendant, counterclockwise) chosen to show each system's character. */
@@ -89,25 +89,110 @@ const HOUSE_SYSTEMS: Array<{ name: string; cusps: number[]; axes?: boolean; blur
   }
 ];
 
-/** Ten planet positions (degrees) arranged to display each Jones pattern. */
-const CHART_SHAPES: Array<{ name: string; dots: number[]; blurb: string }> = [
-  { name: "Bundle", dots: [95, 106, 118, 127, 139, 150, 161, 172, 184, 195], blurb: "Everything within a trine — concentrated, specialist temperament; the life runs deep in one channel." },
-  { name: "Bowl", dots: [10, 29, 48, 67, 86, 105, 124, 143, 162, 178], blurb: "One hemisphere occupied: self-contained, carrying something to the empty half of the chart." },
-  { name: "Bucket", dots: [190, 205, 222, 239, 256, 273, 290, 307, 322, 95], blurb: "A bowl with one singleton opposite — the handle: the whole chart pours through that planet." },
-  { name: "Locomotive", dots: [0, 27, 54, 81, 108, 135, 162, 189, 216, 240], blurb: "Two-thirds occupied; the planet leading into the empty trine drives the chart like an engine." },
-  { name: "Seesaw", dots: [15, 32, 49, 66, 83, 195, 213, 231, 249, 267], blurb: "Two opposing clusters: a life of alternation, weighing, and negotiated opposites." },
-  { name: "Splay", dots: [5, 22, 39, 130, 147, 164, 181, 255, 272, 289], blurb: "Three uneven clusters with strong trine emphasis: individualist, resistant to schedule and category." },
-  { name: "Splash", dots: [5, 41, 77, 113, 149, 185, 221, 257, 293, 329], blurb: "Scattered around the whole wheel: breadth of interest, with the classic risk of diffusion." }
+/**
+ * Ten planet positions (degrees) arranged to display each Jones pattern, with the occupied arcs
+ * shaded and the doctrine's special planet — handle, engine, cutting planet — singled out.
+ */
+const CHART_SHAPES: Array<{
+  name: string;
+  keynote: string;
+  criterion: string;
+  dots: number[];
+  spans?: Array<[number, number]>;
+  lead?: { index: number; label: string };
+  reading: string;
+  lookFor: string;
+}> = [
+  {
+    name: "Bundle",
+    keynote: "Concentration",
+    criterion: "All ten planets within about 120° — the span of a trine.",
+    dots: [95, 106, 118, 127, 139, 150, 161, 172, 184, 195],
+    spans: [[90, 200]],
+    lead: { index: 9, label: "leading planet" },
+    reading:
+      "The rarest pattern. Everything the chart has is gathered into one department of the sky, and the life tends to match: a specialist temperament that digs one channel deep rather than many shallow, with limited patience for whatever falls outside it.",
+    lookFor:
+      "The leading planet — first of the group by clockwise rotation — sets the agenda the whole cluster serves. Two-thirds of the wheel is empty; what the bundle ignores is as diagnostic as what it holds."
+  },
+  {
+    name: "Bowl",
+    keynote: "Self-containment",
+    criterion: "All ten planets within one half of the wheel (~180°).",
+    dots: [10, 29, 48, 67, 86, 105, 124, 143, 162, 178],
+    spans: [[5, 183]],
+    lead: { index: 9, label: "cutting planet" },
+    reading:
+      "A hemisphere occupied and a hemisphere bare: the life carries its own sources and feels the missing half as a question. Jones read the bowl as self-contained purpose — something held that must eventually be carried across to the empty side.",
+    lookFor:
+      "The cutting planet, at the clockwise edge of the group, leads the whole formation and describes how the person advances into the empty hemisphere. The rim of the bowl — which houses it spans — shows where the holding happens."
+  },
+  {
+    name: "Bucket",
+    keynote: "Direction",
+    criterion: "Nine planets in one half; a single planet alone in the other.",
+    dots: [190, 205, 222, 239, 256, 273, 290, 307, 322, 95],
+    spans: [[185, 327]],
+    lead: { index: 9, label: "the handle" },
+    reading:
+      "A bowl with an outlet. The isolated planet becomes the handle through which everything the other nine gather is poured, and the life organizes itself around that point of application — cause, craft, mission, or grievance.",
+    lookFor:
+      "Everything rides on the handle: its sign, house, and aspects govern the discharge of the whole chart. A handle conjunct the group's midpoint opposition is the pattern at its purest."
+  },
+  {
+    name: "Locomotive",
+    keynote: "Drive",
+    criterion: "Two-thirds of the wheel occupied (~240°); an empty trine.",
+    dots: [0, 27, 54, 81, 108, 135, 162, 189, 216, 240],
+    spans: [[355, 245]],
+    lead: { index: 9, label: "the engine" },
+    reading:
+      "Jones' figure of executive momentum: the empty trine registers as a felt lack, and the chart mobilizes around solving it. Self-starting, problem-hungry, with power delivered unevenly — like a wheel driven from one point.",
+    lookFor:
+      "The engine — the planet that leads the train clockwise into the empty trine — is the chart's driver and its point of greatest torque. The middle of the empty trine names the prize the drive is secretly aimed at."
+  },
+  {
+    name: "Seesaw",
+    keynote: "Negotiation",
+    criterion: "Two opposing groups, separated by two gaps of 60° or more.",
+    dots: [15, 32, 49, 66, 83, 195, 213, 231, 249, 267],
+    spans: [[10, 88], [190, 272]],
+    reading:
+      "A life conducted between two camps: two sets of commitments that face each other across the wheel and refuse to merge. The temperament weighs, compares, alternates — capable of real perspective, and of permanent postponement.",
+    lookFor:
+      "The oppositions that bridge the two groups are the working axes of the chart. The heavier cluster is the home base; the lighter one is the counterweight the life keeps returning to pick up."
+  },
+  {
+    name: "Splay",
+    keynote: "Individuality",
+    criterion: "Three uneven clusters — a tripod, often braced by a grand trine.",
+    dots: [5, 22, 39, 130, 147, 164, 181, 255, 272, 289],
+    spans: [[0, 44], [125, 186], [250, 294]],
+    reading:
+      "Energy spiking in three distinct departments with real gaps between: the tripod stands on its own arrangement and resists schedule, category, and other people's priorities. Jones read it as rugged, ineradicable individuality.",
+    lookFor:
+      "Read the three legs as a standing structure: the midpoint of each cluster names a footing, and any grand trine linking them is the pattern's brace — self-sufficiency built into the geometry."
+  },
+  {
+    name: "Splash",
+    keynote: "Breadth",
+    criterion: "Planets distributed around the whole wheel; no gap much over 60°.",
+    dots: [5, 41, 77, 113, 149, 185, 221, 257, 293, 329],
+    reading:
+      "The opposite of the bundle: interests sown across every quarter of the sky. At best a genuine universality — many rooms lived in comfortably; at worst the classic diffusion of a life spread one planet deep everywhere.",
+    lookFor:
+      "With no leading planet to appoint, look for any tight conjunction to act as a gathering point, and fall back on the balance of elements and modes to find where the scatter secretly leans."
+  }
 ];
 
 const CORRESPONDENCE_SPINE = [
-  { glyph: "♄", planet: "Saturn", day: "Saturday", metal: "Lead", domicile: "Capricorn · Aquarius", exaltation: "Libra" },
-  { glyph: "♃", planet: "Jupiter", day: "Thursday", metal: "Tin", domicile: "Sagittarius · Pisces", exaltation: "Cancer" },
-  { glyph: "♂", planet: "Mars", day: "Tuesday", metal: "Iron", domicile: "Aries · Scorpio", exaltation: "Capricorn" },
-  { glyph: "☉", planet: "Sun", day: "Sunday", metal: "Gold", domicile: "Leo", exaltation: "Aries" },
-  { glyph: "♀", planet: "Venus", day: "Friday", metal: "Copper", domicile: "Taurus · Libra", exaltation: "Pisces" },
-  { glyph: "☿", planet: "Mercury", day: "Wednesday", metal: "Quicksilver", domicile: "Gemini · Virgo", exaltation: "Virgo" },
-  { glyph: "☽", planet: "Moon", day: "Monday", metal: "Silver", domicile: "Cancer", exaltation: "Taurus" }
+  { glyph: "♄\uFE0E", planet: "Saturn", day: "Saturday", metal: "Lead", domicile: "Capricorn · Aquarius", exaltation: "Libra" },
+  { glyph: "♃\uFE0E", planet: "Jupiter", day: "Thursday", metal: "Tin", domicile: "Sagittarius · Pisces", exaltation: "Cancer" },
+  { glyph: "♂\uFE0E", planet: "Mars", day: "Tuesday", metal: "Iron", domicile: "Aries · Scorpio", exaltation: "Capricorn" },
+  { glyph: "☉\uFE0E", planet: "Sun", day: "Sunday", metal: "Gold", domicile: "Leo", exaltation: "Aries" },
+  { glyph: "♀\uFE0E", planet: "Venus", day: "Friday", metal: "Copper", domicile: "Taurus · Libra", exaltation: "Pisces" },
+  { glyph: "☿\uFE0E", planet: "Mercury", day: "Wednesday", metal: "Quicksilver", domicile: "Gemini · Virgo", exaltation: "Virgo" },
+  { glyph: "☽\uFE0E", planet: "Moon", day: "Monday", metal: "Silver", domicile: "Cancer", exaltation: "Taurus" }
 ];
 
 const INSTRUMENTS = [
@@ -150,22 +235,54 @@ function HouseWheel({ cusps, axes }: { cusps: number[]; axes?: boolean }) {
   );
 }
 
-function ShapeWheel({ dots }: { dots: number[] }) {
+function arcPath(start: number, end: number, r: number) {
+  // Counterclockwise from start to end in chart coordinates (0° at the ascendant, left).
+  const span = (end - start + 360) % 360 || 360;
+  const x1 = 60 + r * Math.cos(rad(start));
+  const y1 = 60 - r * Math.sin(rad(start));
+  const x2 = 60 + r * Math.cos(rad(end));
+  const y2 = 60 - r * Math.sin(rad(end));
+  return `M ${x1} ${y1} A ${r} ${r} 0 ${span > 180 ? 1 : 0} 0 ${x2} ${y2}`;
+}
+
+function ShapeWheel({
+  dots,
+  spans,
+  lead
+}: {
+  dots: number[];
+  spans?: Array<[number, number]>;
+  lead?: { index: number; label: string };
+}) {
   return (
     <svg viewBox="0 0 120 120" className="mx-auto block w-full max-w-36" aria-hidden="true">
       <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(181,146,85,.4)" strokeWidth="1.2" />
       <circle cx="60" cy="60" r="2" fill="rgba(181,146,85,.5)" />
-      {dots.map((angle, index) => (
-        <circle
-          key={`${angle}-${index}`}
-          cx={60 + 44 * Math.cos(rad(angle))}
-          cy={60 - 44 * Math.sin(rad(angle))}
-          r="3.4"
-          fill="rgb(181,146,85)"
-          stroke="rgba(8,8,8,.9)"
-          strokeWidth="1"
+      {/* The occupied stretch of the wheel, shaded so the figure's geometry reads at a glance. */}
+      {spans?.map(([start, end]) => (
+        <path
+          key={`${start}-${end}`}
+          d={arcPath(start, end, 49)}
+          fill="none"
+          stroke="rgba(181,146,85,.2)"
+          strokeWidth="7"
+          strokeLinecap="round"
         />
       ))}
+      {dots.map((angle, index) => {
+        const isLead = lead?.index === index;
+        return (
+          <circle
+            key={`${angle}-${index}`}
+            cx={60 + 44 * Math.cos(rad(angle))}
+            cy={60 - 44 * Math.sin(rad(angle))}
+            r={isLead ? 4.6 : 3.4}
+            fill={isLead ? "rgb(231,221,204)" : "rgb(181,146,85)"}
+            stroke={isLead ? "rgba(181,146,85,.9)" : "rgba(8,8,8,.9)"}
+            strokeWidth={isLead ? 1.6 : 1}
+          />
+        );
+      })}
     </svg>
   );
 }
@@ -239,18 +356,41 @@ export function AstrologyAtlas() {
         {/* ------------------------------------------------ 3 · chart shapes */}
         <h3 className="mt-14 font-display text-2xl text-ivory">The seven shapes of a chart</h3>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-parchment/85">
-          Marc Edmund Jones&rsquo; 1941 patterns read the whole distribution of planets before any
-          single placement — the gestalt of a nativity at one glance.
+          Before reading any single placement, Marc Edmund Jones taught reading the whole
+          distribution at once. His seven patterns — published in the{" "}
+          <em className="text-parchment">Guide to Horoscope Interpretation</em> (1941), and built
+          for the ten-planet chart Pluto&rsquo;s discovery had just completed — treat the gestalt
+          of a nativity as its first sentence: where the planets gather, where they leave the wheel
+          bare, and which single body, if any, the geometry appoints to lead. The shaded arc marks
+          the occupied stretch; the pale dot marks that appointed planet.
         </p>
-        <ul role="list" className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <ul role="list" className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {CHART_SHAPES.map((shape) => (
-            <li key={shape.name} className="temple-border rounded bg-black/40 p-4">
-              <ShapeWheel dots={shape.dots} />
-              <p className="mt-2 text-center font-display text-lg text-ivory">{shape.name}</p>
-              <p className="mt-2 text-xs leading-5 text-parchment/85">{shape.blurb}</p>
+            <li key={shape.name} className="temple-border flex flex-col rounded bg-black/40 p-5">
+              <ShapeWheel dots={shape.dots} spans={shape.spans} lead={shape.lead} />
+              <p className="mt-2 text-center font-display text-xl text-ivory">{shape.name}</p>
+              <p className="text-center text-[.66rem] uppercase tracking-[.2em] text-gold">
+                keynote · {shape.keynote}
+              </p>
+              <p className="mt-3 border-y border-gold/15 py-2 text-center text-[.72rem] leading-4 text-limestone">
+                {shape.criterion}
+              </p>
+              <p className="mt-3 text-xs leading-5 text-parchment/85">{shape.reading}</p>
+              <p className="mt-3 border-l border-gold/30 pl-3 text-xs leading-5 text-parchment">
+                <span className="mr-1 text-[.64rem] uppercase tracking-[.16em] text-gold">
+                  {shape.lead ? shape.lead.label : "where to look"}
+                </span>
+                <span className="block mt-1">{shape.lookFor}</span>
+              </p>
             </li>
           ))}
         </ul>
+        <p className="mt-4 max-w-3xl text-xs leading-6 text-limestone">
+          The boundaries are judgment calls, not measurements: real charts are often hybrids, and a
+          near-miss — a bowl with one straggler, a locomotive missing its gap by a few degrees — is
+          read as the nearest pattern with the deviation noted. Jones would say the deviation is
+          where the interpretation starts.
+        </p>
 
         {/* --------------------------------------- 4 · correspondence spine */}
         <h3 className="mt-14 font-display text-2xl text-ivory">The correspondence spine</h3>
