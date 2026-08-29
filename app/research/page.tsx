@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Clock3, Network, Route, ScrollText, Search, Sparkles } from "lucide-react";
+import { PageHero } from "@/components/sections/PageHero";
 import { Section } from "@/components/ui/Section";
+import { resolveSiteImage } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Research",
-  description: "Aetherica research tools for transcript search, listening paths, chapters, timelines, guest networks, and personal notes."
+  description: "Aetherica research tools for transcript search, listening paths, chapters, timelines, guest networks, and personal notes.",
+  alternates: { canonical: "/research" },
+  openGraph: { images: [{ url: "/images/pages/research-ascent.webp", alt: "A hooded figure climbing a dark mountain path toward a single lit window high in a ruin" }] },
+  twitter: { card: "summary_large_image", images: ["/images/pages/research-ascent.webp"] }
 };
 
 const researchTools = [
@@ -48,8 +53,19 @@ const researchTools = [
 ];
 
 export default function ResearchPage() {
+  const pageHero = resolveSiteImage("/images/pages/research-ascent");
   return (
-    <Section titleAs="h1" eyebrow="Research library" title="Study the archive as a living system">
+    <>
+      <PageHero
+        eyebrow="Research library"
+        title="Study the archive as a living system"
+        lede="The long climb is the method: transcripts, paths, chapters, timelines, and notes, each a step toward the same lit window."
+        imageSrc={pageHero}
+        imageAlt="A hooded figure climbing a dark mountain path in the rain toward a single lit window high in a ruined keep"
+        focus="52% 55%"
+      />
+    {/* The hero above owns the h1; this names the toolset beneath it. */}
+    <Section eyebrow="The instruments of study" title="Six ways in">
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {researchTools.map(({ title, href, icon: Icon, description }) => (
           <Link key={href} href={href} className="temple-border focus-ring rounded p-5 hover:border-gold/60">
@@ -60,5 +76,6 @@ export default function ResearchPage() {
         ))}
       </div>
     </Section>
+    </>
   );
 }

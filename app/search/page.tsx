@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EpisodePlayButton } from "@/components/audio/EpisodePlayButton";
+import { PageHero } from "@/components/sections/PageHero";
 import { Section } from "@/components/ui/Section";
+import { resolveSiteImage } from "@/lib/images";
 import { searchSpokenArchive } from "@/lib/data/research";
 import { searchArchive } from "@/lib/search/local";
 import { formatSeconds } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Search the Spoken Archive",
-  description: "Search Aetherica transcript passages, speakers, episodes, timestamps, chapters, books, and archive metadata."
+  description: "Search Aetherica transcript passages, speakers, episodes, timestamps, chapters, books, and archive metadata.",
+  alternates: { canonical: "/search" },
+  openGraph: { images: [{ url: "/images/pages/search-listening.webp", alt: "A figure seated on a stone island at the centre of a flooded rotunda, ripples spreading across the still water" }] },
+  twitter: { card: "summary_large_image", images: ["/images/pages/search-listening.webp"] }
 };
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
@@ -16,9 +21,20 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const query = q ?? "";
   const spokenResults = searchSpokenArchive(query);
   const fallbackResults = searchArchive(query).slice(0, 8);
+  const pageHero = resolveSiteImage("/images/pages/search-listening");
 
   return (
-    <Section titleAs="h1" eyebrow="Spoken archive" title="Search every passage we have">
+    <>
+      <PageHero
+        eyebrow="Ask Aetherica"
+        title="Search the spoken archive"
+        lede="Drop a question into the pool: every transcript passage, speaker, chapter, and timestamp answers, and each result plays from its exact moment."
+        imageSrc={pageHero}
+        imageAlt="A figure seated on a round stone island at the centre of a flooded rotunda open to the sky, a ring of ripples spreading toward the arches"
+        focus="50% 55%"
+      />
+    {/* The hero above owns the h1. */}
+    <Section eyebrow="Spoken archive" title="Every passage we have">
       <form className="temple-border mb-8 flex flex-col gap-3 rounded p-4 sm:flex-row" role="search">
         <label className="sr-only" htmlFor="q">Search query</label>
         <input
@@ -80,5 +96,6 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         </div>
       ) : null}
     </Section>
+    </>
   );
 }

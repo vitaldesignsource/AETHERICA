@@ -1,5 +1,7 @@
 // Server component. No "use client": no state, no effects, no event handlers.
+import Image from "next/image";
 import { CalendarDays } from "lucide-react";
+import { resolveSiteImage } from "@/lib/images";
 import { ChronologyNavigator, type NavigatorPeriod } from "@/components/topics/dossier/ChronologyNavigator";
 import type { TopicDossier } from "@/lib/data/topicDossiers";
 
@@ -147,6 +149,8 @@ export function TopicChronology({ timeline }: { timeline: Entry[] }) {
           {timeline.map((entry, index) => {
             const gap = gaps[index];
             const point = isDated(entry) && entry.startYear === entry.endYear;
+            // Resolved here rather than in data so a missing file degrades to no figure, not a 404.
+            const plateSrc = entry.plate ? resolveSiteImage(entry.plate.image) : null;
             return (
               <li key={`${entry.era}-${entry.title}`} id={entryId(entry, index)} className="scroll-mt-28">
                 {gap ? (
@@ -228,6 +232,26 @@ export function TopicChronology({ timeline }: { timeline: Entry[] }) {
                       ))}
                     </ul>
                   </div>
+                ) : null}
+
+                {entry.plate && plateSrc ? (
+                  <figure className="mt-4 max-w-md overflow-hidden rounded border border-gold/20 bg-black/40">
+                    <div className="relative aspect-[4/5] w-full">
+                      <Image
+                        src={plateSrc}
+                        alt={entry.plate.alt}
+                        fill
+                        sizes="(min-width: 768px) 28rem, calc(100vw - 2rem)"
+                        style={{ objectPosition: entry.plate.focus ?? "50% 50%" }}
+                        className="object-cover"
+                      />
+                    </div>
+                    {entry.plate.caption ? (
+                      <figcaption className="border-t border-gold/15 p-3 text-xs leading-5 text-parchment/85">
+                        {entry.plate.caption}
+                      </figcaption>
+                    ) : null}
+                  </figure>
                 ) : null}
               </li>
             );

@@ -38,6 +38,8 @@ export type TopicDossier = {
     anchors?: string[];
     /** Explains the computed gap preceding this entry, so absence is not read as a void. */
     gapNote?: string;
+    /** Optional framed artwork rendered inside the entry — for events with an image of their own. */
+    plate?: { image: string; alt: string; caption?: string; focus?: string };
   }>;
   figures: Array<{
     name: string;
@@ -480,7 +482,18 @@ export const topicDossiers: Record<string, TopicDossier> = {
       { era: "180 CE", title: "Heresiological witness", summary: "Irenaeus and other polemicists preserve hostile but important evidence for ancient Gnostic teachers and schools." },
       { era: "3rd century", title: "Mani and global dualism", summary: "Manichaeism turns a Gnostic-style light-dark cosmology into a transregional religious movement." },
       { era: "4th century", title: "Suppression and survival", summary: "Imperial Christianity and anti-heretical efforts marginalize many Gnostic communities, while texts survive in translation and hidden libraries." },
-      { era: "1945", title: "Nag Hammadi discovery", summary: "A major cache of Coptic codices transforms modern study by giving direct access to texts beyond hostile summaries." },
+      {
+        era: "1945",
+        title: "Nag Hammadi discovery",
+        summary: "A major cache of Coptic codices transforms modern study by giving direct access to texts beyond hostile summaries.",
+        plate: {
+          image: "/images/topics/gnosticism-nag-hammadi",
+          alt: "An Egyptian farmer crouched in a cliff hollow at sunset, examining leather-bound codices spilling from a broken clay jar",
+          caption:
+            "December 1945, below the cliffs of Jabal al-Tarif: a farmer digging for fertilizer breaks open a sealed jar and finds a library — thirteen codices that give these traditions back their own voice after fifteen centuries of being quoted only by their enemies.",
+          focus: "50% 55%"
+        }
+      },
       { era: "Modern period", title: "Scholarly and esoteric reception", summary: "Gnostic materials enter comparative religion, depth psychology, esotericism, and modern spiritual discourse, sometimes carefully and sometimes loosely." }
     ],
     figures: [

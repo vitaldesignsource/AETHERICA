@@ -47,7 +47,23 @@ export const topicHeroes: Record<string, TopicHero> = {
     kicker: "Trismegistus",
     epigraph:
       "The Hermetic writings are not one book but a library assembled across centuries, attributed to a teacher who may never have lived. What they share is a conviction that the cosmos is intelligible, and that the mind reading it is of the same order as the thing read.",
-    focus: "48% 40%"
+    focus: "48% 40%",
+    feature: {
+      image: "/images/topics/hermeticism-krater",
+      alt: "A great bronze basin brimming with dark water that mirrors the starry sky, robed figures descending wet steps toward it under the Milky Way",
+      label: "The Krater",
+      caption:
+        "Corpus Hermeticum IV: God filled a great basin with Nous, sent it down, and had a herald cry to the hearts of men — immerse yourself, if you can. Baptism not in water but in mind, offered to all and taken by few.",
+      focus: "50% 52%"
+    },
+    interlude: {
+      image: "/images/topics/hermeticism-god-making",
+      alt: "A robed man standing in a flooded, ruined rotunda before a colossal enthroned statue holding a staff, lit through a broken oculus",
+      label: "The Making of Gods",
+      caption:
+        "The Asclepius' most dangerous sentence: as the Father makes the heavenly gods, so man makes the gods of the temples — statues ensouled, conscious, foreknowing. Augustine spent a book of the City of God refusing it, which is one measure of how seriously it was taken.",
+      focus: "50% 38%"
+    }
   },
   freemasonry: {
     image: "/images/topics/freemasonry-ashlars",
@@ -71,6 +87,14 @@ export const topicHeroes: Record<string, TopicHero> = {
       caption:
         "Initiation is repeatedly described as a death: the old garment left in the water, the walk out through the arch. What the accounts rarely supply is the part after — which may be the point, since the literature is written by people still walking.",
       focus: "48% 44%"
+    },
+    interlude: {
+      image: "/images/topics/mysticism-sama",
+      alt: "A Mevlevi dervish in white mid-turn on wet stone, skirt flared, beneath a moonlit courtyard of pointed arches",
+      label: "The Sama",
+      caption:
+        "Rumi's order made turning itself a prayer: the sama, in which the body becomes the orbit it contemplates. Most mystical literature describes stillness; the Mevlevis answered that the spheres are not still.",
+      focus: "50% 58%"
     }
   },
   "christian-mysticism": {
@@ -87,6 +111,14 @@ export const topicHeroes: Record<string, TopicHero> = {
       caption:
         "The rose upon the cross is a late emblem — seventeenth-century and Rosicrucian in its familiar form — but it condenses a much older claim: that the place of suffering and the place of flowering are the same place, and that the second is not a consolation added afterwards.",
       focus: "50% 40%"
+    },
+    interlude: {
+      image: "/images/topics/christian-mysticism-interior-castle",
+      alt: "A woman in plain linen walking barefoot through a long recession of nested stone doorways toward distant daylight",
+      label: "The Interior Castle",
+      caption:
+        "Teresa of Avila, 1577: the soul as a castle of many dwelling places, entered room by room toward the one at the centre. The corridor is not a metaphor she decorated — it is the whole argument.",
+      focus: "50% 55%"
     }
   },
   "sacred-architecture": {
@@ -119,7 +151,23 @@ export const topicHeroes: Record<string, TopicHero> = {
     kicker: "Gnosis",
     epigraph:
       "The Sethian and Valentinian myths both turn on a rupture in the fullness — a break in the Pleroma that the whole cosmos is arranged around. What is held here is not unbroken; it is mended, and the mend is visible.",
-    focus: "50% 42%"
+    focus: "50% 42%",
+    feature: {
+      image: "/images/topics/gnosticism-pearl-robe",
+      alt: "A traveller in a rough dark cloak pausing at a lamplit doorway where an embroidered white and gold robe hangs, a pearl resting in an open chest beside it",
+      label: "The Robe of Glory",
+      caption:
+        "The Hymn of the Pearl: a prince sent down to Egypt for a pearl forgets who he is, until a letter from home wakes him. The robe he left behind has kept the shape of the self he had forgotten — the return is not to a place but to a fit.",
+      focus: "62% 40%"
+    },
+    interlude: {
+      image: "/images/topics/gnosticism-demiurge",
+      alt: "A colossal blindfolded statue enthroned with a cracked globe in one hand and great compasses in the other, small figures labouring across the workshop below",
+      label: "The Blind Craftsman",
+      caption:
+        "The Apocryphon of John calls the world-maker blind — a craftsman who cannot see what stands above his own throne and so mistakes himself for the whole of God. The cosmos is real work, done in earnest; the error is in the attribution.",
+      focus: "50% 26%"
+    }
   },
   kabbalah: {
     image: "/images/topics/kabbalah-hexagram",
@@ -151,7 +199,15 @@ export const topicHeroes: Record<string, TopicHero> = {
     kicker: "Θεουργία",
     epigraph:
       "Iamblichus argued against Porphyry that the gods are not reached by reasoning alone. Theurgy is divine work — action in which the soul participates rather than merely contemplates.",
-    focus: "42% 34%"
+    focus: "42% 34%",
+    feature: {
+      image: "/images/topics/theurgy-photagogia",
+      alt: "A barefoot initiate in white standing in a shallow circular pool beneath an oculus, shafts of light falling through slots in the curved stone wall",
+      label: "Photagogia",
+      caption:
+        "Iamblichus calls one mode of the work photagogia — the leading-in of light. What the rite promises is not information but illumination: the initiate stands where the light falls, and is changed by standing there.",
+      focus: "50% 52%"
+    }
   },
   alchemy: {
     image: "/images/topics/alchemy-ouroboros",
