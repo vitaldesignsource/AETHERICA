@@ -30,12 +30,12 @@ export default function ContactPage() {
             // Above the fold and the largest thing on the page, so it is the LCP candidate.
             priority
             sizes="100vw"
-            className="-z-20 object-cover object-center"
+            className="-z-20 object-cover object-[68%_38%]"
           />
           {/* Two scrims rather than one: a vertical fade seats the plate against the page, and a
               horizontal one keeps the left column dark enough for body text at AA. */}
-          <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,8,8,.92),rgba(8,8,8,.62)_38%,rgba(8,8,8,.94))]" />
-          <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,8,8,.9),rgba(8,8,8,.45)_58%,rgba(8,8,8,.75))]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,8,8,.82),rgba(8,8,8,.34)_42%,rgba(8,8,8,.88))]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,8,8,.94)_18%,rgba(8,8,8,.55)_52%,rgba(8,8,8,.2))]" />
         </>
       ) : (
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_18%,rgba(181,146,85,.16),transparent_38%),linear-gradient(180deg,rgba(8,8,8,.9),rgba(8,8,8,.98))]" />
