@@ -1,17 +1,17 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { BookOpen, CalendarDays, CircleDot, Library, Network, ScrollText, Users } from "lucide-react";
+import { BookOpen, CircleDot, Library, Network, ScrollText, Users } from "lucide-react";
+import { ArchiveWorkbench } from "@/components/topics/dossier/ArchiveWorkbench";
+import { TopicChronology } from "@/components/topics/dossier/TopicChronology";
 import type { TopicDossier as TopicDossierData } from "@/lib/data/topicDossiers";
 
 export function TopicDossier({ dossier }: { dossier: TopicDossierData }) {
   const [activeTradition, setActiveTradition] = useState(dossier.traditions[0]?.name ?? "");
-  const [activeTimeline, setActiveTimeline] = useState(0);
   const selectedTradition = useMemo(
     () => dossier.traditions.find((tradition) => tradition.name === activeTradition) ?? dossier.traditions[0],
     [activeTradition, dossier.traditions]
   );
-  const selectedTimeline = dossier.timeline[activeTimeline] ?? dossier.timeline[0];
   const architectureLabel = dossier.slug === "alchemy" ? "Process Architecture" : "Aeonology / Cosmological Architecture";
 
   return (
@@ -137,88 +137,9 @@ export function TopicDossier({ dossier }: { dossier: TopicDossierData }) {
         </div>
       </section>
 
-      <section className="temple-border rounded bg-black/46 p-5">
-        <div className="flex items-center gap-3">
-          <ScrollText className="text-gold" size={20} />
-          <h2 className="font-display text-3xl text-ivory">Archive Workbench</h2>
-        </div>
-        <p className="mt-3 max-w-4xl leading-7 text-parchment">
-          Use these terms and questions as entry points into transcript search, future glossary entries, and guided research paths.
-        </p>
-        <div className="mt-6 grid gap-5 xl:grid-cols-[1.15fr_.85fr]">
-          <div>
-            <p className="text-xs uppercase tracking-[.24em] text-gold">Working Glossary</p>
-            <div className="mt-3 grid gap-3 md:grid-cols-2">
-              {dossier.researchWorkbench.glossary.map((entry) => (
-                <article key={entry.term} className="rounded border border-gold/14 bg-black/32 p-4">
-                  <h3 className="font-display text-2xl text-ivory">{entry.term}</h3>
-                  <p className="mt-2 text-sm leading-6 text-parchment">{entry.definition}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-          <div className="grid gap-5">
-            <div className="rounded border border-gold/14 bg-black/32 p-4">
-              <p className="text-xs uppercase tracking-[.24em] text-gold">Archive Searches</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {dossier.researchWorkbench.archiveQueries.map((query) => (
-                  <a
-                    key={query}
-                    href={`/search?q=${encodeURIComponent(query)}`}
-                    className="focus-ring rounded border border-gold/22 bg-black/40 px-3 py-2 text-sm text-ivory transition hover:border-gold hover:bg-gold/10"
-                  >
-                    {query}
-                  </a>
-                ))}
-              </div>
-            </div>
-            <div className="rounded border border-gold/14 bg-black/32 p-4">
-              <p className="text-xs uppercase tracking-[.24em] text-gold">Study Questions</p>
-              <div className="mt-3 grid gap-3">
-                {dossier.researchWorkbench.studyQuestions.map((question, index) => (
-                  <div key={question} className="flex gap-3 rounded border border-gold/10 bg-black/28 p-3">
-                    <span className="shrink-0 text-xs uppercase tracking-[.16em] text-gold">{String(index + 1).padStart(2, "0")}</span>
-                    <p className="text-sm leading-6 text-parchment">{question}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ArchiveWorkbench workbench={dossier.researchWorkbench} />
 
-      <section className="temple-border rounded bg-black/46 p-5">
-        <div className="flex items-center gap-3">
-          <CalendarDays className="text-gold" size={20} />
-          <h2 className="font-display text-3xl text-ivory">Interactive Timeline</h2>
-        </div>
-        <div className="mt-6 grid gap-5 lg:grid-cols-[.75fr_1fr]">
-          <div className="grid gap-2">
-            {dossier.timeline.map((entry, index) => (
-              <button
-                key={`${entry.era}-${entry.title}`}
-                type="button"
-                onClick={() => setActiveTimeline(index)}
-                className={`focus-ring rounded border px-4 py-3 text-left transition ${
-                  activeTimeline === index ? "border-gold bg-gold/14 text-ivory" : "border-gold/15 bg-black/28 text-parchment hover:border-gold/45"
-                }`}
-              >
-                <span className="block text-xs uppercase tracking-[.22em] text-gold">{entry.era}</span>
-                <span className="mt-1 block font-display text-xl">{entry.title}</span>
-              </button>
-            ))}
-          </div>
-          {selectedTimeline ? (
-            <article className="relative min-h-80 overflow-hidden rounded border border-gold/20 bg-black/54 p-6">
-              <div className="absolute inset-x-6 top-12 h-px bg-gradient-to-r from-transparent via-gold/45 to-transparent" />
-              <div className="absolute left-8 top-12 h-[calc(100%-5rem)] w-px bg-gradient-to-b from-gold/50 via-gold/18 to-transparent" />
-              <p className="text-xs uppercase tracking-[.28em] text-gold">{selectedTimeline.era}</p>
-              <h3 className="mt-16 font-display text-4xl text-ivory">{selectedTimeline.title}</h3>
-              <p className="mt-4 max-w-2xl text-lg leading-8 text-parchment">{selectedTimeline.summary}</p>
-            </article>
-          ) : null}
-        </div>
-      </section>
+      <TopicChronology timeline={dossier.timeline} />
 
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="temple-border rounded bg-black/44 p-5">

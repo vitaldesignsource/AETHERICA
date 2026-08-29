@@ -3,19 +3,33 @@ import Image from "next/image";
 import { EnterArchiveOnboarding } from "@/components/personalization/EnterArchiveOnboarding";
 import { PersonalizedHome } from "@/components/personalization/PersonalizedHome";
 import { LivingArchiveCarousel } from "@/components/home/LivingArchiveCarousel";
+import { ArchiveScale } from "@/components/sections/ArchiveScale";
 import { Hero } from "@/components/sections/Hero";
 import { EpisodeCard } from "@/components/sections/EpisodeCard";
+import { InstrumentShowcase } from "@/components/sections/InstrumentShowcase";
 import { Newsletter } from "@/components/sections/Newsletter";
 import { TopicPathCard } from "@/components/sections/TopicPathCard";
+import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
 import { episodes, events, hosts, topics } from "@/lib/data/demo";
 import { listeningPaths } from "@/lib/data/research";
 import { formatDate } from "@/lib/format";
 import { siteConfig } from "@/lib/site";
 
+const RECENT_EPISODE_COUNT = 6;
+const INSTRUMENT_COUNT = 33;
+
 export default function HomePage() {
   const featured = episodes.find((episode) => episode.slug === "daniel-wiseman-metallic-alchemy-the-animating-spark-of-life") ?? episodes[0];
   const event = events[0];
+  const recentEpisodes = episodes.filter((episode) => episode.guid !== featured.guid).slice(0, RECENT_EPISODE_COUNT);
+
+  const archiveStats = [
+    { value: episodes.length, label: "Episodes", detail: "Recorded conversations and studies", href: "/episodes" },
+    { value: INSTRUMENT_COUNT, label: "Instruments", detail: "Interactive calculators and explorers", href: "/resources" },
+    { value: topics.length, label: "Topics", detail: "Threads through the tradition", href: "/topics" },
+    { value: listeningPaths.length, label: "Paths", detail: "Guided sequences for study", href: "/paths" }
+  ];
 
   return (
     <>
@@ -23,9 +37,14 @@ export default function HomePage() {
       <LivingArchiveCarousel featured={featured} event={event} paths={listeningPaths} />
       <EnterArchiveOnboarding />
       <PersonalizedHome featured={featured} event={event} paths={listeningPaths} />
+
+      <ArchiveScale stats={archiveStats} />
+
       <Section eyebrow="Featured transmission" title="Latest from the archive">
         <EpisodeCard episode={featured} />
       </Section>
+
+      <InstrumentShowcase total={INSTRUMENT_COUNT} />
 
       <Section eyebrow="Explore by subject" title="Paths through the mystery tradition">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -37,7 +56,11 @@ export default function HomePage() {
 
       <Section eyebrow="Recent episodes" title="Recorded studies">
         <div className="grid gap-5">
-          {episodes.map((episode) => <EpisodeCard key={episode.guid} episode={episode} />)}
+          {recentEpisodes.map((episode) => <EpisodeCard key={episode.guid} episode={episode} />)}
+        </div>
+        <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-gold/15 pt-8">
+          <Button href="/episodes">Browse all {episodes.length} episodes</Button>
+          <Button href="/archive" variant="secondary">Explore the archive</Button>
         </div>
       </Section>
 

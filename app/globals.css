@@ -689,3 +689,110 @@ textarea {
     transition-duration: .01ms !important;
   }
 }
+
+/* Alchemical atmosphere: drifting motes over hero art. */
+.alchemy-motes {
+  background-image:
+    radial-gradient(1.5px 1.5px at 18% 24%, rgba(231, 221, 204, .5), transparent 60%),
+    radial-gradient(1.5px 1.5px at 74% 16%, rgba(181, 146, 85, .55), transparent 60%),
+    radial-gradient(1px 1px at 42% 68%, rgba(231, 221, 204, .38), transparent 60%),
+    radial-gradient(2px 2px at 88% 62%, rgba(181, 146, 85, .38), transparent 60%),
+    radial-gradient(1px 1px at 8% 78%, rgba(231, 221, 204, .32), transparent 60%),
+    radial-gradient(1.5px 1.5px at 60% 88%, rgba(181, 146, 85, .3), transparent 60%);
+  background-size: 340px 340px, 420px 420px, 300px 300px, 500px 500px, 380px 380px, 460px 460px;
+  animation: alchemy-mote-drift 38s linear infinite;
+}
+
+@keyframes alchemy-mote-drift {
+  to {
+    background-position:
+      -60px -340px,
+      70px -420px,
+      -40px -300px,
+      90px -500px,
+      -80px -380px,
+      50px -460px;
+  }
+}
+
+/* Magnum Opus stage vessels. */
+.opus-stage__vessel {
+  animation: opus-vessel-breathe 7.4s ease-in-out infinite;
+}
+
+.opus-stage:nth-child(2) .opus-stage__vessel {
+  animation-delay: .9s;
+}
+
+.opus-stage:nth-child(3) .opus-stage__vessel {
+  animation-delay: 1.8s;
+}
+
+.opus-stage:nth-child(4) .opus-stage__vessel {
+  animation-delay: 2.7s;
+}
+
+.opus-stage__vessel::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  border-radius: 9999px;
+  border: 1px solid rgba(181, 146, 85, .26);
+  animation: opus-halo-turn 26s linear infinite;
+}
+
+.opus-stage:nth-child(even) .opus-stage__vessel::after {
+  animation-direction: reverse;
+}
+
+@keyframes opus-vessel-breathe {
+  0%,
+  100% {
+    transform: scale(.97);
+    filter: brightness(.94);
+  }
+
+  50% {
+    transform: scale(1.03);
+    filter: brightness(1.12);
+  }
+}
+
+@keyframes opus-halo-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Slow ignition sweep along the stage rail. */
+.opus-rail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(181, 146, 85, .85), transparent);
+  background-size: 34% 100%;
+  background-repeat: no-repeat;
+  animation: opus-rail-sweep 11s ease-in-out infinite;
+}
+
+@keyframes opus-rail-sweep {
+  0% {
+    background-position: -40% 0;
+  }
+
+  100% {
+    background-position: 140% 0;
+  }
+}
+
+/* Scroll reveal. Hidden state only applies once JS has armed it, so no-JS keeps content visible. */
+.reveal[data-armed="true"] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.reveal[data-armed="true"][data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  transition: opacity .9s ease-out, transform .9s cubic-bezier(.22, .68, .32, 1);
+}
