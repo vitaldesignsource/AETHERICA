@@ -69,6 +69,349 @@ export type TopicDossier = {
 };
 
 export const topicDossiers: Record<string, TopicDossier> = {
+  hermeticism: {
+    slug: "hermeticism",
+    subtitle: "A dossier on the Hermetica, their Greco-Egyptian world, and the long afterlife of Hermes Trismegistus.",
+    orientation: [
+      "Hermeticism names the traditions descending from Greek writings attributed to Hermes Trismegistus — the thrice-greatest — composed mainly in Roman Egypt between the first and third centuries CE, where the scribe-god Thoth had long been read as Hermes.",
+      "The corpus divides in two: philosophical Hermetica on God, cosmos, mind, and rebirth, and the older technical Hermetica of astrology, medicine, alchemy, and talismans. The two families share an author and a cosmos of sympathies, not a single doctrine.",
+      "This page keeps the ancient corpus, the Arabic transmission, the Renaissance revival, and the modern receptions distinct, because most confusions about 'Hermeticism' come from silently blending them into one continuous institution."
+    ],
+    lenses: [
+      {
+        title: "Core Motif",
+        summary: "The human as a mortal-immortal double, capable of knowing the mind that made the cosmos.",
+        points: ["Nous and Logos", "As above, so below", "Rebirth in Corpus Hermeticum XIII", "Ascent through the spheres"]
+      },
+      {
+        title: "Two Corpora",
+        summary: "Philosophical treatises of instruction beside technical manuals of astrology, alchemy, and talismans.",
+        points: ["Corpus Hermeticum", "Asclepius", "Technical Hermetica", "Emerald Tablet"]
+      },
+      {
+        title: "Aetherica Use",
+        summary: "The topic gathers episodes on Hermetic philosophy, correspondences, Renaissance magic, and the corpus' modern receptions.",
+        points: ["Episode discovery", "Transcript search", "Correspondence instruments", "Source lists"]
+      }
+    ],
+    traditions: [
+      {
+        name: "Philosophical Hermetica",
+        period: "1st-3rd century CE",
+        summary: "Greek treatises framed as the teaching of Hermes to Tat, Asclepius, and Ammon: revelation, cosmology, and the regeneration of the soul.",
+        metaphysics: ["The One, the Good", "Nous as divine mind", "Logos ordering the cosmos", "The human as mortal-immortal double", "Rebirth (palingenesia)", "Ascent through the eight"],
+        sourceTexts: ["Corpus Hermeticum I (Poimandres)", "Corpus Hermeticum XIII", "Asclepius", "Stobaeus excerpts"]
+      },
+      {
+        name: "Technical Hermetica",
+        period: "3rd century BCE-3rd century CE",
+        summary: "Astrology, iatromathematics, stones, plants, and talismans under Hermes' name — older as a family than most of the philosophical treatises.",
+        metaphysics: ["Cosmic sympathy", "Decans and melothesia", "Chains of stone, plant, and star", "Craft as participation in the cosmos"],
+        sourceTexts: ["Liber Hermetis", "Cyranides", "Astrological Hermetica"]
+      },
+      {
+        name: "Arabic and medieval Hermes",
+        period: "8th-13th century",
+        summary: "Hermes read as the prophet Idris and Enoch; the Emerald Tablet surfaces in Arabic and passes west with talismanic astrology.",
+        metaphysics: ["Hermes as prophet of the sciences", "The three Hermeses of Abu Ma'shar", "Talismanic astral magic", "The Tablet's above-and-below"],
+        sourceTexts: ["Kitab Sirr al-khaliqa (Emerald Tablet)", "Picatrix (Ghayat al-Hakim)", "Liber XXIV philosophorum"]
+      },
+      {
+        name: "Renaissance revival",
+        period: "1463-1614",
+        summary: "Ficino's translation makes Hermes the most ancient theologian; the prisca theologia reads one wisdom running from Egypt to Plato.",
+        metaphysics: ["Prisca theologia", "Man the great miracle", "Natural magic and correspondence", "Egyptian antiquity claimed, then lost"],
+        sourceTexts: ["Ficino, Pimander (1471)", "Lazzarelli, Crater Hermetis", "Casaubon, De rebus sacris (1614)"]
+      },
+      {
+        name: "Modern receptions",
+        period: "1888-present",
+        summary: "The occult revival takes the name while scholarship recovers the texts: two Hermeticisms that must not be confused with each other.",
+        metaphysics: ["Golden Dawn synthesis", "The Kybalion's modern principles", "Nag Hammadi Hermetica", "The corpus re-read as Greco-Egyptian"],
+        sourceTexts: ["The Kybalion (1908)", "Nag Hammadi codex VI", "Nock-Festugiere edition"]
+      }
+    ],
+    timeline: [
+      {
+        era: "Ptolemaic Egypt",
+        title: "Thoth becomes Hermes Trismegistus",
+        summary: "In Greek-speaking Egypt the scribe-god Thoth is assimilated to Hermes, and astrological and technical writings begin to circulate under the name of the thrice-greatest.",
+        startYear: -250,
+        endYear: -30,
+        anchors: ["Astrological Hermetica draw on the Nechepsos-Petosiris literature, 2nd century BCE", "Thoth's doubled 'greatest' epithet is attested in Egyptian usage before the Roman period"]
+      },
+      {
+        era: "1st-3rd century CE",
+        title: "The philosophical Hermetica",
+        summary: "The treatises later gathered as the Corpus Hermeticum, together with the Perfect Discourse and the Stobaeus excerpts, are composed in Roman Egypt: dialogues of Hermes, Tat, and Asclepius on mind, cosmos, and rebirth.",
+        startYear: 50,
+        endYear: 300,
+        anchors: ["Poimandres commonly placed in the 1st-2nd century CE", "Lactantius quotes the Perfect Discourse c. 305-311"]
+      },
+      {
+        era: "Late antiquity",
+        title: "Prophet to some, sorcerer to others",
+        summary: "Lactantius enlists Hermes as a pagan witness to Christian truth; Augustine condemns the Asclepius' animation of statues; three Hermetic texts are copied into the Nag Hammadi codices and buried.",
+        startYear: 300,
+        endYear: 430,
+        anchors: ["Nag Hammadi codex VI, buried mid-4th century, holds three Hermetica", "Augustine, City of God VIII, c. 413-426"]
+      },
+      {
+        era: "Abbasid Baghdad",
+        title: "Hermes, prophet of the sciences",
+        summary: "Arabic writers identify Hermes with Idris and Enoch; the Emerald Tablet surfaces inside the Book of the Secret of Creation; Hermetic astrology and alchemy pass into Arabic science.",
+        startYear: 750,
+        endYear: 1000,
+        gapNote: "Transmission rather than extinction: the Latin Asclepius keeps circulating and Greek copies survive in Byzantium. The dossier simply holds no dated landmark in the interval.",
+        anchors: ["Kitab Sirr al-khaliqa, carrying the Emerald Tablet, c. 9th century", "Abu Ma'shar's account of the three Hermeses, 9th century"]
+      },
+      {
+        era: "12th-13th century",
+        title: "Latin Hermes returns",
+        summary: "Translation from Arabic brings the Emerald Tablet and astral magic west; the Asclepius is quoted in the schools; the Book of the Twenty-Four Philosophers coins its God-as-infinite-sphere formula under Hermes' name.",
+        startYear: 1120,
+        endYear: 1300,
+        anchors: ["Hugo of Santalla's Latin Emerald Tablet, 12th century", "Liber XXIV philosophorum in circulation by the late 12th century"]
+      },
+      {
+        era: "1463-1614",
+        title: "The Renaissance revival",
+        summary: "Cosimo de' Medici has Ficino translate the Corpus before Plato; printed in 1471, the Pimander runs through edition after edition, and Hermes is read as the most ancient theologian.",
+        startYear: 1463,
+        endYear: 1614,
+        anchors: ["Ficino's translation commissioned 1463, printed 1471", "Lazzarelli completes the corpus with CH XVI-XVIII before 1500"]
+      },
+      {
+        era: "1614",
+        title: "Casaubon's redating",
+        summary: "Isaac Casaubon shows on philological grounds that the Greek of the Corpus is post-Christian. Hermes' claim to primeval antiquity collapses in learned Europe — without ending Hermetic practice in alchemical and Rosicrucian circles.",
+        startYear: 1614,
+        endYear: 1614,
+        note: "The technical Hermetica were untouched by the argument, and the redating took the better part of a century to become consensus."
+      },
+      {
+        era: "17th-19th century",
+        title: "Underground continuities",
+        summary: "The word 'Hermetic' migrates toward alchemy and secrecy; Rosicrucian manifestos, Hermetic compendia, and Masonic legend keep the figure at work beneath official learning.",
+        startYear: 1614,
+        endYear: 1888,
+        anchors: ["Fama Fraternitatis printed 1614", "Musaeum Hermeticum, enlarged edition 1678"]
+      },
+      {
+        era: "1888-1908",
+        title: "The occult revival claims the name",
+        summary: "The Hermetic Order of the Golden Dawn fuses Hermetica, Kabbalah, and ceremonial magic into one curriculum; The Kybalion popularizes seven 'Hermetic' principles that are modern New Thought rather than the ancient corpus.",
+        startYear: 1888,
+        endYear: 1908
+      },
+      {
+        era: "20th century-present",
+        title: "Scholarly recovery",
+        summary: "Critical editions and the Nag Hammadi finds re-situate the Hermetica in Roman Egypt, read as Greco-Egyptian teaching rather than either primeval revelation or mere forgery.",
+        startYear: 1924,
+        endYear: 2024,
+        open: true,
+        anchors: ["Scott's edition from 1924; Nock-Festugiere, 1945-1954", "Nag Hammadi Hermetica published in translation through the 1970s"]
+      }
+    ],
+    figures: [
+      { name: "Hermes Trismegistus", period: "legendary", importance: "The attributed teacher: a fusion of Thoth and Hermes functioning as an author-name for a whole literature, not a recoverable person." },
+      { name: "Marsilio Ficino", period: "1433-1499", importance: "Translator whose Pimander put the Corpus at the head of Renaissance philosophy and made Hermes the most ancient theologian." },
+      { name: "Lodovico Lazzarelli", period: "1447-1500", importance: "Poet and Hermetist who translated the remaining treatises and wrote the Crater Hermetis, the revival's most devotional text." },
+      { name: "Isaac Casaubon", period: "1559-1614", importance: "Philologist whose dating of the Corpus ended its claim to primeval antiquity and redrew the tradition's history." },
+      { name: "G. R. S. Mead", period: "1863-1933", importance: "Theosophical scholar whose Thrice-Greatest Hermes carried the corpus into the occult revival's hands." },
+      { name: "Andre-Jean Festugiere", period: "1898-1982", importance: "Co-editor of the critical edition and author of the mid-century synthesis that framed all later scholarship." },
+      { name: "Frances Yates", period: "1899-1981", importance: "Historian whose Giordano Bruno and the Hermetic Tradition defined — and by later judgment overstated — the Hermetic thread in Renaissance thought." }
+    ],
+    sourceTexts: [
+      { title: "Corpus Hermeticum", tradition: "Philosophical Hermetica", note: "Seventeen Greek treatises of revelation and instruction, from the vision of Poimandres to the rebirth of treatise XIII." },
+      { title: "Asclepius", tradition: "Philosophical Hermetica", note: "The Perfect Discourse, surviving whole only in Latin; source of the god-making passage Augustine attacked." },
+      { title: "Kore Kosmou and Stobaeus excerpts", tradition: "Anthology", note: "Hermetic fragments preserved in a fifth-century anthology, including the Virgin of the World." },
+      { title: "Emerald Tablet", tradition: "Arabic transmission", note: "A short cosmological oracle first attested in Arabic — 'as above, so below' in its most quoted form." },
+      { title: "Picatrix", tradition: "Technical Hermetica", note: "The talismanic compendium through which Hermetic astral magic reached Latin Europe." },
+      { title: "The Kybalion", tradition: "Modern reception", note: "A 1908 New Thought work, widely influential; its seven principles are modern, not ancient." }
+    ],
+    researchWorkbench: {
+      glossary: [
+        { term: "Nous", definition: "Divine mind: in the Hermetica both an aspect of God and the faculty in the human that answers it.", register: "Greek" },
+        { term: "Poimandres", definition: "The revealing intellect of the first treatise, and by extension the treatise's own name." },
+        { term: "Palingenesia", definition: "Rebirth: the regeneration of the soul dramatized in Corpus Hermeticum XIII.", register: "Greek" },
+        { term: "Prisca theologia", definition: "The Renaissance thesis of one ancient theology running from Hermes through Orpheus and Pythagoras to Plato.", register: "Latin" },
+        { term: "Technical Hermetica", definition: "The astrological, medical, alchemical, and talismanic writings under Hermes' name — older as a family than the philosophical treatises." },
+        { term: "Ogdoad", definition: "The eighth sphere beyond the seven planets: the stage of ascent where the soul joins the powers and sings." }
+      ]
+    }
+  },
+  theurgy: {
+    slug: "theurgy",
+    subtitle: "A dossier on divine work: the Chaldean Oracles, the Neoplatonic defense of rite, and the long argument over how the soul is raised.",
+    orientation: [
+      "Theurgy — theourgia, god-work — names the late-antique ritual tradition in which the divine is not merely discussed but engaged: rites, names, and consecrated symbols through which, its defenders insisted, the gods themselves act on the soul.",
+      "Its scripture is the Chaldean Oracles; its defining argument is the exchange between Porphyry, who doubted that rite could do what reasoning could not, and Iamblichus, whose De Mysteriis answers that the gods are not moved by human craft but reach down through tokens they themselves have sown.",
+      "The page keeps the Chaldean current, the Iamblichean defense, the Athenian synthesis, and the Christian and Renaissance transpositions distinct — the word travels further than any one of its theologies."
+    ],
+    lenses: [
+      {
+        title: "Core Motif",
+        summary: "Rite completes what reasoning begins: the soul is raised by symbols planted in matter and in itself.",
+        points: ["Synthemata and symbola", "Ascent of the soul", "Divine names and light", "Prayer as participation"]
+      },
+      {
+        title: "The Debate",
+        summary: "Porphyry's questions and Iamblichus' answer frame everything that follows.",
+        points: ["Letter to Anebo", "De Mysteriis", "Gods, daimones, heroes, souls", "Theurgy above theology"]
+      },
+      {
+        title: "Aetherica Use",
+        summary: "The topic gathers episodes on Iamblichus, Neoplatonism, ritual philosophy, and the western reception of god-work.",
+        points: ["Episode discovery", "Transcript search", "Comparative ritual maps", "Source lists"]
+      }
+    ],
+    traditions: [
+      {
+        name: "Chaldean current",
+        period: "2nd century CE",
+        summary: "The hexameter Oracles attributed to the two Julians: fire and light mysticism with a liturgy of ascent, known now only in fragments.",
+        metaphysics: ["The Paternal Intellect", "Hecate as life-giving membrane", "Iynges, Connectors, Teletarchs", "The flower of the mind"],
+        sourceTexts: ["Chaldean Oracles (fragments)"]
+      },
+      {
+        name: "Iamblichean theurgy",
+        period: "c. 245-325",
+        summary: "The defense of embodied rite: matter is not a prison but a field sown with divine tokens, and ritual fits the soul's actual rank rather than pretending it is already free.",
+        metaphysics: ["Synthemata sown in matter", "The scale of gods, angels, daimones, heroes, souls", "Rite matched to the soul's rank", "Theurgy above theology"],
+        sourceTexts: ["Iamblichus, De Mysteriis", "On the Soul (fragments)"]
+      },
+      {
+        name: "Athenian school",
+        period: "5th-6th century",
+        summary: "Proclus and his successors weave theurgy through the whole Platonic curriculum: hymns, chains of sympathy, and the hieratic art.",
+        metaphysics: ["Henads", "Chains (seirai) of sympathy", "Telestike, the consecration of statues", "Prayer according to rank"],
+        sourceTexts: ["Proclus, On the Hieratic Art", "Proclus, Hymns", "Platonic Theology"]
+      },
+      {
+        name: "Christian transposition",
+        period: "c. 485-530",
+        summary: "The Dionysian corpus reworks Proclean hierarchy into sacramental ascent — 'theurgy' becomes the divine work carried in the church's rites.",
+        metaphysics: ["Celestial hierarchy", "Ecclesiastical hierarchy", "Divine darkness", "Sacrament as god-work"],
+        sourceTexts: ["Pseudo-Dionysius, Celestial Hierarchy", "Ecclesiastical Hierarchy", "Mystical Theology"]
+      },
+      {
+        name: "Renaissance and modern revivals",
+        period: "15th century-present",
+        summary: "Ficino softens theurgy into astral medicine; the occult revival takes the word for ceremonial magic; scholarship rehabilitates the original.",
+        metaphysics: ["Astral spiritus", "Ceremonial 'theurgy' of the orders", "Academic recovery of Iamblichus"],
+        sourceTexts: ["Ficino, De vita coelitus comparanda", "Shaw, Theurgy and the Soul"]
+      }
+    ],
+    timeline: [
+      {
+        era: "2nd century",
+        title: "The Chaldean Oracles",
+        summary: "Hexameter oracles attributed to Julian the Chaldean and his son Julian the Theurgist: a revealed cosmology of fire and light with a rite of ascent. Later Platonists treat them as scripture.",
+        startYear: 150,
+        endYear: 200,
+        note: "The attribution, and the collection's unity, are contested; the text survives only through quotation by later Neoplatonists.",
+        anchors: ["Julian the Theurgist placed under Marcus Aurelius, r. 161-180", "Fragments preserved chiefly by Proclus and Damascius"]
+      },
+      {
+        era: "c. 260-305",
+        title: "Porphyry's doubts",
+        summary: "The Letter to Anebo assembles the rationalist case against rite: why should gods need sacrifice, respond to names, or be reached through matter at all?",
+        startYear: 260,
+        endYear: 305
+      },
+      {
+        era: "c. 280-325",
+        title: "Iamblichus' answer",
+        summary: "Writing as the priest Abamon, Iamblichus replies that theurgy is not human craft working on the gods but the gods working through tokens they planted — rite reaches what argument alone cannot.",
+        startYear: 280,
+        endYear: 325
+      },
+      {
+        era: "361-363",
+        title: "The theurgist on the throne",
+        summary: "The emperor Julian, formed by Iamblichean teachers, briefly makes theurgic Hellenism the empire's religion; his death in Persia ends the experiment.",
+        startYear: 361,
+        endYear: 363,
+        anchors: ["Julian reigns 361-363", "Hymn to King Helios, 362"]
+      },
+      {
+        era: "437-529",
+        title: "The Athenian school",
+        summary: "Proclus heads the Academy and threads theurgy through systematic Platonism — hymns, the hieratic art, prayer graded to the soul's rank — until Justinian closes the school.",
+        startYear: 437,
+        endYear: 529,
+        anchors: ["Proclus scholarch from 437", "Justinian's closure of the Athenian school, 529"]
+      },
+      {
+        era: "c. 485-530",
+        title: "Dionysius baptizes the hierarchy",
+        summary: "A Christian writing under the name of Paul's Athenian convert reworks Proclean ranks into celestial and ecclesiastical hierarchy: 'theurgy' becomes the divine work carried in sacrament.",
+        startYear: 485,
+        endYear: 530
+      },
+      {
+        era: "11th century",
+        title: "Byzantine custody",
+        summary: "Michael Psellos reads, excerpts, and criticizes the Chaldean material; his summaries carry much of what survives of the Oracles toward the West.",
+        startYear: 1018,
+        endYear: 1078,
+        gapNote: "The interval is custody rather than practice: Byzantine copyists and commentators keep the texts legible while the rite itself has no institution."
+      },
+      {
+        era: "15th-16th century",
+        title: "Renaissance rereading",
+        summary: "Plethon's recension of the Oracles reaches Italy; Ficino reads Iamblichus and softens theurgy into the astral medicine of De vita — respectable, Christianized, and deliberately less than its source.",
+        startYear: 1440,
+        endYear: 1600,
+        anchors: ["Plethon's edition of the Oracles, before 1452", "Ficino, De vita coelitus comparanda, 1489"]
+      },
+      {
+        era: "1875-1956",
+        title: "The occult revival takes the word",
+        summary: "Theosophy, the Golden Dawn, and their successors adopt 'theurgy' for ceremonial work — a genuine reception, but one whose ritual grammar is early modern rather than late antique.",
+        startYear: 1875,
+        endYear: 1956
+      },
+      {
+        era: "1956-present",
+        title: "Rehabilitation in the academy",
+        summary: "Where an earlier generation dismissed theurgy as superstition grafted onto Platonism, Lewy's study and Shaw's Theurgy and the Soul re-read it as serious religion: embodied Platonism rather than its betrayal.",
+        startYear: 1956,
+        endYear: 2024,
+        open: true,
+        anchors: ["Lewy, Chaldaean Oracles and Theurgy, 1956", "Shaw, Theurgy and the Soul, 1995"]
+      }
+    ],
+    figures: [
+      { name: "Julian the Theurgist", period: "2nd century", importance: "Reputed co-author of the Chaldean Oracles, the hexameter revelation later Platonists treated as scripture." },
+      { name: "Porphyry", period: "c. 234-305", importance: "Plotinus' editor and the tradition's indispensable critic: his Letter to Anebo provoked its defining defense." },
+      { name: "Iamblichus", period: "c. 245-325", importance: "Author of De Mysteriis: rite over unaided reasoning, and the philosophical architecture the whole tradition stands on." },
+      { name: "Julian the Apostate", period: "331-363", importance: "The emperor whose brief pagan restoration made Iamblichean theurgy, for two years, an imperial religion." },
+      { name: "Proclus", period: "412-485", importance: "Systematized theurgy inside the Platonic curriculum: hymns, the hieratic art, and chains of sympathy." },
+      { name: "Pseudo-Dionysius", period: "c. 500", importance: "Carried hierarchic theurgy into Christian sacramental theology under an apostolic name." },
+      { name: "Michael Psellos", period: "1018-c. 1078", importance: "Byzantine polymath whose excerpts and critiques preserve much of the Chaldean material." }
+    ],
+    sourceTexts: [
+      { title: "Chaldean Oracles", tradition: "Chaldean", note: "The theurgists' scripture, surviving as fragments in Neoplatonic quotation: fire, light, and the soul's ascent." },
+      { title: "Porphyry, Letter to Anebo", tradition: "Critique", note: "The rationalist questionnaire on sacrifice, divination, and divine names that the whole tradition answers." },
+      { title: "Iamblichus, De Mysteriis", tradition: "Iamblichean", note: "The Reply of Abamon: why the gods act through rite, and why theurgy stands above theology." },
+      { title: "Proclus, On the Hieratic Art", tradition: "Athenian", note: "The short treatise on sympathy: heliotrope, lotus, cock, and stone as links in divine chains." },
+      { title: "Julian, Hymn to King Helios", tradition: "Imperial", note: "The emperor's solar theology: Iamblichean metaphysics as public religion." },
+      { title: "Pseudo-Dionysius, The Celestial Hierarchy", tradition: "Christian transposition", note: "Angelic ranks and sacramental ascent — Proclean architecture inside the church." }
+    ],
+    researchWorkbench: {
+      glossary: [
+        { term: "Theourgia", definition: "God-work: rite in which the gods act on the soul, coined against theologia — talk about the gods.", register: "Greek" },
+        { term: "Synthema", definition: "A token sown by the gods in matter and in souls; the lever by which rite reaches what argument cannot.", register: "Greek" },
+        { term: "Telestike", definition: "The consecration of statues so that a divine presence may inhabit and answer through them.", register: "Greek" },
+        { term: "Anthos nou", definition: "The flower of the intellect: the summit of the soul, the faculty said to touch the One.", register: "Greek" },
+        { term: "Iynx", definition: "A Chaldean intermediary power, imaged as a spinning wheel, drawing the divine and the soul toward each other.", register: "Greek" },
+        { term: "Goeteia", definition: "Sorcery: coercive craft worked for advantage — the counter-term against which theurgists defined their work.", register: "Greek" }
+      ]
+    }
+  },
   gnosticism: {
     slug: "gnosticism",
     subtitle: "A comparative dossier on gnosis, aeonology, mythic cosmology, and the drama of awakening.",

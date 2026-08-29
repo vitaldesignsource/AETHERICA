@@ -9,7 +9,15 @@ import { TopicChronology } from "@/components/topics/dossier/TopicChronology";
 import type { TopicDossier as TopicDossierData } from "@/lib/data/topicDossiers";
 
 export function TopicDossier({ dossier }: { dossier: TopicDossierData }) {
-  const architectureLabel = dossier.slug === "alchemy" ? "Process Architecture" : "Aeonology / Cosmological Architecture";
+  // Named per subject: an alchemical tradition has a process, a gnostic one an aeonology, a
+  // theurgic one a rite. The old two-way ternary stamped "Aeonology" on everything non-alchemical.
+  const architectureLabels: Record<string, string> = {
+    alchemy: "Process Architecture",
+    gnosticism: "Aeonology / Cosmological Architecture",
+    hermeticism: "Cosmological Architecture",
+    theurgy: "Ritual Architecture"
+  };
+  const architectureLabel = architectureLabels[dossier.slug] ?? "Cosmological Architecture";
 
   return (
     <div className="mt-10 space-y-10">

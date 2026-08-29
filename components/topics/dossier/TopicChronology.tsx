@@ -1,5 +1,6 @@
 // Server component. No "use client": no state, no effects, no event handlers.
 import { CalendarDays } from "lucide-react";
+import { ChronologyNavigator, type NavigatorPeriod } from "@/components/topics/dossier/ChronologyNavigator";
 import type { TopicDossier } from "@/lib/data/topicDossiers";
 
 type Entry = TopicDossier["timeline"][number];
@@ -66,6 +67,31 @@ export function TopicChronology({ timeline }: { timeline: Entry[] }) {
 
   const gaps = computeGaps(timeline, usable);
 
+  // Anchor ids for click-to-travel. Index-prefixed so two entries sharing a title stay distinct.
+  const entryId = (entry: Entry, index: number) =>
+    `chron-${index}-${entry.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+
+  const periods: NavigatorPeriod[] = usable
+    ? timeline.flatMap((entry, index) => {
+        if (!isDated(entry)) return [];
+        const point = entry.startYear === entry.endYear;
+        return [
+          {
+            id: entryId(entry, index),
+            era: entry.era,
+            title: entry.title,
+            label: point
+              ? yearLabel(entry.startYear)
+              : `${yearLabel(entry.startYear)} – ${entry.open ? "present" : yearLabel(entry.endYear)}`,
+            startPct: pct(entry.startYear),
+            widthPct: pct(entry.endYear) - pct(entry.startYear),
+            point,
+            open: entry.open
+          }
+        ];
+      })
+    : [];
+
   return (
     <section className="temple-border rounded bg-black/46 p-5">
       <div className="flex items-center gap-3">
@@ -89,6 +115,8 @@ export function TopicChronology({ timeline }: { timeline: Entry[] }) {
           enough to draw them to scale against a shared axis.
         </p>
       )}
+
+      {periods.length ? <ChronologyNavigator periods={periods} /> : null}
 
       <div className="relative mt-8">
         {usable ? (
@@ -120,7 +148,7 @@ export function TopicChronology({ timeline }: { timeline: Entry[] }) {
             const gap = gaps[index];
             const point = isDated(entry) && entry.startYear === entry.endYear;
             return (
-              <li key={`${entry.era}-${entry.title}`}>
+              <li key={`${entry.era}-${entry.title}`} id={entryId(entry, index)} className="scroll-mt-28">
                 {gap ? (
                   <div className="mb-5">
                     <div className="relative h-2.5 w-full overflow-hidden rounded-[2px]" aria-hidden="true">
