@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AccountAccess } from "@/components/personalization/AccountAccess";
+import { ArchiveAccount } from "@/components/personalization/ArchiveAccount";
 import { PersonalLibrary } from "@/components/research/PersonalLibrary";
 import { PageHero } from "@/components/sections/PageHero";
 import { Section } from "@/components/ui/Section";
@@ -74,7 +74,7 @@ export default function LibraryPage() {
         </div>
       </div>
       <div className="mb-8">
-        <AccountAccess />
+        <ArchiveAccount />
       </div>
       <div className="mb-8 temple-border rounded p-5">
         <p className="text-xs uppercase tracking-[0.22em] text-gold">Saved instrument data coming soon</p>

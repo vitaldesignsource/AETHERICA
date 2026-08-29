@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArchiveBadge } from "@/components/personalization/ArchiveBadge";
 import { Menu, Search, X } from "lucide-react";
 import { useState } from "react";
 import { AccountAccess } from "@/components/personalization/AccountAccess";
@@ -52,9 +53,7 @@ export function Header() {
           <Link href="/search" className="focus-ring rounded p-2 text-parchment hover:text-ivory" aria-label="Search site">
             <Search size={20} />
           </Link>
-          <span className="font-cinzel-brand rounded border border-gold/25 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-parchment/80" title="Profiles and sign in are coming soon">
-            Profile Soon
-          </span>
+          <ArchiveBadge />
         </div>
 
         <button
@@ -82,12 +81,7 @@ export function Header() {
               </Link>
             ))}
             <div className="grid gap-2 border-t border-gold/15 pt-3">
-              <span className="rounded border border-gold/30 px-3 py-3 text-parchment/80">
-                Sign In Coming Soon
-              </span>
-              <span className="rounded border border-gold/30 bg-gold/10 px-3 py-3 font-semibold text-gold">
-                Profile Creation Coming Soon
-              </span>
+              <ArchiveBadge surface="menu" />
             </div>
             <Button href="/episodes">Listen Now</Button>
           </div>
