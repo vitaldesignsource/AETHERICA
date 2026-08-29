@@ -1,6 +1,5 @@
-import { existsSync } from "node:fs";
-import { join } from "node:path";
 import type { Metadata } from "next";
+import { resolveSiteImage } from "@/lib/images";
 import { notFound } from "next/navigation";
 import { TopicCoverArt } from "@/components/topics/TopicCoverArt";
 import { TopicDossier } from "@/components/topics/TopicDossier";
@@ -34,21 +33,6 @@ function episodeSearchText(episode: Episode) {
     .toLowerCase();
 }
 
-const HERO_IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".webp", ".avif", ".PNG", ".JPG", ".JPEG"];
-
-/**
- * Hero art is dropped in by hand, so accept whatever extension the file was saved with
- * rather than forcing one. Returns the public path, or null when nothing is there yet.
- */
-function resolveHeroImage(basePath: string) {
-  for (const extension of HERO_IMAGE_EXTENSIONS) {
-    if (existsSync(join(process.cwd(), "public", `${basePath}${extension}`))) {
-      return `${basePath}${extension}`;
-    }
-  }
-  return null;
-}
-
 export function generateStaticParams() {
   return topics.map((topic) => ({ slug: topic.slug }));
 }
@@ -73,7 +57,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     : topic.overview;
 
   const hero = topicHeroes[topic.slug];
-  const heroImage = hero ? resolveHeroImage(hero.image) : null;
+  const heroImage = hero ? resolveSiteImage(hero.image) : null;
   // Only alchemy has hero art so far. Without a fallback the other twelve topics shared to social
   // render as a bare text link; the site hero is a better card than nothing.
   const shareImage = heroImage ?? "/images/aetherica-hero.png";
@@ -127,11 +111,11 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
     .slice(0, 8);
 
   const hero = topicHeroes[topic.slug];
-  const resolvedHeroImage = hero ? resolveHeroImage(hero.image) : null;
+  const resolvedHeroImage = hero ? resolveSiteImage(hero.image) : null;
   const feature = hero?.feature;
   const interlude = hero?.interlude;
-  const resolvedFeatureImage = feature ? resolveHeroImage(feature.image) : null;
-  const resolvedInterludeImage = interlude ? resolveHeroImage(interlude.image) : null;
+  const resolvedFeatureImage = feature ? resolveSiteImage(feature.image) : null;
+  const resolvedInterludeImage = interlude ? resolveSiteImage(interlude.image) : null;
 
   const episodeLinks = related.length ? (
     related.map((episode) => (

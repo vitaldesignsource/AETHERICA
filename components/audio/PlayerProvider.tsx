@@ -72,6 +72,7 @@ const playerPanels: Array<[PlayerPanel, string, typeof Play]> = [
   ["settings", "Settings", Gauge]
 ];
 
+const WHEEL_CIRCUMFERENCE = 2 * Math.PI * 47.4;
 const speeds = [0.75, 1, 1.25, 1.5, 1.75, 2];
 const nextSpeed = (value: number) => speeds[(speeds.indexOf(value) + 1) % speeds.length] ?? 1;
 
@@ -184,12 +185,16 @@ function WheelPlayer({
   mode,
   playing,
   progress,
-  onToggle
+  duration,
+  onToggle,
+  onSeekFraction
 }: {
   mode: PlayerMode;
   playing: boolean;
   progress: number;
+  duration: number;
   onToggle: () => void;
+  onSeekFraction: (fraction: number) => void;
 }) {
   if (mode === "qabalistic") {
     return (
@@ -266,24 +271,33 @@ function WheelPlayer({
       <div className="absolute inset-24 rounded-full border border-crimson/35" />
       {zodiac.map((sign, index) => {
         const angle = (index / zodiac.length) * 360 - 90;
+        const fraction = index / zodiac.length;
+        // Each sign is one twelfth of the episode, so the dial doubles as a coarse scrubber.
+        const houseStart = duration ? formatSeconds(duration * fraction) : null;
+        const reached = progress >= fraction * 100;
         return (
-          <div
+          <button
             key={sign}
-            className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center before:absolute before:size-12 before:rounded-full before:bg-gold/10 before:blur-xl before:content-['']"
+            type="button"
+            onClick={() => onSeekFraction(fraction)}
+            disabled={!duration}
+            aria-label={houseStart ? `Jump to ${houseStart}` : `Jump to house ${index + 1}`}
+            className="focus-ring absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full transition enabled:hover:scale-110 disabled:cursor-default before:absolute before:size-12 before:rounded-full before:bg-gold/10 before:blur-xl before:content-['']"
             style={{
               transform: `translate(-50%, -50%) rotate(${angle}deg) translate(0, -220%) rotate(${-angle}deg)`
             }}
           >
             <span
-              className="relative font-serif text-[3.35rem] leading-none text-gold"
+              className={`relative font-serif text-[3.35rem] leading-none transition-colors ${reached ? "text-gold" : "text-gold/45"}`}
               style={{
-                textShadow:
-                  "0 1px 0 rgba(255,255,255,.35), 0 2px 0 rgba(46,31,10,.9), 0 0 14px rgba(181,146,85,.78), 0 0 32px rgba(122,17,26,.55)"
+                textShadow: reached
+                  ? "0 1px 0 rgba(255,255,255,.35), 0 2px 0 rgba(46,31,10,.9), 0 0 14px rgba(181,146,85,.78), 0 0 32px rgba(122,17,26,.55)"
+                  : "0 2px 0 rgba(46,31,10,.9)"
               }}
             >
               {sign}
             </span>
-          </div>
+          </button>
         );
       })}
       <div className="absolute inset-20 rounded-full bg-[radial-gradient(circle,rgba(181,146,85,.35),transparent_42%),conic-gradient(from_0deg,rgba(122,17,26,.7),rgba(181,146,85,.2),rgba(122,17,26,.7))] opacity-75" />
@@ -296,9 +310,27 @@ function WheelPlayer({
       >
         {playing ? <Pause size={34} /> : <Play size={34} />}
       </button>
-      <div className="absolute inset-x-12 bottom-8 h-2 overflow-hidden rounded-full bg-obsidian">
-        <div className="h-full bg-gradient-to-r from-crimson to-gold" style={{ width: `${progress}%` }} />
-      </div>
+      <svg className="pointer-events-none absolute inset-0 size-full -rotate-90" viewBox="0 0 100 100" aria-hidden="true">
+        <defs>
+          <linearGradient id="aetherica-wheel-progress" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="rgb(122,17,26)" />
+            <stop offset="100%" stopColor="rgb(181,146,85)" />
+          </linearGradient>
+        </defs>
+        <circle cx="50" cy="50" r="47.4" fill="none" stroke="rgba(181,146,85,.14)" strokeWidth="1.5" />
+        <circle
+          cx="50"
+          cy="50"
+          r="47.4"
+          fill="none"
+          stroke="url(#aetherica-wheel-progress)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeDasharray={WHEEL_CIRCUMFERENCE}
+          strokeDashoffset={WHEEL_CIRCUMFERENCE * (1 - Math.min(100, Math.max(0, progress)) / 100)}
+          style={{ transition: "stroke-dashoffset .25s linear" }}
+        />
+      </svg>
     </div>
   );
 }
@@ -790,7 +822,17 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
               </div>
 
               <div className="relative z-10">
-                <WheelPlayer mode={mode} playing={playing} progress={progress} onToggle={togglePlayback} />
+                <WheelPlayer
+                  mode={mode}
+                  playing={playing}
+                  progress={progress}
+                  duration={duration || current?.durationSeconds || 0}
+                  onToggle={togglePlayback}
+                  onSeekFraction={(fraction) => {
+                    const total = duration || current?.durationSeconds || 0;
+                    if (total) playFrom(total * fraction);
+                  }}
+                />
               </div>
 
               <div className="relative z-10 mx-auto mt-6 max-w-3xl">
@@ -809,9 +851,9 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
                   disabled={!current}
                 />
                 <div className="mt-6 grid grid-cols-5 items-center gap-3">
-                  <button className="focus-ring rounded-full border border-gold/30 p-4 text-parchment hover:bg-gold/10" onClick={() => seek(Math.max(0, position - 15))} aria-label="Skip backward 15 seconds">
-                    <RotateCcw />
-                    <span className="sr-only">15 seconds</span>
+                  <button className="focus-ring relative grid place-items-center rounded-full border border-gold/30 p-4 text-parchment hover:bg-gold/10" onClick={() => seek(Math.max(0, position - 15))} aria-label="Skip backward 15 seconds">
+                    <RotateCcw aria-hidden="true" />
+                    <span className="pointer-events-none absolute text-[9px] font-semibold tabular-nums" aria-hidden="true">15</span>
                   </button>
                   <button className="focus-ring rounded-full border border-gold/30 p-4 text-parchment hover:bg-gold/10" onClick={() => seek(Math.max(0, position - 30))} aria-label="Skip backward 30 seconds">
                     -30
@@ -822,9 +864,9 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
                   <button className="focus-ring rounded-full border border-gold/30 p-4 text-parchment hover:bg-gold/10" onClick={() => seek(position + 30)} aria-label="Skip forward 30 seconds">
                     +30
                   </button>
-                  <button className="focus-ring rounded-full border border-gold/30 p-4 text-parchment hover:bg-gold/10" onClick={() => seek(position + 15)} aria-label="Skip forward 15 seconds">
-                    <RotateCw />
-                    <span className="sr-only">15 seconds</span>
+                  <button className="focus-ring relative grid place-items-center rounded-full border border-gold/30 p-4 text-parchment hover:bg-gold/10" onClick={() => seek(position + 15)} aria-label="Skip forward 15 seconds">
+                    <RotateCw aria-hidden="true" />
+                    <span className="pointer-events-none absolute text-[9px] font-semibold tabular-nums" aria-hidden="true">15</span>
                   </button>
                 </div>
               </div>
