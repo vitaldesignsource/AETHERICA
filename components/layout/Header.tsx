@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ArchiveBadge } from "@/components/personalization/ArchiveBadge";
 import { Menu, Search, X } from "lucide-react";
 import { useState } from "react";
-import { AccountAccess } from "@/components/personalization/AccountAccess";
 import { navItems } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
 
@@ -45,7 +44,7 @@ export function Header() {
           <Link href="/search" className="focus-ring rounded p-2 text-parchment hover:text-ivory" aria-label="Search site">
             <Search size={20} />
           </Link>
-          <AccountAccess surface="header" />
+          <ArchiveBadge />
           <Button href="/episodes">Listen Now</Button>
         </div>
 

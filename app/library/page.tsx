@@ -43,8 +43,9 @@ export default function LibraryPage() {
     <Section eyebrow="Your collections" title="Saved, followed, and in progress">
       <div className="mb-8 grid gap-5 lg:grid-cols-[1fr_.7fr]">
         <p className="leading-8 text-parchment">
-          Save episodes, bookmark timestamps, build playlists, follow topics and guests, and gather research materials into private collections.
-          The full profile, sync, and saved-instrument system is coming soon.
+          Save episodes, bookmark timestamps, build playlists, follow topics and guests, and gather
+          research materials into private collections. Everything you keep lives in this browser and
+          can be exported to a file and carried to another device.
         </p>
         <div className="temple-border rounded p-5">
           <p className="text-xs uppercase tracking-[.18em] text-gold">Research notebook</p>
