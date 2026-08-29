@@ -1,9 +1,28 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { events } from "@/lib/data/demo";
 import { formatDate } from "@/lib/format";
 import { eventJsonLd } from "@/lib/seo/structured-data";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const event = events.find((item) => item.slug === slug);
+  if (!event) return { title: "Event" };
+  return {
+    title: event.title,
+    description: event.shortDescription,
+    alternates: { canonical: `/events/${event.slug}` },
+    openGraph: {
+      title: event.title,
+      description: event.shortDescription,
+      url: `/events/${event.slug}`,
+      type: "article",
+      images: event.imageUrl ? [{ url: event.imageUrl, alt: event.title }] : undefined
+    }
+  };
+}
 
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

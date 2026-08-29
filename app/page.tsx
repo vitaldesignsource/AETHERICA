@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { EnterArchiveOnboarding } from "@/components/personalization/EnterArchiveOnboarding";
@@ -18,6 +19,13 @@ import { siteConfig } from "@/lib/site";
 
 const RECENT_EPISODE_COUNT = 6;
 const INSTRUMENT_COUNT = 33;
+
+export const metadata: Metadata = {
+  // `absolute` bypasses the root layout's "%s | Aetherica Podcast" template so the homepage does
+  // not read "Aetherica Podcast | Aetherica Podcast".
+  title: { absolute: `${siteConfig.name} — ${siteConfig.tagline}` },
+  alternates: { canonical: "/" }
+};
 
 export default function HomePage() {
   const featured = episodes.find((episode) => episode.slug === "daniel-wiseman-metallic-alchemy-the-animating-spark-of-life") ?? episodes[0];

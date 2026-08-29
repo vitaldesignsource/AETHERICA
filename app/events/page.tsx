@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { events } from "@/lib/data/demo";
 import { formatDate } from "@/lib/format";
+
+export const metadata: Metadata = {
+  title: "Events",
+  description: "Upcoming Aetherica appearances, gatherings, lectures, and live events.",
+  alternates: { canonical: "/events" }
+};
 
 export default function EventsPage() {
   return (

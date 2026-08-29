@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
 import { TopicPathCard } from "@/components/sections/TopicPathCard";
 import { topics } from "@/lib/data/demo";
+
+export const metadata: Metadata = {
+  title: "Topics",
+  description:
+    "Editorial subject paths through the Aetherica archive — alchemy, hermeticism, kabbalah, theurgy, gnosticism, and the wider Western esoteric tradition.",
+  alternates: { canonical: "/topics" }
+};
 
 export default function TopicsPage() {
   return (

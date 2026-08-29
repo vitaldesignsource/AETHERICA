@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { hosts } from "@/lib/data/demo";
+
+export const metadata: Metadata = {
+  title: "Hosts",
+  description: "Sky Mathis and Ike Baker, the hosts of the Aetherica Podcast.",
+  alternates: { canonical: "/hosts" }
+};
 
 export default function HostsPage() {
   return (

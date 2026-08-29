@@ -6,7 +6,9 @@ import { episodes, topics } from "@/lib/data/demo";
 
 export const metadata: Metadata = {
   title: "Episodes",
-  description: "Search and browse Aetherica podcast episodes by topic, guest, host, date, duration, and transcript availability."
+  description: "Search and browse Aetherica podcast episodes by topic, guest, host, date, duration, and transcript availability.",
+  // Stated explicitly because /archive canonicalises to this URL.
+  alternates: { canonical: "/episodes" }
 };
 
 export default async function EpisodesPage({

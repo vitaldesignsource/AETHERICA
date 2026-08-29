@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
@@ -5,6 +6,24 @@ import { episodes, events, hosts } from "@/lib/data/demo";
 
 export function generateStaticParams() {
   return hosts.map((host) => ({ slug: host.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const host = hosts.find((item) => item.slug === slug);
+  if (!host) return { title: "Host" };
+  return {
+    title: host.name,
+    description: host.shortBio,
+    alternates: { canonical: `/hosts/${host.slug}` },
+    openGraph: {
+      title: `${host.name} — Aetherica Podcast`,
+      description: host.shortBio,
+      url: `/hosts/${host.slug}`,
+      type: "profile",
+      images: host.imageUrl ? [{ url: host.imageUrl, alt: host.imageAlt ?? host.name }] : undefined
+    }
+  };
 }
 
 export default async function HostPage({ params }: { params: Promise<{ slug: string }> }) {

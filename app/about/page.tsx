@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
 import { AboutEsotericBanner } from "@/components/sections/AboutEsotericBanner";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "The Aetherica mission: exploring the hidden architecture of philosophy, esotericism, religion, and history for the modern philosopher magician.",
+  alternates: { canonical: "/about" }
+};
 
 export default function AboutPage() {
   return (

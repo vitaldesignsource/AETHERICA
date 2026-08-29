@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { AccountAccess } from "@/components/personalization/AccountAccess";
 import { PersonalLibrary } from "@/components/research/PersonalLibrary";
@@ -11,6 +12,13 @@ const archiveMilestones = [
   "Completed the Martinism path",
   "Attended an Aetherica live event"
 ];
+
+export const metadata: Metadata = {
+  title: "My Archive",
+  description:
+    "Your personal Aetherica archive: saved episodes, passages, reading paths, and research milestones.",
+  alternates: { canonical: "/library" }
+};
 
 export default function LibraryPage() {
   return (

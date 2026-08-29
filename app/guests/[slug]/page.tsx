@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -18,6 +19,29 @@ function matchesGuestText(value: string, guestName: string) {
   const name = guestName.toLowerCase();
   const lastName = name.split(" ").at(-1) ?? name;
   return normalized.includes(name) || normalized.includes(lastName);
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const guest = guests.find((item) => item.slug === slug);
+  if (!guest) return { title: "Guest" };
+  // `guests` is built by spreading `hosts` into it (lib/data/demo.ts), so the two hosts each own a
+  // profile at /guests/<slug> AND /hosts/<slug>. Point a host's guest page at the host profile so
+  // the pair does not compete for their name; genuine guests stay self-canonical.
+  const isHost = guest.profileType === "host";
+  const canonical = isHost ? `/hosts/${guest.slug}` : `/guests/${guest.slug}`;
+  return {
+    title: isHost ? `${guest.name} — Episode Appearances` : guest.name,
+    description: guest.shortBio,
+    alternates: { canonical },
+    openGraph: {
+      title: `${guest.name} — Aetherica Podcast`,
+      description: guest.shortBio,
+      url: canonical,
+      type: "profile",
+      images: guest.imageUrl ? [{ url: guest.imageUrl, alt: guest.imageAlt ?? guest.name }] : undefined
+    }
+  };
 }
 
 export default async function GuestPage({ params }: { params: Promise<{ slug: string }> }) {

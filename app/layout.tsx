@@ -14,8 +14,10 @@ export const metadata: Metadata = {
     template: "%s | Aetherica Podcast"
   },
   description: siteConfig.description,
+  // No canonical here on purpose. `alternates` is inherited by every descendant segment that does
+  // not declare its own, so a canonical set at the root made all 40+ pages announce themselves as
+  // duplicates of the homepage. Absent a canonical, each route is self-canonical, which is correct.
   alternates: {
-    canonical: "/",
     types: process.env.PODCAST_RSS_URL ? { "application/rss+xml": process.env.PODCAST_RSS_URL } : undefined
   },
   openGraph: {

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Section } from "@/components/ui/Section";
@@ -9,6 +10,13 @@ function appearanceCount(name: string) {
     [episode.guest, episode.hosts.join(" "), episode.title, episode.longIntroduction].join(" ").toLowerCase().includes(normalized)
   ).length;
 }
+
+export const metadata: Metadata = {
+  title: "Guests",
+  description:
+    "Every guest who has appeared on the Aetherica Podcast, with their episodes and areas of study.",
+  alternates: { canonical: "/guests" }
+};
 
 export default function GuestsPage() {
   return (

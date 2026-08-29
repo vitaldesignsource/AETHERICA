@@ -4,7 +4,9 @@ import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
   title: "Celestial Instrument",
-  description: "Aetherica test astrology instrument for live sky, chart casting, planetary hours, episode timing, and electional gates."
+  description: "Aetherica test astrology instrument for live sky, chart casting, planetary hours, episode timing, and electional gates.",
+  // Stated explicitly because /astrology canonicalises to this URL.
+  alternates: { canonical: "/resources/celestial-instrument" }
 };
 
 export default function CelestialInstrumentPage() {
