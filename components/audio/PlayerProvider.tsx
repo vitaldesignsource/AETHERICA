@@ -714,20 +714,25 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
               </button>
             </div>
           ) : null}
-          <div className="mx-auto grid min-h-svh max-w-[1800px] gap-0 lg:grid-cols-[minmax(280px,340px)_minmax(0,1fr)] xl:grid-cols-[72px_300px_minmax(420px,1fr)_320px] 2xl:grid-cols-[88px_360px_minmax(460px,1fr)_380px]">
-            <nav className="hidden border-r border-gold/15 bg-black/35 px-3 py-6 xl:grid" aria-label="Player sections">
+          <div className="mx-auto grid min-h-svh max-w-[1800px] gap-0 lg:grid-cols-[minmax(280px,340px)_minmax(0,1fr)] xl:grid-cols-[96px_300px_minmax(420px,1fr)_320px] 2xl:grid-cols-[108px_360px_minmax(460px,1fr)_380px]">
+            <nav className="hidden border-r border-gold/15 bg-black/35 px-2 py-6 xl:grid" aria-label="Player sections">
               {playerPanels.map(([panel, label, Icon]) => (
                 <button
                   key={panel}
                   type="button"
-                  className={`focus-ring grid place-items-center gap-2 rounded py-4 text-[11px] uppercase tracking-[.12em] ${
+                  // content-center keeps the icon and its caption together: the nav stretches these
+                  // buttons to fill the column, and stretched auto rows otherwise push them apart.
+                  className={`focus-ring grid w-full min-w-0 content-center place-items-center gap-2 rounded px-1 py-4 ${
                     activePanel === panel ? "bg-gold/15 text-ivory" : "text-parchment hover:bg-gold/10 hover:text-ivory"
                   }`}
                   onClick={() => setActivePanel(panel)}
                   aria-pressed={activePanel === panel}
                 >
-                  <Icon size={24} />
-                  <span>{label}</span>
+                  <Icon size={22} aria-hidden="true" />
+                  {/* Wraps inside the rail rather than spilling into the column beside it. */}
+                  <span className="w-full text-balance text-center text-[10px] uppercase leading-[1.35] tracking-[.06em]">
+                    {label}
+                  </span>
                 </button>
               ))}
             </nav>
@@ -826,6 +831,28 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
             </section>
 
             <aside className="order-3 bg-black/30 p-5 lg:col-span-2 lg:order-none xl:col-span-1">
+              {/* The vertical rail is xl-only. Without this strip, Chapters, Notes and Settings —
+                  and so the sleep timer, sharing and download controls — are unreachable on every
+                  screen narrower than 1280px, which is most phones and tablets. */}
+              <div className="mb-5 flex gap-2 overflow-x-auto pb-1 xl:hidden" role="tablist" aria-label="Player sections">
+                {playerPanels.map(([panel, label, Icon]) => (
+                  <button
+                    key={panel}
+                    type="button"
+                    className={`focus-ring inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-[11px] uppercase tracking-[.1em] ${
+                      activePanel === panel
+                        ? "border-gold bg-gold/15 text-ivory"
+                        : "border-gold/25 text-parchment hover:bg-gold/10 hover:text-ivory"
+                    }`}
+                    onClick={() => setActivePanel(panel)}
+                    aria-pressed={activePanel === panel}
+                  >
+                    <Icon size={15} aria-hidden="true" />
+                    {label}
+                  </button>
+                ))}
+              </div>
+
               {activePanel === "now-playing" ? (
                 <>
                   <h2 className="text-sm uppercase tracking-[.26em] text-crimson">Currently Being Discussed</h2>
