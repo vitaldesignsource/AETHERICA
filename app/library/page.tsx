@@ -19,7 +19,11 @@ export const metadata: Metadata = {
   title: "My Archive",
   description:
     "Your personal Aetherica archive: saved episodes, passages, reading paths, and research milestones.",
-  alternates: { canonical: "/library" }
+  alternates: { canonical: "/library" },
+  openGraph: {
+    images: [{ url: "/images/library-angel.webp", alt: "A bronze winged figure in a rain-soaked cloister garden" }]
+  },
+  twitter: { card: "summary_large_image", images: ["/images/library-angel.webp"] }
 };
 
 export default function LibraryPage() {

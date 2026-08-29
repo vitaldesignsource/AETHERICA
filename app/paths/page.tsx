@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/sections/PageHero";
+import { resolveSiteImage } from "@/lib/images";
 import Link from "next/link";
 import { ArrowRight, BookOpenCheck, Clock3, Route } from "lucide-react";
 import { PathCoverArt } from "@/components/paths/PathCoverArt";
@@ -8,14 +10,29 @@ import type { ListeningPath } from "@/lib/data/types";
 
 export const metadata: Metadata = {
   title: "Listening Paths",
-  description: "Curated initiatic listening paths through Aetherica episodes, chapters, books, and study prompts."
+  description: "Curated initiatic listening paths through Aetherica episodes, chapters, books, and study prompts.",
+  openGraph: {
+    images: [{ url: "/images/pages/paths-vault.webp", alt: "A lantern-bearing figure descending into a vaulted chamber" }]
+  },
+  twitter: { card: "summary_large_image", images: ["/images/pages/paths-vault.webp"] }
 };
 
 export default function PathsPage() {
+  const pageHero = resolveSiteImage("/images/pages/paths-vault");
   const [featuredPath, ...remainingPaths] = listeningPaths;
 
   return (
-    <Section eyebrow="Initiatic listening paths" title="Curated routes through the archive">
+    <>
+      <PageHero
+        eyebrow="Initiatic listening paths"
+        title="Curated routes through the archive"
+        lede="Each route gathers episodes, chapters, books, and reflection prompts into a coherent study current."
+        imageSrc={pageHero}
+        imageAlt="A lantern-bearing figure descending stone stairs into a vaulted chamber, a rose and cross carved on the tomb at its centre"
+        focus="50% 46%"
+      />
+    {/* The hero above carries the page title; this names the section under it. */}
+    <Section eyebrow="Choose a route" title="Seven ways in">
       <div className="max-w-4xl">
         <p className="text-xl leading-8 text-parchment">
           Each route gathers episodes, chapters, books, and reflection prompts into a coherent study current. Enter through a full path, or use the route index below to choose by subject, theme, or first step.
@@ -34,6 +51,7 @@ export default function PathsPage() {
         ))}
       </div>
     </Section>
+    </>
   );
 }
 

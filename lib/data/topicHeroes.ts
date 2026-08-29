@@ -63,7 +63,15 @@ export const topicHeroes: Record<string, TopicHero> = {
     kicker: "The Ascent",
     epigraph:
       "The ladder, the seven gates, the graded spheres: the mystical literatures of very different traditions keep arriving at the same shape. Ascent is described far more often than arrival is.",
-    focus: "50% 36%"
+    focus: "50% 36%",
+    feature: {
+      image: "/images/topics/mysticism-emergence",
+      alt: "A stone trough of still water in a dark undercroft, discarded dark cloth beside it, a robed figure climbing wet steps out into pale mist",
+      label: "The Threshold",
+      caption:
+        "Initiation is repeatedly described as a death: the old garment left in the water, the walk out through the arch. What the accounts rarely supply is the part after — which may be the point, since the literature is written by people still walking.",
+      focus: "48% 44%"
+    }
   },
   "christian-mysticism": {
     image: "/images/topics/christian-mysticism-vigil",
@@ -71,7 +79,15 @@ export const topicHeroes: Record<string, TopicHero> = {
     kicker: "Via Negativa",
     epigraph:
       "The apophatic tradition proceeds by refusal: God is not this, not that, not the words being used. What remains after the subtractions is what Dionysius called the divine darkness — and it is described as brighter than light.",
-    focus: "50% 40%"
+    focus: "50% 40%",
+    feature: {
+      image: "/images/topics/christian-mysticism-rose-cross",
+      alt: "A stone cross set in a ruined chapel wall, wound with ivy and bearing a single deep red rose, two kneeling angels facing it across wet flagstones",
+      label: "Rose and Cross",
+      caption:
+        "The rose upon the cross is a late emblem — seventeenth-century and Rosicrucian in its familiar form — but it condenses a much older claim: that the place of suffering and the place of flowering are the same place, and that the second is not a consolation added afterwards.",
+      focus: "50% 40%"
+    }
   },
   "sacred-architecture": {
     image: "/images/topics/sacred-architecture-rose",

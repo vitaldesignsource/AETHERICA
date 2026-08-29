@@ -10,7 +10,11 @@ import { formatDate } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Events",
   description: "Upcoming Aetherica appearances, gatherings, lectures, and live events.",
-  alternates: { canonical: "/events" }
+  alternates: { canonical: "/events" },
+  openGraph: {
+    images: [{ url: "/images/events-bell.webp", alt: "A great bronze bell hung in a ruined stone tower" }]
+  },
+  twitter: { card: "summary_large_image", images: ["/images/events-bell.webp"] }
 };
 
 export default function EventsPage() {

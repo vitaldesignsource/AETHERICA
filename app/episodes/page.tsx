@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/sections/PageHero";
+import { resolveSiteImage } from "@/lib/images";
 import { EpisodeCard } from "@/components/sections/EpisodeCard";
 import { ExploreArchiveHeader } from "@/components/sections/ExploreArchiveHeader";
 import { Section } from "@/components/ui/Section";
@@ -8,7 +10,11 @@ export const metadata: Metadata = {
   title: "Episodes",
   description: "Search and browse Aetherica podcast episodes by topic, guest, host, date, duration, and transcript availability.",
   // Stated explicitly because /archive canonicalises to this URL.
-  alternates: { canonical: "/episodes" }
+  alternates: { canonical: "/episodes" },
+  openGraph: {
+    images: [{ url: "/images/pages/episodes-drowned-library.webp", alt: "A colossal marble head half-submerged in a flooded domed library" }]
+  },
+  twitter: { card: "summary_large_image", images: ["/images/pages/episodes-drowned-library.webp"] }
 };
 
 export default async function EpisodesPage({
@@ -16,6 +22,7 @@ export default async function EpisodesPage({
 }: {
   searchParams: Promise<{ q?: string; topic?: string; sort?: string }>;
 }) {
+  const pageHero = resolveSiteImage("/images/pages/episodes-drowned-library");
   const { q = "", topic = "", sort = "Newest first" } = await searchParams;
   const query = q.trim().toLowerCase();
   const chapterCount = episodes.reduce((total, episode) => total + episode.chapters.length, 0);
@@ -41,8 +48,18 @@ export default async function EpisodesPage({
 
   return (
     <>
+      <PageHero
+        eyebrow="The archive"
+        title="Every episode"
+        lede="Search and browse the full run — by topic, guest, host, date, duration, or whether a transcript exists."
+        imageSrc={pageHero}
+        imageAlt="A colossal marble head half-submerged in still water beneath a domed library, its shelves of scrolls rising into the dark, an oculus open to the sky above"
+        focus="50% 40%"
+      />
+    <>
       <ExploreArchiveHeader episodeCount={episodes.length} chapterCount={chapterCount} transcriptCount={transcriptCount} />
-      <Section eyebrow="Archive controls" title="Search the Aetherica episodes">
+      {/* The hero above carries the page title; this names the section under it. */}
+    <Section eyebrow="Episodes" title="Browse and filter">
         <form className="temple-border mb-8 grid gap-4 rounded p-4 md:grid-cols-[1.3fr_.8fr_.7fr_auto]" role="search">
           <label className="grid gap-2 text-sm text-parchment md:col-span-2">
             Search episodes
@@ -77,6 +94,7 @@ export default async function EpisodesPage({
           {filteredEpisodes.map((episode) => <EpisodeCard key={episode.guid} episode={episode} />)}
         </div>
       </Section>
+    </>
     </>
   );
 }

@@ -9,6 +9,7 @@ import { Section } from "@/components/ui/Section";
 import { topics } from "@/lib/data/demo";
 import { episodeBySlug, listeningPaths } from "@/lib/data/research";
 import { formatSeconds } from "@/lib/format";
+import { breadcrumbJsonLd } from "@/lib/seo/structured-data";
 
 export function generateStaticParams() {
   return listeningPaths.map((path) => ({ slug: path.slug }));
@@ -56,6 +57,17 @@ export default async function PathPage({ params }: { params: Promise<{ slug: str
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Listening Paths", path: "/paths" },
+              { name: path.title, path: `/paths/${path.slug}` }
+            ])
+          )
+        }}
+      />
       {/* The heading used to be the literal string "Curated route" on every path in the set. */}
       <Section eyebrow="Initiatic listening path" title={path.title}>
         <p className="max-w-3xl text-xl leading-9 text-ivory">{path.summary}</p>

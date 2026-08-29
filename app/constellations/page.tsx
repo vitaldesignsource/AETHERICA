@@ -1,15 +1,32 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/sections/PageHero";
+import { resolveSiteImage } from "@/lib/images";
 import { Section } from "@/components/ui/Section";
 import { guestConstellations } from "@/lib/data/research";
 
 export const metadata: Metadata = {
   title: "Guest Constellations",
-  description: "Visual guest networks by shared topics, books, traditions, and overlaps."
+  description: "Visual guest networks by shared topics, books, traditions, and overlaps.",
+  openGraph: {
+    images: [{ url: "/images/pages/constellations-hierarchy.webp", alt: "Tiers of winged stone figures on a ruined amphitheatre wall" }]
+  },
+  twitter: { card: "summary_large_image", images: ["/images/pages/constellations-hierarchy.webp"] }
 };
 
 export default function ConstellationsPage() {
+  const pageHero = resolveSiteImage("/images/pages/constellations-hierarchy");
   return (
-    <Section eyebrow="Guest constellations" title="Follow people, books, and traditions">
+    <>
+      <PageHero
+        eyebrow="Constellations"
+        title="How the guests connect"
+        lede="Shared subjects, recurring sources, and the lines of influence that run between conversations."
+        imageSrc={pageHero}
+        imageAlt="Tiers of winged stone figures ranked across a ruined amphitheatre wall beneath a radiant opening"
+        focus="50% 40%"
+      />
+    {/* The hero above carries the page title; this names the section under it. */}
+    <Section eyebrow="The map" title="Shared threads">
       <div className="grid gap-6 lg:grid-cols-[1.15fr_.85fr]">
         <div className="temple-border relative min-h-[620px] overflow-hidden rounded p-6">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(181,146,85,.18),transparent_34%)]" />
@@ -62,5 +79,6 @@ export default function ConstellationsPage() {
         </div>
       </div>
     </Section>
+    </>
   );
 }

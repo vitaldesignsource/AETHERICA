@@ -7,7 +7,11 @@ import { resolveSiteImage } from "@/lib/images";
 export const metadata: Metadata = {
   title: "Contact Aetherica",
   description: "Send listener questions, guest suggestions, corrections, collaboration notes, or general messages to Aetherica.",
-  alternates: { canonical: "/contact" }
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    images: [{ url: "/images/contact-armillary.webp", alt: "An armillary sphere in a moonlit ruin" }]
+  },
+  twitter: { card: "summary_large_image", images: ["/images/contact-armillary.webp"] }
 };
 
 /**

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { resolveSiteImage } from "@/lib/images";
+import { breadcrumbJsonLd } from "@/lib/seo/structured-data";
 import { notFound } from "next/navigation";
 import { TopicCoverArt } from "@/components/topics/TopicCoverArt";
 import { TopicDossier } from "@/components/topics/TopicDossier";
@@ -187,6 +188,17 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
   if (hero) {
     return (
       <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              breadcrumbJsonLd([
+                { name: "Topics", path: "/topics" },
+                { name: topic.title, path: `/topics/${topic.slug}` }
+              ])
+            )
+          }}
+        />
         <TopicHero topic={topic} hero={hero} imageSrc={resolvedHeroImage} />
         <Reveal>
           <Section eyebrow="Topic archive" title={`Reading ${topic.title}`}>{body}</Section>

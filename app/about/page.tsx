@@ -14,7 +14,11 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "The Aetherica mission: exploring the hidden architecture of philosophy, esotericism, religion, and history for the modern philosopher magician.",
-  alternates: { canonical: "/about" }
+  alternates: { canonical: "/about" },
+  openGraph: {
+    images: [{ url: "/images/about-black-mirror.webp", alt: "Two angels holding a dark mirror between them" }]
+  },
+  twitter: { card: "summary_large_image", images: ["/images/about-black-mirror.webp"] }
 };
 
 /** Kept in step with the resources index; the homepage counts the same way. */

@@ -678,7 +678,7 @@ export function TreeOfLifeExplorer({ episodes }: { episodes: Episode[] }) {
                 key={`path-label-${path.id}`}
                 type="button"
                 aria-label={`Path ${path.number}, ${path.transliteration}`}
-                className={`focus-ring absolute z-30 grid h-7 w-7 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border bg-black text-center shadow-[inset_0_0_10px_rgba(0,0,0,.95),0_0_18px_rgba(0,0,0,.65)] transition hover:border-gold hover:text-gold ${active.id === path.id ? "border-gold text-gold shadow-[inset_0_0_10px_rgba(0,0,0,.95),0_0_24px_rgba(181,146,85,.34)]" : "border-gold/35 text-parchment"}`}
+                className={`focus-ring absolute z-30 grid h-7 w-7 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border bg-black text-center after:absolute after:left-1/2 after:top-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:content-[''] shadow-[inset_0_0_10px_rgba(0,0,0,.95),0_0_18px_rgba(0,0,0,.65)] transition hover:border-gold hover:text-gold ${active.id === path.id ? "border-gold text-gold shadow-[inset_0_0_10px_rgba(0,0,0,.95),0_0_24px_rgba(181,146,85,.34)]" : "border-gold/35 text-parchment"}`}
                 style={{ left: `${position.x}%`, top: `${position.y}%` }}
                 onClick={() => setActiveId(path.id)}
               >
