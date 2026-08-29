@@ -2,18 +2,25 @@
 
 import Image from "next/image";
 import {
+  AlertTriangle,
   BookOpen,
   BookmarkPlus,
+  Check,
   ChevronDown,
   Compass,
+  Download,
   Gauge,
+  Link2,
   ListMusic,
+  Loader2,
   Maximize2,
+  Moon,
   Pause,
   Play,
   RotateCcw,
   RotateCw,
   Share2,
+  SkipForward,
   Volume2,
   VolumeX,
   X
@@ -37,6 +44,8 @@ import {
 import { formatSeconds } from "@/lib/format";
 
 type PlayerMode = "astrological" | "qabalistic";
+type PlayerStatus = "idle" | "loading" | "ready" | "error";
+type UpNext = { slug: string; title: string };
 type PlayerPanel = "now-playing" | "chapters" | "notes" | "settings";
 
 type BookmarkEntry = {
@@ -49,7 +58,7 @@ type BookmarkEntry = {
 
 type PlayerContextValue = {
   current: Episode | null;
-  playEpisode: (episode: Episode, start?: number) => void;
+  playEpisode: (episode: Episode, start?: number, upNext?: UpNext | null) => void;
   seek: (seconds: number) => void;
   openPlayer: () => void;
 };
@@ -62,6 +71,9 @@ const playerPanels: Array<[PlayerPanel, string, typeof Play]> = [
   ["notes", "Notes", BookOpen],
   ["settings", "Settings", Gauge]
 ];
+
+const speeds = [0.75, 1, 1.25, 1.5, 1.75, 2];
+const nextSpeed = (value: number) => speeds[(speeds.indexOf(value) + 1) % speeds.length] ?? 1;
 
 const zodiac = ["♈︎", "♉︎", "♊︎", "♋︎", "♌︎", "♍︎", "♎︎", "♏︎", "♐︎", "♑︎", "♒︎", "♓︎"];
 const qabalisticNodes: Array<{ id: HermeticTreeNodeId; number: string; name: string; hebrew: string }> = [
@@ -305,6 +317,21 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const [activePanel, setActivePanel] = useState<PlayerPanel>("now-playing");
   const [bookmarkNote, setBookmarkNote] = useState("");
   const [bookmarksByEpisode, setBookmarksByEpisode] = useState<Record<string, BookmarkEntry[]>>(readPlayerBookmarks);
+  /** Distinguishes "nothing chosen yet" from "fetching" from "this episode will not play". */
+  const [status, setStatus] = useState<PlayerStatus>("idle");
+  /** Epoch ms at which playback should stop, or null when the sleep timer is off. */
+  const [sleepEndsAt, setSleepEndsAt] = useState<number | null>(null);
+  /** Whole minutes left, kept as state because Date.now() must not be read during render. */
+  const [sleepRemaining, setSleepRemaining] = useState<number | null>(null);
+  const [autoplayNext, setAutoplayNext] = useState(false);
+  /** Where "play next" should go, supplied by whichever page started this episode. */
+  const [upNext, setUpNext] = useState<UpNext | null>(null);
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const currentRef = useRef<Episode | null>(null);
+  useEffect(() => {
+    currentRef.current = current;
+  }, [current]);
 
   const seek = useCallback((seconds: number) => {
     if (!audioRef.current) return;
@@ -325,8 +352,10 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     if (audioRef.current && current) safePlay(audioRef.current);
   }, [current, seek]);
 
-  const playEpisode = useCallback((episode: Episode, start?: number) => {
+  const playEpisode = useCallback((episode: Episode, start?: number, nextUp?: UpNext | null) => {
     if (!episode.audioUrl) return;
+    setUpNext(nextUp ?? null);
+    setStatus("loading");
     setCurrent((existing) => {
       const same = existing?.guid === episode.guid;
       requestAnimationFrame(() => {
@@ -341,6 +370,140 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       return episode;
     });
   }, [speed]);
+
+  const retry = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || !current?.audioUrl) return;
+    setStatus("loading");
+    const at = audio.currentTime;
+    audio.load();
+    audio.currentTime = at;
+    safePlay(audio);
+  }, [current]);
+
+  /** Absolute link to this exact moment, e.g. /episodes/slug?t=1234 */
+  const shareUrl = useCallback(
+    (seconds?: number) => {
+      if (!current) return "";
+      const base = `${window.location.origin}/episodes/${current.slug}`;
+      return seconds === undefined ? base : `${base}?t=${Math.floor(seconds)}`;
+    },
+    [current]
+  );
+
+  const copyLink = useCallback(
+    async (seconds: number | undefined, key: string) => {
+      const url = shareUrl(seconds);
+      if (!url) return;
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch {
+        return;
+      }
+      setCopied(key);
+      window.setTimeout(() => setCopied((value) => (value === key ? null : value)), 2000);
+    },
+    [shareUrl]
+  );
+
+  /**
+   * `ended` fires from a listener bound once per episode, so the autoplay behaviour is reached
+   * through a ref rather than by re-binding the listener whenever the setting changes.
+   */
+  const endedRef = useRef<(() => void) | null>(null);
+  const nextRef = useRef<(() => void) | null>(null);
+  const goToNext = useCallback(() => {
+    if (!upNext) return;
+    // The full Episode (transcript, chapters) is far too heavy to hold in a client-side queue, so
+    // the next episode is reached through its own page, which already has the data server-side.
+    window.location.href = `/episodes/${upNext.slug}?autoplay=1`;
+  }, [upNext]);
+
+  useEffect(() => {
+    nextRef.current = goToNext;
+    endedRef.current = () => {
+      if (autoplayNext && upNext) goToNext();
+    };
+  }, [autoplayNext, goToNext, upNext]);
+
+  // Sleep timer. Held as an absolute deadline rather than a counter so it stays accurate when the
+  // tab is backgrounded and timers are throttled. One timeout pauses playback; a slow interval
+  // only exists to re-render the remaining-minutes readout.
+  useEffect(() => {
+    if (sleepEndsAt === null) return;
+    const id = window.setTimeout(() => {
+      audioRef.current?.pause();
+      setSleepEndsAt(null);
+      setSleepRemaining(null);
+    }, Math.max(0, sleepEndsAt - Date.now()));
+    return () => window.clearTimeout(id);
+  }, [sleepEndsAt]);
+
+  useEffect(() => {
+    if (sleepEndsAt === null) return;
+    const id = window.setInterval(
+      () => setSleepRemaining(Math.max(0, Math.ceil((sleepEndsAt - Date.now()) / 60_000))),
+      20_000
+    );
+    return () => window.clearInterval(id);
+  }, [sleepEndsAt]);
+
+  useEffect(() => {
+    if (!expanded) return;
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setExpanded(false);
+    };
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [expanded]);
+
+  // Keyboard transport. Ignored while the reader is typing, so the bookmark note still works.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      const audio = audioRef.current;
+      if (!audio || !currentRef.current) return;
+
+      switch (event.key) {
+        case " ":
+        case "k":
+        case "K":
+          event.preventDefault();
+          if (audio.paused) safePlay(audio);
+          else audio.pause();
+          break;
+        case "ArrowLeft":
+          event.preventDefault();
+          seek(audio.currentTime - 15);
+          break;
+        case "ArrowRight":
+          event.preventDefault();
+          seek(audio.currentTime + 30);
+          break;
+        case "j":
+        case "J":
+          event.preventDefault();
+          seek(audio.currentTime - 15);
+          break;
+        case "l":
+        case "L":
+          event.preventDefault();
+          seek(audio.currentTime + 30);
+          break;
+        case "m":
+        case "M":
+          event.preventDefault();
+          setMuted((value) => !value);
+          break;
+        default:
+          break;
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [seek]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -368,32 +531,119 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     const onPlay = () => setPlaying(true);
     const onPause = () => setPlaying(false);
     const onDuration = () => setDuration(audio.duration || current?.durationSeconds || 0);
+    // Episodes are hour-long remote MP3s. Without these the bar sits mute and motionless while a
+    // file downloads, and a dead URL leaves a play button that simply never does anything.
+    const onWaiting = () => setStatus("loading");
+    const onCanPlay = () => setStatus("ready");
+    const onPlaying = () => setStatus("ready");
+    const onError = () => {
+      setStatus("error");
+      setPlaying(false);
+    };
+    const onEnded = () => {
+      setPlaying(false);
+      // Finished means finished: drop the saved position so the episode does not resume at its end.
+      if (current) localStorage.removeItem(`aetherica-progress:${current.guid}`);
+      endedRef.current?.();
+    };
+
     audio.addEventListener("timeupdate", onTime);
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
     audio.addEventListener("loadedmetadata", onDuration);
+    audio.addEventListener("waiting", onWaiting);
+    audio.addEventListener("stalled", onWaiting);
+    audio.addEventListener("canplay", onCanPlay);
+    audio.addEventListener("playing", onPlaying);
+    audio.addEventListener("error", onError);
+    audio.addEventListener("ended", onEnded);
     return () => {
       audio.removeEventListener("timeupdate", onTime);
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
       audio.removeEventListener("loadedmetadata", onDuration);
+      audio.removeEventListener("waiting", onWaiting);
+      audio.removeEventListener("stalled", onWaiting);
+      audio.removeEventListener("canplay", onCanPlay);
+      audio.removeEventListener("playing", onPlaying);
+      audio.removeEventListener("error", onError);
+      audio.removeEventListener("ended", onEnded);
     };
   }, [current]);
 
+  // Metadata only depends on the episode. Registering it per-tick (the old code listed `position`
+  // as a dependency, so this ran on every timeupdate) rebuilt MediaMetadata several times a second
+  // and made lock-screen artwork flicker.
   useEffect(() => {
-    if ("mediaSession" in navigator && current) {
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: current.title,
-        artist: current.hosts.join(", "),
-        album: "Aetherica Podcast",
-        artwork: [{ src: current.coverImage, sizes: "512x512", type: "image/png" }]
-      });
-      navigator.mediaSession.setActionHandler("seekbackward", () => seek(position - 15));
-      navigator.mediaSession.setActionHandler("seekforward", () => seek(position + 30));
-      navigator.mediaSession.setActionHandler("play", () => safePlay(audioRef.current));
-      navigator.mediaSession.setActionHandler("pause", () => audioRef.current?.pause());
+    if (!("mediaSession" in navigator) || !current) return;
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: current.title,
+      artist: current.hosts.join(", "),
+      album: "Aetherica Podcast",
+      artwork: [{ src: current.coverImage, sizes: "512x512", type: "image/png" }]
+    });
+  }, [current]);
+
+  // Handlers are registered once and read live values through the audio element, so they never
+  // need re-binding. `seekto` is what lets the OS/lock-screen scrubber move the playhead.
+  useEffect(() => {
+    if (!("mediaSession" in navigator)) return;
+    const ms = navigator.mediaSession;
+    const rel = (delta: number) => () => {
+      const audio = audioRef.current;
+      if (audio) seek(audio.currentTime + delta);
+    };
+    const handlers: Array<[MediaSessionAction, MediaSessionActionHandler]> = [
+      ["play", () => safePlay(audioRef.current)],
+      ["pause", () => audioRef.current?.pause()],
+      ["seekbackward", rel(-15)],
+      ["seekforward", rel(30)],
+      ["seekto", (details) => {
+        if (typeof details.seekTime === "number") seek(details.seekTime);
+      }],
+      ["nexttrack", () => nextRef.current?.()]
+    ];
+    for (const [action, handler] of handlers) {
+      try {
+        ms.setActionHandler(action, handler);
+      } catch {
+        // Safari throws on actions it does not implement rather than ignoring them.
+      }
     }
-  }, [current, position, seek]);
+    return () => {
+      for (const [action] of handlers) {
+        try {
+          ms.setActionHandler(action, null);
+        } catch {
+          // same
+        }
+      }
+    };
+  }, [seek]);
+
+  // Feeds the OS its own progress bar. Throttled to whole seconds so it is not written per tick.
+  const lastPositionStateRef = useRef(-1);
+  useEffect(() => {
+    if (!("mediaSession" in navigator) || !navigator.mediaSession.setPositionState) return;
+    const total = duration || current?.durationSeconds || 0;
+    if (!total || !Number.isFinite(total)) return;
+    const whole = Math.floor(position);
+    if (whole === lastPositionStateRef.current) return;
+    lastPositionStateRef.current = whole;
+    try {
+      navigator.mediaSession.setPositionState({
+        duration: total,
+        playbackRate: speed,
+        position: Math.min(position, total)
+      });
+    } catch {
+      // Some browsers reject a position state mid-seek; the next tick corrects it.
+    }
+  }, [position, duration, speed, current]);
+
+  useEffect(() => {
+    if ("mediaSession" in navigator) navigator.mediaSession.playbackState = playing ? "playing" : "paused";
+  }, [playing]);
 
   const selectMode = (nextMode: PlayerMode) => {
     setMode(nextMode);
@@ -455,6 +705,15 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
       {expanded ? (
         <div className="fixed inset-0 z-[70] overflow-y-auto bg-obsidian/96 text-ivory backdrop-blur-xl" role="dialog" aria-modal="true" aria-label="Aetherica full audio player">
+          {status === "error" ? (
+            <div className="sticky top-0 z-10 flex items-center gap-3 border-b border-crimson/50 bg-crimson/20 px-4 py-3 text-sm backdrop-blur" role="alert">
+              <AlertTriangle size={16} className="shrink-0 text-crimson" />
+              <span className="min-w-0 flex-1">This episode&rsquo;s audio could not be loaded.</span>
+              <button type="button" onClick={retry} className="focus-ring shrink-0 rounded border border-gold/40 px-3 py-1 text-xs uppercase tracking-[.14em] text-gold hover:bg-gold/10">
+                Try again
+              </button>
+            </div>
+          ) : null}
           <div className="mx-auto grid min-h-svh max-w-[1800px] gap-0 lg:grid-cols-[minmax(280px,340px)_minmax(0,1fr)] xl:grid-cols-[72px_300px_minmax(420px,1fr)_320px] 2xl:grid-cols-[88px_360px_minmax(460px,1fr)_380px]">
             <nav className="hidden border-r border-gold/15 bg-black/35 px-3 py-6 xl:grid" aria-label="Player sections">
               {playerPanels.map(([panel, label, Icon]) => (
@@ -657,9 +916,19 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
                             <button type="button" className="focus-ring text-left text-sm font-semibold text-ivory hover:text-gold" onClick={() => playFrom(bookmark.position)}>
                               {formatSeconds(bookmark.position)} · {bookmark.title}
                             </button>
-                            <button type="button" className="focus-ring rounded p-1 text-parchment hover:bg-crimson/20 hover:text-ivory" onClick={() => removeBookmark(bookmark.id)} aria-label="Remove bookmark">
-                              <X size={16} />
-                            </button>
+                            <span className="flex shrink-0 items-center gap-1">
+                              <button
+                                type="button"
+                                className="focus-ring rounded p-1 text-parchment hover:bg-gold/15 hover:text-gold"
+                                onClick={() => copyLink(bookmark.position, bookmark.id)}
+                                aria-label={`Copy link to ${formatSeconds(bookmark.position)}`}
+                              >
+                                {copied === bookmark.id ? <Check size={16} className="text-gold" /> : <Link2 size={16} />}
+                              </button>
+                              <button type="button" className="focus-ring rounded p-1 text-parchment hover:bg-crimson/20 hover:text-ivory" onClick={() => removeBookmark(bookmark.id)} aria-label="Remove bookmark">
+                                <X size={16} />
+                              </button>
+                            </span>
                           </div>
                           {bookmark.note ? <p className="mt-2 text-sm leading-6 text-parchment">{bookmark.note}</p> : null}
                         </article>
@@ -678,7 +947,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
                     <label className="grid gap-2 text-sm text-parchment">
                       Speed
                       <select className="focus-ring rounded border border-gold/25 bg-obsidian px-3 py-2 text-ivory" value={speed} onChange={(event) => setSpeed(Number(event.target.value))}>
-                        {[0.75, 1, 1.25, 1.5, 2].map((item) => (
+                        {speeds.map((item) => (
                           <option key={item} value={item}>
                             {item.toFixed(2)}x
                           </option>
@@ -694,10 +963,87 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
                         <input type="range" min={0} max={1} step={0.05} value={volume} onChange={(event) => setVolume(Number(event.target.value))} className="w-full accent-gold" aria-label="Volume" />
                       </span>
                     </label>
-                    <button className="focus-ring inline-flex items-center justify-center gap-2 rounded border border-gold/35 px-4 py-3 text-parchment hover:bg-gold/10">
-                      <Share2 size={18} />
-                      Share Episode
-                    </button>
+                    <label className="grid gap-2 text-sm text-parchment">
+                      Sleep timer
+                      <select
+                        className="focus-ring rounded border border-gold/25 bg-obsidian px-3 py-2 text-ivory"
+                        value={sleepRemaining ?? 0}
+                        onChange={(event) => {
+                          const minutes = Number(event.target.value);
+                          setSleepEndsAt(minutes > 0 ? Date.now() + minutes * 60_000 : null);
+                          setSleepRemaining(minutes > 0 ? minutes : null);
+                        }}
+                      >
+                        <option value={0}>Off</option>
+                        {[5, 10, 15, 30, 45, 60].map((minutes) => (
+                          <option key={minutes} value={minutes}>
+                            {minutes} minutes
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+
+                    <label className="flex items-start justify-between gap-3 text-sm text-parchment">
+                      <span className="min-w-0 flex-1">
+                        Autoplay next episode
+                        {upNext ? (
+                          // Episode titles run long; two lines is enough to identify one.
+                          <span className="mt-1 line-clamp-2 block text-xs text-limestone" title={upNext.title}>
+                            Up next: {upNext.title}
+                          </span>
+                        ) : (
+                          <span className="mt-1 block text-xs text-limestone">No following episode for this one.</span>
+                        )}
+                      </span>
+                      <input
+                        type="checkbox"
+                        className="mt-0.5 size-5 shrink-0 accent-gold"
+                        checked={autoplayNext}
+                        onChange={(event) => setAutoplayNext(event.target.checked)}
+                      />
+                    </label>
+
+                    <div className="grid gap-2">
+                      <button
+                        type="button"
+                        className="focus-ring inline-flex items-center justify-center gap-2 rounded border border-gold/35 px-4 py-3 text-parchment hover:bg-gold/10 disabled:opacity-50"
+                        onClick={() => copyLink(undefined, "episode")}
+                        disabled={!current}
+                      >
+                        {copied === "episode" ? <Check size={18} className="text-gold" /> : <Share2 size={18} />}
+                        {copied === "episode" ? "Link copied" : "Copy episode link"}
+                      </button>
+                      <button
+                        type="button"
+                        className="focus-ring inline-flex items-center justify-center gap-2 rounded border border-gold/35 px-4 py-3 text-parchment hover:bg-gold/10 disabled:opacity-50"
+                        onClick={() => copyLink(position, "moment")}
+                        disabled={!current}
+                      >
+                        {copied === "moment" ? <Check size={18} className="text-gold" /> : <Link2 size={18} />}
+                        {copied === "moment" ? "Link copied" : `Copy link at ${formatSeconds(position)}`}
+                      </button>
+                      {current?.audioUrl ? (
+                        <a
+                          className="focus-ring inline-flex items-center justify-center gap-2 rounded border border-gold/35 px-4 py-3 text-parchment hover:bg-gold/10"
+                          href={current.audioUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Download size={18} />
+                          Download audio
+                        </a>
+                      ) : null}
+                      {upNext ? (
+                        <button
+                          type="button"
+                          className="focus-ring inline-flex items-center justify-center gap-2 rounded border border-gold/35 px-4 py-3 text-parchment hover:bg-gold/10"
+                          onClick={goToNext}
+                        >
+                          <SkipForward size={18} />
+                          Play next episode
+                        </button>
+                      ) : null}
+                    </div>
                   </div>
                 </>
               ) : null}
@@ -707,15 +1053,31 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       ) : null}
 
       <aside className="fixed inset-x-0 bottom-0 z-50 border-t border-gold/25 bg-obsidian/95 px-3 py-3 backdrop-blur" aria-label="Persistent audio player">
+        {/* A failed load used to leave a play button that silently did nothing. */}
+        {status === "error" ? (
+          <div className="mx-auto mb-2 flex max-w-7xl items-center gap-3 rounded border border-crimson/50 bg-crimson/15 px-3 py-2 text-sm text-ivory" role="alert">
+            <AlertTriangle size={16} className="shrink-0 text-crimson" />
+            <span className="min-w-0 flex-1">This episode&rsquo;s audio could not be loaded.</span>
+            <button type="button" onClick={retry} className="focus-ring shrink-0 rounded border border-gold/40 px-3 py-1 text-xs uppercase tracking-[.14em] text-gold hover:bg-gold/10">
+              Try again
+            </button>
+          </div>
+        ) : null}
         <div className="mx-auto flex max-w-7xl items-center gap-3">
           <button
             type="button"
-            className="focus-ring grid size-12 shrink-0 place-items-center rounded-full bg-gold text-obsidian"
+            className="focus-ring grid size-12 shrink-0 place-items-center rounded-full bg-gold text-obsidian disabled:opacity-60"
             aria-label={playing ? "Pause episode" : "Play episode"}
             onClick={togglePlayback}
             disabled={!current}
           >
-            {playing ? <Pause size={20} /> : <Play size={20} />}
+            {status === "loading" && !playing ? (
+              <Loader2 size={20} className="animate-spin" aria-hidden="true" />
+            ) : playing ? (
+              <Pause size={20} />
+            ) : (
+              <Play size={20} />
+            )}
           </button>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
@@ -724,26 +1086,51 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
                 {mode}
               </span>
             </div>
-            <input
-              className="w-full accent-gold"
-              aria-label="Seek playback position"
-              type="range"
-              min={0}
-              max={duration || current?.durationSeconds || 1}
-              value={position}
-              onChange={(event) => seek(Number(event.target.value))}
-              disabled={!current}
-            />
-            <p className="text-xs text-limestone">
-              {formatSeconds(position)} / {formatSeconds(duration || current?.durationSeconds || 0)}
-              {chapter ? ` · ${chapter.title}` : ""}
+            <div className="player-scrubber relative py-1.5">
+              <div className="pointer-events-none absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 overflow-hidden rounded-full bg-gold/15">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-gold/70 to-gold transition-[width] duration-150 ease-out"
+                  style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
+                />
+              </div>
+              <input
+                className="player-range relative w-full"
+                aria-label="Seek playback position"
+                type="range"
+                min={0}
+                max={duration || current?.durationSeconds || 1}
+                value={position}
+                onChange={(event) => seek(Number(event.target.value))}
+                disabled={!current}
+              />
+            </div>
+            <p className="flex flex-wrap items-center gap-x-2 text-xs text-limestone">
+              <span>
+                {formatSeconds(position)} / {formatSeconds(duration || current?.durationSeconds || 0)}
+              </span>
+              {status === "loading" ? <span className="text-gold">buffering…</span> : null}
+              {sleepRemaining !== null ? (
+                <span className="inline-flex items-center gap-1 text-gold">
+                  <Moon size={11} aria-hidden="true" />
+                  {sleepRemaining}m
+                </span>
+              ) : null}
+              {chapter ? <span className="truncate">· {chapter.title}</span> : null}
             </p>
           </div>
-          <button type="button" className="focus-ring hidden rounded p-2 text-parchment sm:block" aria-label="Skip backward 15 seconds" onClick={() => seek(Math.max(0, position - 15))}>
+          <button type="button" className="focus-ring rounded p-2 text-parchment" aria-label="Skip backward 15 seconds" onClick={() => seek(Math.max(0, position - 15))}>
             <RotateCcw size={18} />
           </button>
-          <button type="button" className="focus-ring hidden rounded p-2 text-parchment sm:block" aria-label="Skip forward 30 seconds" onClick={() => seek(position + 30)}>
+          <button type="button" className="focus-ring rounded p-2 text-parchment" aria-label="Skip forward 30 seconds" onClick={() => seek(position + 30)}>
             <RotateCw size={18} />
+          </button>
+          <button
+            type="button"
+            className="focus-ring hidden min-w-14 rounded border border-gold/25 px-2 py-1 text-xs tabular-nums text-gold hover:bg-gold/10 sm:block"
+            aria-label={`Playback speed, currently ${speed} times. Click to change.`}
+            onClick={() => setSpeed(nextSpeed(speed))}
+          >
+            {speed}&times;
           </button>
           <button type="button" className="focus-ring rounded border border-gold/35 p-2 text-gold hover:bg-gold/10" aria-label="Open full player" onClick={() => setExpanded(true)} disabled={!current}>
             <Maximize2 size={18} />

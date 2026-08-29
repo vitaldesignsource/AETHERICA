@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ChapterStartButton } from "@/components/audio/ChapterStartButton";
 import { EpisodePlayButton } from "@/components/audio/EpisodePlayButton";
+import { EpisodeDeepLink } from "@/components/audio/EpisodeDeepLink";
 import { EpisodeMediaChooser } from "@/components/audio/EpisodeMediaChooser";
 import { EpisodeEditorialSummary } from "@/components/episodes/EpisodeEditorialSummary";
 import { SaveToLibraryButton } from "@/components/research/SaveToLibraryButton";
@@ -38,12 +39,17 @@ export default async function EpisodePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const episode = episodes.find((item) => item.slug === slug);
   if (!episode) notFound();
+  // Computed here, on the server, so autoplay-next never needs the episode list in the browser.
+  const episodeIndex = episodes.findIndex((item) => item.slug === episode.slug);
+  const following = episodes.slice(episodeIndex + 1).find((item) => item.audioUrl);
+  const upNext = following ? { slug: following.slug, title: following.title } : null;
   const current = continueTheCurrent(episode);
   const editorialTerms = [episode.guest, ...episode.topics, "Aetherica", "symbol", "ritual", "cosmology"].filter(Boolean);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(episodeJsonLd(episode)) }} />
+      <EpisodeDeepLink episode={episode} upNext={upNext} />
       <Section eyebrow={`Episode ${episode.number}`} title={episode.title}>
         <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,1.12fr)_minmax(340px,.88fr)]">
           <aside className="temple-border sticky top-28 overflow-hidden rounded p-4 max-xl:static xl:order-2" aria-label="Episode listening dossier">
@@ -53,7 +59,7 @@ export default async function EpisodePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
-              <EpisodePlayButton episode={episode} />
+              <EpisodePlayButton episode={episode} upNext={upNext} />
               <SaveToLibraryButton kind="Episode" title={episode.title} href={`/episodes/${episode.slug}`} collection="Episodes to Revisit" note={episode.description} />
             </div>
 
