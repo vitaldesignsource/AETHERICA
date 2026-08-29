@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { HeTuLuoShuComparator } from "@/components/resources/HeTuLuoShuComparator";
 
 export const metadata: Metadata = {
-  title: "He Tu and Luo Shu Comparator | Aetherica",
+  title: "He Tu and Luo Shu Comparator",
   description: "Compare the River Diagram and Luo River Writing through number patterns, orientation, Five-Phase relationships, Bagua overlays, and historical frameworks.",
   alternates: { canonical: "/resources/he-tu-luo-shu" },
   openGraph: {

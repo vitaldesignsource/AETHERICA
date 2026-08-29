@@ -72,13 +72,23 @@ export function TopicChronology({ timeline }: { timeline: Entry[] }) {
         <CalendarDays className="text-gold" size={20} aria-hidden="true" />
         <h2 className="font-display text-3xl text-ivory">Chronology</h2>
       </div>
-      <p className="mt-3 max-w-4xl leading-7 text-parchment">
-        Each period is drawn to its extent on one shared axis, so a three-hundred-year epoch runs
-        three times the length of a hundred-year one. The boundaries are conventional rather than
-        exact: a bar marks where the surviving evidence sits, not the year a tradition began or
-        stopped. The empty stretches are part of the record — but a gap here means this dossier
-        holds nothing in that interval, not that nothing happened in it.
-      </p>
+      {/* Without `usable` there is no axis, no bars and no gaps, so the paragraph below would
+          describe furniture the reader cannot see. A dossier whose timeline carries fewer than two
+          dated entries gets the ordered-list reading instead. */}
+      {usable ? (
+        <p className="mt-3 max-w-4xl leading-7 text-parchment">
+          Each period is drawn to its extent on one shared axis, so a three-hundred-year epoch runs
+          three times the length of a hundred-year one. The boundaries are conventional rather than
+          exact: a bar marks where the surviving evidence sits, not the year a tradition began or
+          stopped. The empty stretches are part of the record — but a gap here means this dossier
+          holds nothing in that interval, not that nothing happened in it.
+        </p>
+      ) : (
+        <p className="mt-3 max-w-4xl leading-7 text-parchment">
+          The periods below are listed in sequence. This dossier does not yet carry dates precise
+          enough to draw them to scale against a shared axis.
+        </p>
+      )}
 
       <div className="relative mt-8">
         {usable ? (
@@ -142,7 +152,7 @@ export function TopicChronology({ timeline }: { timeline: Entry[] }) {
                     <p className="text-[.7rem] tracking-[.06em] tabular-nums text-parchment/85">
                       {point
                         ? yearLabel(entry.startYear)
-                        : `${yearLabel(entry.startYear)} – ${entry.open ? "present" : entry.endYear}`}
+                        : `${yearLabel(entry.startYear)} – ${entry.open ? "present" : yearLabel(entry.endYear)}`}
                     </p>
                   ) : null}
                 </div>

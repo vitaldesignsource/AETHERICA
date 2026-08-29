@@ -51,6 +51,9 @@ export function ArchiveWorkbench({ workbench }: { workbench: TopicDossier["resea
             ) : (
               <a
                 href={`/search?q=${encodeURIComponent(entry.term)}`}
+                // Every fallback link reads "Search the archive"; without this, a links list shows
+                // five identical entries pointing at five different queries.
+                aria-label={`Search the archive for ${entry.term}`}
                 className="focus-ring mt-4 inline-flex items-center gap-1.5 text-xs uppercase tracking-[.16em] text-gold transition hover:text-ivory"
               >
                 Search the archive

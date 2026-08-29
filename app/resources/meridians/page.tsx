@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TaoistSuiteInstrument } from "@/components/resources/TaoistSuiteInstrument";
 
 export const metadata: Metadata = {
-  title: "Meridian and Element Explorer | Aetherica",
+  title: "Meridian and Element Explorer",
   description: "Explore the traditional channel network through yin-yang pairings, Five-Phase relationships, bodily pathways, and daily cycles.",
   alternates: { canonical: "/resources/meridians" },
   openGraph: { title: "Meridian and Element Explorer | Aetherica", description: "A non-diagnostic educational channel and Five-Phase explorer.", type: "website" }

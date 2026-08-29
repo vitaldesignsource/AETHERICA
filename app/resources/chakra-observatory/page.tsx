@@ -3,7 +3,7 @@ import { ChakraObservatory } from "@/components/resources/ChakraObservatory";
 import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
-  title: "The Chakra Observatory | Aetherica",
+  title: "The Chakra Observatory",
   description:
     "A standalone interactive chakra and subtle-body research instrument for studying the seven centers, symbolic anatomy, mantra, layers, and comparative mappings.",
   alternates: {

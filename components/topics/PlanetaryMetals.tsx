@@ -159,7 +159,7 @@ export function PlanetaryMetals() {
         </div>
 
         {/* Tria prima */}
-        <ul className="grid gap-4 sm:grid-cols-3">
+        <ul role="list" className="grid gap-4 sm:grid-cols-3">
           {principles.map((principle) => (
             <li key={principle.name} className="rounded border border-gold/20 bg-black/45 p-5">
               <div className="flex items-center gap-3">
@@ -183,7 +183,7 @@ export function PlanetaryMetals() {
             aria-hidden
           />
 
-          <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+          <ol role="list" className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {metals.map((metal) => (
               <li key={metal.planet} className="group">
                 <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-0">

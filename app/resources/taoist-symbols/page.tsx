@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TaoistSuiteInstrument } from "@/components/resources/TaoistSuiteInstrument";
 
 export const metadata: Metadata = {
-  title: "Taoist Symbol Index | Aetherica",
+  title: "Taoist Symbol Index",
   description: "Explore verified diagrams, characters, emblems, number structures, and symbolic forms across Chinese cosmology and Daoist traditions.",
   alternates: { canonical: "/resources/taoist-symbols" },
   openGraph: { title: "Taoist Symbol Index | Aetherica", description: "A provenance-focused index of Taoist, Yijing, cosmological, and internal-alchemical symbols.", type: "website" }

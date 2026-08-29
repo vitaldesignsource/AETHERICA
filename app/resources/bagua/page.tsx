@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BaguaInstrument } from "@/components/resources/BaguaInstrument";
 
 export const metadata: Metadata = {
-  title: "Bagua Instrument: Explore the Eight Trigrams | Aetherica",
+  title: "Bagua Instrument: Explore the Eight Trigrams",
   description: "Explore the Eight Trigrams, Earlier Heaven and Later Heaven arrangements, line transformations, correspondences, and hexagram construction.",
   alternates: { canonical: "/resources/bagua" },
   openGraph: {

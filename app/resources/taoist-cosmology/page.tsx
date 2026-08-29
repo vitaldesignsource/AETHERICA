@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TaoistCosmologyMap } from "@/components/resources/TaoistCosmologyMap";
 
 export const metadata: Metadata = {
-  title: "Taoist Cosmology Map: From Wuji to the Ten Thousand Things | Aetherica",
+  title: "Taoist Cosmology Map: From Wuji to the Ten Thousand Things",
   description: "Explore Dao, Wuji, Taiji, yin and yang, the Four Images, Five Phases, Eight Trigrams, and the unfolding of manifested form.",
   alternates: { canonical: "/resources/taoist-cosmology" },
   openGraph: {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TaoistSuiteInstrument } from "@/components/resources/TaoistSuiteInstrument";
 
 export const metadata: Metadata = {
-  title: "Microcosmic Orbit / Lesser Mandala | Aetherica",
+  title: "Microcosmic Orbit / Lesser Mandala",
   description: "Study the Xiao Zhou Tian / Lesser Mandala model of the Du Mai ascent and Ren Mai descent within Daoist internal-cultivation systems.",
   alternates: { canonical: "/resources/microcosmic-orbit" },
   openGraph: { title: "Microcosmic Orbit / Lesser Mandala | Aetherica", description: "An educational diagrammatic study tool for Xiao Zhou Tian front-and-back circulation-route models.", type: "website" }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { OrganClockInstrument } from "@/components/resources/OrganClockInstrument";
 
 export const metadata: Metadata = {
-  title: "Taoist Organ Clock Instrument | Aetherica",
+  title: "Taoist Organ Clock Instrument",
   description: "Explore the traditional twelve-period organ-meridian clock, Five-Phase pairings, yin-yang relationships, and daily observation tools.",
   alternates: { canonical: "/resources/organ-clock" },
   openGraph: {

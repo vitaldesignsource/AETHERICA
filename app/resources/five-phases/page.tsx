@@ -4,7 +4,7 @@ import { FivePhasesWheel } from "@/components/resources/FivePhasesWheel";
 import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
-  title: "Five Phases Wheel: Explore Wu Xing Cycles | Aetherica",
+  title: "Five Phases Wheel: Explore Wu Xing Cycles",
   description: "Explore Wood, Fire, Earth, Metal, and Water through the generating, controlling, overacting, and counteracting cycles of Wu Xing.",
   alternates: {
     canonical: "/resources/five-phases"

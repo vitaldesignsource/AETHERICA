@@ -74,6 +74,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const hero = topicHeroes[topic.slug];
   const heroImage = hero ? resolveHeroImage(hero.image) : null;
+  // Only alchemy has hero art so far. Without a fallback the other twelve topics shared to social
+  // render as a bare text link; the site hero is a better card than nothing.
+  const shareImage = heroImage ?? "/images/aetherica-hero.png";
+  const shareImageAlt = heroImage ? hero?.alt ?? topic.title : "Aetherica Podcast";
 
   return {
     title,
@@ -85,13 +89,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url: canonical,
       siteName: "Aetherica Podcast",
       type: "website",
-      images: heroImage ? [{ url: heroImage, alt: hero?.alt ?? topic.title }] : undefined
+      images: [{ url: shareImage, alt: shareImageAlt }]
     },
     twitter: {
-      card: heroImage ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title,
       description,
-      images: heroImage ? [heroImage] : undefined
+      images: [shareImage]
     }
   };
 }
@@ -152,6 +156,16 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
     </>
   );
 
+  const orientation = dossier ? (
+    <div className="mt-6 space-y-5 border-l border-gold/25 pl-5">
+      {dossier.orientation.map((item) => (
+        <p key={item} className="leading-8 text-parchment">
+          {item}
+        </p>
+      ))}
+    </div>
+  ) : null;
+
   const body = (
     <>
       {dossier ? (
@@ -164,15 +178,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
             {/* The orientation paragraphs live here rather than in their own boxed row: they are the
                 only prose long enough to balance the tall plate, and nesting them in cards inside a
                 card was the page's worst box-in-box. */}
-            {dossier ? (
-              <div className="mt-6 space-y-5 border-l border-gold/25 pl-5">
-                {dossier.orientation.map((item) => (
-                  <p key={item} className="leading-8 text-parchment">
-                    {item}
-                  </p>
-                ))}
-              </div>
-            ) : null}
+            {orientation}
           </TopicFeature>
           <aside className="temple-border mt-10 rounded p-6">
             <h2 className="font-display text-2xl text-ivory">Featured Episodes</h2>
@@ -183,15 +189,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
         <div className="grid gap-8 lg:grid-cols-[1fr_.8fr]">
           <article className="mt-8 leading-8 text-parchment">
             {overviewProse}
-            {dossier ? (
-              <div className="mt-6 space-y-5 border-l border-gold/25 pl-5">
-                {dossier.orientation.map((item) => (
-                  <p key={item} className="leading-8 text-parchment">
-                    {item}
-                  </p>
-                ))}
-              </div>
-            ) : null}
+            {orientation}
           </article>
           <aside className="temple-border mt-8 rounded p-5">
             <h2 className="font-display text-2xl text-ivory">Featured Episodes</h2>

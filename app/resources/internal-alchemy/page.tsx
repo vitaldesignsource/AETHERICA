@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TaoistSuiteInstrument } from "@/components/resources/TaoistSuiteInstrument";
 
 export const metadata: Metadata = {
-  title: "Internal Alchemy Map: Explore Neidan Symbolism | Aetherica",
+  title: "Internal Alchemy Map: Explore Neidan Symbolism",
   description: "Explore Neidan concepts including Jing, Qi, Shen, dantian models, Kan and Li, furnace and cauldron imagery, refinement, and return.",
   alternates: { canonical: "/resources/internal-alchemy" },
   openGraph: { title: "Internal Alchemy Map | Aetherica", description: "A cautious comparative study instrument for Daoist internal-alchemy symbolism.", type: "website" }

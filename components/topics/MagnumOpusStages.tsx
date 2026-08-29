@@ -75,7 +75,7 @@ export function MagnumOpusStages() {
             aria-hidden
           />
 
-          <ol className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          <ol role="list" className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
             {stages.map((stage, index) => (
               <li key={stage.latin} className="opus-stage group relative">
                 <div className="flex justify-center lg:justify-start">

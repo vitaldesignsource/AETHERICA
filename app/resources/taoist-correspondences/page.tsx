@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TaoistSuiteInstrument } from "@/components/resources/TaoistSuiteInstrument";
 
 export const metadata: Metadata = {
-  title: "Taoist Correspondence Matrix | Aetherica",
+  title: "Taoist Correspondence Matrix",
   description: "Explore relationships among phases, seasons, directions, trigrams, organs, climates, tastes, virtues, symbols, and texts.",
   alternates: { canonical: "/resources/taoist-correspondences" },
   openGraph: { title: "Taoist Correspondence Matrix | Aetherica", description: "A searchable Chinese cosmological correspondence engine with framework and source labels.", type: "website" }

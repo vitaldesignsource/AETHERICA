@@ -4,7 +4,7 @@ import { TaijituPolarityInstrument } from "@/components/resources/TaijituPolarit
 import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
-  title: "Taijitu Polarity Instrument: Explore Yin and Yang | Aetherica",
+  title: "Taijitu Polarity Instrument: Explore Yin and Yang",
   description: "Explore yin and yang as a living cycle of polarity, transformation, mutual containment, the Four Images, Five Phases, and the emergence of the Eight Trigrams.",
   alternates: {
     canonical: "/resources/taijitu-polarity"
