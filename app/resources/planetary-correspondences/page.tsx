@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function PlanetaryCorrespondencesPage() {
   return (
-    <Section eyebrow="Resources / Correspondence" title="Planetary Correspondence Reference">
+    <Section titleAs="h1" eyebrow="Resources / Correspondence" title="Planetary Correspondence Reference">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>Browse compact planetary correspondences for color, incense, materials, activities, and traditional cautions.</p>
       </div>

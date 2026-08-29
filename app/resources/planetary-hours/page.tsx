@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PlanetaryHoursPage() {
   return (
-    <Section eyebrow="Resources / Planetary hours" title="Planetary Hours Calculator">
+    <Section titleAs="h1" eyebrow="Resources / Planetary hours" title="Planetary Hours Calculator">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>
           This calculator uses the traditional unequal-hour model: daylight is divided into twelve planetary hours from sunrise to sunset, and night is divided into twelve planetary hours from sunset to next sunrise.

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function GuestsPage() {
   return (
-    <Section eyebrow="Guests" title="Guest archive">
+    <Section titleAs="h1" eyebrow="Guests" title="Guest archive">
       <div className="grid gap-5 md:grid-cols-2">
         {guests.map((guest) => (
           <Link key={guest.slug} href={`/guests/${guest.slug}`} className="temple-border focus-ring grid gap-5 rounded p-6 sm:grid-cols-[144px_1fr]">

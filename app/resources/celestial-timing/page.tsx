@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CelestialTimingPage() {
   return (
-    <Section eyebrow="Resources / Celestial timing" title="Celestial Timing Instruments">
+    <Section titleAs="h1" eyebrow="Resources / Celestial timing" title="Celestial Timing Instruments">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>
           A practical suite for traditional timing: planetary day, moon phase, lunar mansion, zodiacal position, and decan placement from a selected date and time.

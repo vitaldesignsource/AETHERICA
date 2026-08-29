@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function SacredCalendarPage() {
   return (
-    <Section eyebrow="Resources / Calendar" title="Sacred Calendar">
+    <Section titleAs="h1" eyebrow="Resources / Calendar" title="Sacred Calendar">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>Browse recurring seasonal and liturgical dates as a study calendar for symbolic timing, research planning, and archive notes.</p>
       </div>

@@ -63,7 +63,7 @@ export default async function GuestPage({ params }: { params: Promise<{ slug: st
   const relatedGuests = (guest.relatedGuests ?? []).map((name) => ({ name, slug: slugifyName(name) }));
 
   return (
-    <Section eyebrow="Guest profile" title={guest.name}>
+    <Section titleAs="h1" eyebrow="Guest profile" title={guest.name}>
       <div className="grid gap-8 lg:grid-cols-[1fr_.72fr]">
         <article>
           <div className="grid gap-6 sm:grid-cols-[200px_1fr]">

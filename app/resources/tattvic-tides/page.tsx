@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TattvicTidesPage() {
   return (
-    <Section eyebrow="Resources / Tattvic tides" title="Tattvic Tides Calculator">
+    <Section titleAs="h1" eyebrow="Resources / Tattvic tides" title="Tattvic Tides Calculator">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>
           This calculator presents the five tattvas as a timing instrument with selectable methods. Use sunrise-based, fixed-clock, or custom-start cycles depending on the convention you are studying.

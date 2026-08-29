@@ -230,7 +230,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
   }
 
   return (
-    <Section eyebrow="Topic" title={topic.title}>
+    <Section titleAs="h1" eyebrow="Topic" title={topic.title}>
       <TopicCoverArt topic={topic} />
       <div className="mt-8">{body}</div>
       {dossier ? <TopicDossier dossier={dossier} /> : null}

@@ -50,7 +50,7 @@ export default async function EpisodePage({ params }: { params: Promise<{ slug: 
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(episodeJsonLd(episode)) }} />
       <EpisodeDeepLink episode={episode} upNext={upNext} />
-      <Section eyebrow={`Episode ${episode.number}`} title={episode.title}>
+      <Section titleAs="h1" eyebrow={`Episode ${episode.number}`} title={episode.title}>
         <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,1.12fr)_minmax(340px,.88fr)]">
           <aside className="temple-border sticky top-28 overflow-hidden rounded p-4 max-xl:static xl:order-2" aria-label="Episode listening dossier">
             <div className="relative overflow-hidden rounded border border-gold/20 bg-black">

@@ -18,7 +18,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const fallbackResults = searchArchive(query).slice(0, 8);
 
   return (
-    <Section eyebrow="Spoken archive" title="Search every passage we have">
+    <Section titleAs="h1" eyebrow="Spoken archive" title="Search every passage we have">
       <form className="temple-border mb-8 flex flex-col gap-3 rounded p-4 sm:flex-row" role="search">
         <label className="sr-only" htmlFor="q">Search query</label>
         <input

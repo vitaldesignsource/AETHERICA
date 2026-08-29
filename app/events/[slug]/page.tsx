@@ -32,7 +32,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd(event)) }} />
-      <Section eyebrow={event.type} title={event.title}>
+      <Section titleAs="h1" eyebrow={event.type} title={event.title}>
         <article className="temple-border rounded p-6">
           {event.imageUrl ? (
             <Image src={event.imageUrl} alt="" width={1100} height={650} className="mb-6 aspect-video w-full rounded bg-obsidian object-contain" />

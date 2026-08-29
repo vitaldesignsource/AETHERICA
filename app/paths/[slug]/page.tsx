@@ -69,7 +69,7 @@ export default async function PathPage({ params }: { params: Promise<{ slug: str
         }}
       />
       {/* The heading used to be the literal string "Curated route" on every path in the set. */}
-      <Section eyebrow="Initiatic listening path" title={path.title}>
+      <Section titleAs="h1" eyebrow="Initiatic listening path" title={path.title}>
         <p className="max-w-3xl text-xl leading-9 text-ivory">{path.summary}</p>
 
         <dl className="mt-8 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4">

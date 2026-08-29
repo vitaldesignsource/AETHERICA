@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function TopicsPage() {
   return (
-    <Section eyebrow="Topics" title="Editorial subject paths">
+    <Section titleAs="h1" eyebrow="Topics" title="Editorial subject paths">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {topics.map((topic) => (
           <TopicPathCard key={topic.slug} topic={topic} />

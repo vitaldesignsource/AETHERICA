@@ -24,9 +24,10 @@ export function ExploreArchiveHeader({ episodeCount, chapterCount, transcriptCou
         <div className="relative grid min-h-[24rem] gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[.92fr_1.08fr] lg:px-12">
           <div className="flex max-w-3xl flex-col justify-center">
             <p className="text-xs uppercase tracking-[.38em] text-gold">Explore the archive</p>
-            <h1 className="font-manuscript-title mt-4 max-w-4xl text-5xl leading-none text-ivory sm:text-7xl">
+            {/* The page hero above owns the h1; this introduces the index beneath it. */}
+            <h2 className="font-manuscript-title mt-4 max-w-4xl text-5xl leading-none text-ivory sm:text-7xl">
               Browse the living index of Aetherica
-            </h1>
+            </h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-parchment sm:text-lg">
               Move through episodes, chapters, guests, topics, and transcript-rich paths as one connected research field.
             </p>

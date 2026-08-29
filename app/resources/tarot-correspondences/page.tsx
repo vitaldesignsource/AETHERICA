@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TarotCorrespondencesPage() {
   return (
-    <Section eyebrow="Resources / Tarot correspondence" title="Tarot Correspondence Matrix">
+    <Section titleAs="h1" eyebrow="Resources / Tarot correspondence" title="Tarot Correspondence Matrix">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>Compare major tarot keys with Hebrew letters, Tree of Life paths, and Hermetic attributions in a clearly labeled system table.</p>
       </div>

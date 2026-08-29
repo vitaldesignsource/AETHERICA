@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function HebrewTransliterationPage() {
   return (
-    <Section eyebrow="Resources / Language and number" title="Hebrew Gematria and Transliteration">
+    <Section titleAs="h1" eyebrow="Resources / Language and number" title="Hebrew Gematria and Transliteration">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>Convert Hebrew letters into a simple letter-by-letter study rendering, browse the alphabet table, and move back into gematria analysis without leaving the instrument.</p>
       </div>

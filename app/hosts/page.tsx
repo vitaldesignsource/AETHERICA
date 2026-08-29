@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function HostsPage() {
   return (
-    <Section eyebrow="Hosts" title="Sky Mathis and Ike Baker">
+    <Section titleAs="h1" eyebrow="Hosts" title="Sky Mathis and Ike Baker">
       <div className="grid gap-5 md:grid-cols-2">
         {hosts.map((host) => (
           <article key={host.slug} className="temple-border grid gap-5 rounded p-6 sm:grid-cols-[144px_1fr]">

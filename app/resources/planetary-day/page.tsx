@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PlanetaryDayPage() {
   return (
-    <Section eyebrow="Resources / Celestial timing" title="Planetary Day Calculator">
+    <Section titleAs="h1" eyebrow="Resources / Celestial timing" title="Planetary Day Calculator">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>The planetary day calculator identifies the traditional planetary ruler of the selected weekday and gives related correspondences.</p>
       </div>

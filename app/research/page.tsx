@@ -49,7 +49,7 @@ const researchTools = [
 
 export default function ResearchPage() {
   return (
-    <Section eyebrow="Research library" title="Study the archive as a living system">
+    <Section titleAs="h1" eyebrow="Research library" title="Study the archive as a living system">
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {researchTools.map(({ title, href, icon: Icon, description }) => (
           <Link key={href} href={href} className="temple-border focus-ring rounded p-5 hover:border-gold/60">

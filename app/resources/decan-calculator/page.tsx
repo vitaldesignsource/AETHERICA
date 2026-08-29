@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function DecanCalculatorPage() {
   return (
-    <Section eyebrow="Resources / Celestial timing" title="Decan Calculator">
+    <Section titleAs="h1" eyebrow="Resources / Celestial timing" title="Decan Calculator">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>Identify the approximate solar and lunar decans for a selected date and time, including traditional decan ruler and zodiacal range.</p>
       </div>

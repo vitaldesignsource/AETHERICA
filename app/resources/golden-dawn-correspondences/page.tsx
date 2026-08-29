@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function GoldenDawnCorrespondencesPage() {
   return (
-    <Section eyebrow="Resources / Hermetic correspondence" title="Golden Dawn Correspondence Explorer">
+    <Section titleAs="h1" eyebrow="Resources / Hermetic correspondence" title="Golden Dawn Correspondence Explorer">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>Search a compact Hermetic correspondence table for planets, elements, Sephiroth, colors, symbols, and study keywords.</p>
       </div>

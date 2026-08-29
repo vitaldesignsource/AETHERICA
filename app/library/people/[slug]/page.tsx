@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function PersonPage() {
   return (
-    <Section eyebrow="Historical person" title="Demo Person Record">
+    <Section titleAs="h1" eyebrow="Historical person" title="Demo Person Record">
       <p className="text-parchment">Historical person records connect episodes, transcript references, books, traditions, organizations, and related figures.</p>
     </Section>
   );

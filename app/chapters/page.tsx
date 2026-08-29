@@ -14,7 +14,7 @@ export default function ChaptersPage() {
   const entries = allChapterEntries().slice(0, 60);
 
   return (
-    <Section eyebrow="Chapter discovery" title="Enter through the exact passage">
+    <Section titleAs="h1" eyebrow="Chapter discovery" title="Enter through the exact passage">
       <p className="max-w-3xl leading-8 text-parchment">
         Each chapter can behave like a small research object: title, summary, timestamp URL, keywords, topics, quotations, and a suggested next step.
       </p>

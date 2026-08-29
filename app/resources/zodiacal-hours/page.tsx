@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function ZodiacalHoursPage() {
   return (
-    <Section eyebrow="Resources / Celestial timing" title="Zodiacal Hour Calculator">
+    <Section titleAs="h1" eyebrow="Resources / Celestial timing" title="Zodiacal Hour Calculator">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>Divide sunrise to the next sunrise into twelve symbolic zodiacal periods, beginning from the Sun’s approximate sign.</p>
       </div>

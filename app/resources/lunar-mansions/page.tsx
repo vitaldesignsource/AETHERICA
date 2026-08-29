@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function LunarMansionsPage() {
   return (
-    <Section eyebrow="Resources / Celestial timing" title="Lunar Mansion Calculator">
+    <Section titleAs="h1" eyebrow="Resources / Celestial timing" title="Lunar Mansion Calculator">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>Locate the Moon within the 28 lunar mansions using an approximate ecliptic division and see the Moon’s zodiacal position.</p>
       </div>

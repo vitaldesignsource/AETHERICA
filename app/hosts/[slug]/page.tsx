@@ -33,7 +33,7 @@ export default async function HostPage({ params }: { params: Promise<{ slug: str
   const hostEpisodes = episodes.filter((episode) => episode.hosts.includes(host.name));
 
   return (
-    <Section eyebrow="Host profile" title={host.name}>
+    <Section titleAs="h1" eyebrow="Host profile" title={host.name}>
       <div className="grid gap-8 lg:grid-cols-[1fr_.8fr]">
         <article>
           <div className="grid gap-6 sm:grid-cols-[180px_1fr]">

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function ChakraObservatoryPage() {
   return (
-    <Section eyebrow="Resources / Subtle body library" title="The Chakra Observatory">
+    <Section titleAs="h1" eyebrow="Resources / Subtle body library" title="The Chakra Observatory">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>
           A standalone Aetherica instrument for studying the seven chakras as a symbolic, educational, and comparative

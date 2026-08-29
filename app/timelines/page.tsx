@@ -12,7 +12,7 @@ export default function TimelinesPage() {
   const groups = Array.from(new Set(timelines.map((point) => point.topic)));
 
   return (
-    <Section eyebrow="Interactive timelines" title="Historical maps for the archive">
+    <Section titleAs="h1" eyebrow="Interactive timelines" title="Historical maps for the archive">
       <div className="grid gap-10">
         {groups.map((group) => (
           <section key={group}>

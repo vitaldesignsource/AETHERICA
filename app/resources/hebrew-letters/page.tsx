@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function HebrewLettersPage() {
   return (
-    <Section eyebrow="Resources / Language and number" title="Hebrew Letter Explorer">
+    <Section titleAs="h1" eyebrow="Resources / Language and number" title="Hebrew Letter Explorer">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>
           A curated alphabet tool for studying Hebrew letter forms, script history, names, pronunciation, numerical values, symbolism, Sefer Yetzirah associations, historical notes, and related Aetherica archive content.

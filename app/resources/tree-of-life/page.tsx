@@ -15,7 +15,7 @@ export default function TreeOfLifePage() {
   const plate = resolveSiteImage("/images/resources/tree-of-life-sephiroth");
 
   return (
-    <Section eyebrow="Resources / Qabalah" title="Tree of Life Correspondence Explorer">
+    <Section titleAs="h1" eyebrow="Resources / Qabalah" title="Tree of Life Correspondence Explorer">
       <div className="mb-10 grid items-start gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)]">
       <div className="max-w-4xl leading-8 text-parchment">
         <p>

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function StratifiedHumanPage() {
   return (
-    <Section eyebrow="Resources / Coming soon" title="The Stratified Human">
+    <Section titleAs="h1" eyebrow="Resources / Coming soon" title="The Stratified Human">
       <div className="temple-border max-w-4xl rounded p-6">
         <p className="text-xs uppercase tracking-[.26em] text-gold">Instrument unavailable for now</p>
         <h2 className="font-manuscript-title mt-4 font-display text-4xl text-ivory">Subtle-body atlas reserved for a future release</h2>

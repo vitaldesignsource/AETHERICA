@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function FixedStarsPage() {
   return (
-    <Section eyebrow="Resources / Celestial timing" title="Fixed-Star Reference">
+    <Section titleAs="h1" eyebrow="Resources / Celestial timing" title="Fixed-Star Reference">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>Explore a compact set of major fixed stars and compare their zodiacal longitudes to the approximate Sun and Moon positions.</p>
       </div>

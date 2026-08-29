@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TimingJournalPage() {
   return (
-    <Section eyebrow="Resources / Research journal" title="Astrological Timing Journal">
+    <Section titleAs="h1" eyebrow="Resources / Research journal" title="Astrological Timing Journal">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>The private timing journal will open with the future account system, allowing saved planetary hours, lunar observations, elections, outcomes, and research notes to stay connected to each listener&apos;s archive.</p>
       </div>

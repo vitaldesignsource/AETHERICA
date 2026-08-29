@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ElectionPlannerPage() {
   return (
-    <Section eyebrow="Resources / Celestial timing" title="Astrological Election Planner">
+    <Section titleAs="h1" eyebrow="Resources / Celestial timing" title="Astrological Election Planner">
       <div className="mb-8 max-w-4xl leading-8 text-parchment">
         <p>Compare upcoming days by planetary day, lunar phase, lunar mansion, and lunar sign as a first-pass electional planning aid.</p>
       </div>
