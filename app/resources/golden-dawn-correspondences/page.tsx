@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { PracticalResourceSuite } from "@/components/resources/PracticalResourceSuite";
+import { InstrumentBrief } from "@/components/resources/InstrumentBrief";
+import { instrumentBriefs } from "@/lib/data/instrumentBriefs";
 import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
   title: "Golden Dawn Correspondence Explorer",
-  description: "Explore compact Hermetic Golden Dawn-style correspondence tables with system labels."
+  description: "Explore compact Hermetic Golden Dawn-style correspondence tables with system labels.",
+  alternates: { canonical: "/resources/golden-dawn-correspondences" }
 };
 
 export default function GoldenDawnCorrespondencesPage() {
@@ -14,6 +17,7 @@ export default function GoldenDawnCorrespondencesPage() {
         <p>Search a compact Hermetic correspondence table for planets, elements, Sephiroth, colors, symbols, and study keywords.</p>
       </div>
       <PracticalResourceSuite kind="golden-dawn" />
+      <InstrumentBrief brief={instrumentBriefs["golden-dawn-correspondences"]} />
     </Section>
   );
 }

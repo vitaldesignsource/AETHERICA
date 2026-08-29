@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { CelestialInstrument } from "@/components/resources/CelestialInstrument";
+import { InstrumentBrief } from "@/components/resources/InstrumentBrief";
+import { instrumentBriefs } from "@/lib/data/instrumentBriefs";
 import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
@@ -18,6 +20,7 @@ export default function CelestialInstrumentPage() {
         </p>
       </div>
       <CelestialInstrument standalone />
+      <InstrumentBrief brief={instrumentBriefs["celestial-instrument"]} />
     </Section>
   );
 }
