@@ -71,6 +71,622 @@ export type TopicDossier = {
 };
 
 export const topicDossiers: Record<string, TopicDossier> = {
+  astrology: {
+    slug: "astrology",
+    subtitle: "A dossier on the oldest continuous science of correspondence: omen lore to horoscopy, the great systems east and west, and the instruments this archive keeps for working them.",
+    orientation: [
+      "Astrology is not one system but a family of them, descended from Mesopotamian omen-watching through a Hellenistic synthesis that gave the West its horoscope: ascendant, houses, aspects, and lots, assembled in Greco-Roman Egypt around the second century BCE.",
+      "The family then divides. India received the Hellenistic material and grew Jyotisha around the sidereal zodiac and the lunar mansions; China built an astrology on entirely different foundations — no ecliptic zodiac at all, but stems, branches, and the five phases; the Arabic world systematized what Rome let slip and handed it back to Europe twice over.",
+      "The page holds the working parts: the four branches of practice, the tropical and sidereal zodiacs, the glyphs, the house systems, and the chart shapes — with the atlas below drawing what prose describes, and the archive's own instruments linked where they compute it."
+    ],
+    lenses: [
+      {
+        title: "Four Branches",
+        summary: "One sky, four questions: the same machinery answers each differently.",
+        points: ["Natal — the birth moment", "Horary — the question's moment", "Electional — choosing a moment", "Mundane — nations and epochs"]
+      },
+      {
+        title: "Two Zodiacs",
+        summary: "Tropical measures from the equinox; sidereal from the stars. They agreed around 285 CE and have drifted a degree every 72 years since.",
+        points: ["Tropical: seasons", "Sidereal: constellations", "Ayanamsa: the offset", "Neither is 'wrong' — they measure different things"]
+      },
+      {
+        title: "Aetherica Use",
+        summary: "This topic is the reading room for the archive's largest instrument suite.",
+        points: ["Celestial Instrument", "Decans and mansions", "Planetary hours", "Electional planner"]
+      }
+    ],
+    traditions: [
+      {
+        name: "Hellenistic astrology",
+        period: "2nd century BCE-7th century CE",
+        summary: "The synthesis that invented the horoscope: ascendant, twelve places, aspects, lots, sect, and time-lords, worked in Greco-Roman Egypt and codified by Ptolemy and Vettius Valens.",
+        metaphysics: ["Whole-sign houses", "Sect: day and night charts", "The lots, Fortune first", "Time-lord periods"],
+        sourceTexts: ["Ptolemy, Tetrabiblos", "Vettius Valens, Anthology", "Dorotheus, Carmen Astrologicum"]
+      },
+      {
+        name: "Jyotisha (Indian)",
+        period: "2nd century CE-present",
+        summary: "India's unbroken tradition: the sidereal zodiac, the twenty-seven nakshatras, planetary periods (dashas) that time the whole life, and a divisional-chart method of great refinement.",
+        metaphysics: ["Sidereal zodiac with ayanamsa", "Nakshatras — the lunar mansions", "Vimshottari dasha periods", "Divisional (varga) charts"],
+        sourceTexts: ["Yavanajataka", "Brihat Parashara Hora Shastra", "Varahamihira, Brihat Samhita"]
+      },
+      {
+        name: "Chinese astrology",
+        period: "Han dynasty-present",
+        summary: "A parallel invention on different foundations: no ecliptic zodiac, but ten heavenly stems and twelve earthly branches crossing into the sixty-year cycle, read through the five phases — the Four Pillars of birth year, month, day, and hour.",
+        metaphysics: ["Stems and branches", "The sixty-year cycle", "Five phases, not four elements", "Four Pillars (BaZi)"],
+        sourceTexts: ["Han shu astronomical treatises", "Yuan Hai Zi Ping"]
+      },
+      {
+        name: "Perso-Arabic and medieval Latin",
+        period: "8th-17th century",
+        summary: "The Abbasid translators systematized Greek and Indian material into the astrology Europe relearned twice — horary and electional practice at full sophistication, mundane cycles of Jupiter and Saturn, and the dignities elaborated into a scored system.",
+        metaphysics: ["Essential and accidental dignity", "Horary judgment", "Great conjunction cycles", "Quadrant house division"],
+        sourceTexts: ["Masha'allah, On Reception", "Abu Ma'shar, Great Introduction", "Bonatti, Liber Astronomiae", "Lilly, Christian Astrology"]
+      },
+      {
+        name: "Modern and psychological",
+        period: "1890-present",
+        summary: "Alan Leo simplified the craft around character; Rudhyar and the Jungians rebuilt it as a psychology of individuation; the Uranian and midpoint schools re-engineered its geometry; and from 1993 the traditional sources returned in new translation.",
+        metaphysics: ["Character as destiny", "Outer planets as generational", "Midpoints and harmonics", "The traditional revival"],
+        sourceTexts: ["Alan Leo, The Art of Synthesis", "Rudhyar, The Astrology of Personality", "Project Hindsight translations"]
+      }
+    ],
+    timeline: [
+      {
+        era: "c. 1800-1000 BCE",
+        title: "Omen watching",
+        summary: "Mesopotamian scholars compile celestial omens — eclipse, halo, planet rising — into the great series Enuma Anu Enlil: seventy tablets of if-then statements linking sky to kingdom. Astrology begins as state intelligence, not personal character.",
+        startYear: -1800,
+        endYear: -1000,
+        anchors: ["Venus tablet of Ammisaduqa, c. 17th century BCE observations", "Enuma Anu Enlil compiled by c. 1000 BCE"]
+      },
+      {
+        era: "410 BCE",
+        title: "The first birth chart",
+        summary: "A cuneiform tablet records planetary positions for a child born late in the fifth century — the earliest known natal horoscope. The sky's attention turns from the king to the individual.",
+        startYear: -410,
+        endYear: -410,
+        anchors: ["Babylonian horoscope texts, earliest dated 410 BCE"]
+      },
+      {
+        era: "2nd century BCE-2nd century CE",
+        title: "The Hellenistic synthesis",
+        summary: "In Ptolemaic and Roman Egypt the Babylonian zodiac meets Egyptian decans and Greek geometry: ascendant, twelve places, aspects, lots, and sect appear together as a working system — the horoscope as the West still recognizes it.",
+        startYear: -150,
+        endYear: 200,
+        anchors: ["Nechepsos-Petosiris literature, 2nd century BCE", "Vettius Valens' Anthology, c. 150-175 CE"]
+      },
+      {
+        era: "c. 150",
+        title: "Ptolemy's Tetrabiblos",
+        summary: "The astronomer of the Almagest writes astrology's most durable defense: a natural-philosophical account of celestial influence that will carry the art through fourteen centuries of respectability.",
+        startYear: 150,
+        endYear: 150
+      },
+      {
+        era: "2nd-6th century",
+        title: "India receives and transforms",
+        summary: "The Yavanajataka — 'sayings of the Greeks' — carries Hellenistic horoscopy to India, where it fuses with the nakshatra tradition and the sidereal frame into Jyotisha: the same bones, a different living body.",
+        startYear: 150,
+        endYear: 600,
+        anchors: ["Yavanajataka, 2nd-3rd century CE", "Varahamihira, 6th century"]
+      },
+      {
+        era: "750-1000",
+        title: "The Arabic golden age",
+        summary: "Baghdad's translators and masters — Masha'allah, Sahl, Abu Ma'shar — systematize horary, perfect electional method, and build mundane astrology on Jupiter-Saturn conjunctions. Most of what medieval Europe knew, it learned from these books.",
+        startYear: 750,
+        endYear: 1000,
+        anchors: ["Baghdad founded on an election, 762", "Abu Ma'shar dies 886"]
+      },
+      {
+        era: "1100-1300",
+        title: "Latin Europe relearns the art",
+        summary: "Translation from Arabic restores astrology to the schools; it enters medicine, court, and calendar. Bonatti writes the Latin summa, and cathedral sculpture puts the zodiac over the doors.",
+        startYear: 1100,
+        endYear: 1300
+      },
+      {
+        era: "1450-1650",
+        title: "Apex and rupture",
+        summary: "Print scatters ephemerides and almanacs; every court keeps an astrologer; Lilly's Christian Astrology gives English its horary classic in 1647 — while the new astronomy quietly removes the cosmology the art had rested on.",
+        startYear: 1450,
+        endYear: 1650,
+        anchors: ["Regiomontanus' ephemerides, 1474", "Lilly, Christian Astrology, 1647"]
+      },
+      {
+        era: "1650-1890",
+        title: "The long eclipse",
+        summary: "Astrology loses the universities and survives in almanacs and among surveyors of the curious. The practice thins to sun-sign fortune-telling's ancestors — but the texts wait.",
+        startYear: 1650,
+        endYear: 1890
+      },
+      {
+        era: "1890-1930",
+        title: "Revival through Theosophy",
+        summary: "Alan Leo rebuilds astrology around character — 'character is destiny' — and mass-produces it by mail; prosecuted twice under the Vagrancy Act, he moves the art decisively from event-prediction toward psychology. In 1930 the modern sun-sign column is born.",
+        startYear: 1890,
+        endYear: 1930,
+        anchors: ["Leo's Modern Astrology from 1895", "R. H. Naylor's column on Princess Margaret, 1930"]
+      },
+      {
+        era: "1936-1980",
+        title: "The psychological turn",
+        summary: "Rudhyar reads the chart as a seed-pattern of individuation; Jung uses synchronicity to give correspondence a modern name; Ebertin's midpoints and the Hamburg school re-engineer the geometry. The chart becomes a mirror more than an oracle.",
+        startYear: 1936,
+        endYear: 1980,
+        anchors: ["The Astrology of Personality, 1936", "Jung's foreword experiments, 1950s"]
+      },
+      {
+        era: "1993-present",
+        title: "The traditional revival",
+        summary: "Project Hindsight begins translating the Hellenistic corpus; whole-sign houses, sect, and time-lords return to working practice. For the first time, the tradition's whole depth — Babylonian to modern — is in print at once.",
+        startYear: 1993,
+        endYear: 2024,
+        open: true,
+        anchors: ["Project Hindsight founded 1993", "Valens' Anthology complete in English, 2010"]
+      }
+    ],
+    figures: [
+      { name: "Berossus", period: "c. 300 BCE", importance: "Babylonian priest credited with carrying the omen tradition to the Greek world — the legendary hinge between Mesopotamia and the Hellenistic synthesis." },
+      { name: "Claudius Ptolemy", period: "c. 100-170", importance: "Author of the Tetrabiblos, astrology's great apologia, and of the Almagest that fixed its sky." },
+      { name: "Vettius Valens", period: "120-c. 175", importance: "Working astrologer whose Anthology preserves more actual Hellenistic practice — with worked charts — than any other source." },
+      { name: "Abu Ma'shar", period: "787-886", importance: "Baghdad's great systematizer; his Great Introduction defined the art for the Arabic world and, in translation, for Latin Europe." },
+      { name: "Guido Bonatti", period: "c. 1210-1296", importance: "The Latin Middle Ages' most cited astrologer — consulted by cities and condottieri, placed in Dante's Inferno for it." },
+      { name: "William Lilly", period: "1602-1681", importance: "England's master of horary, whose Christian Astrology remains the working manual of the judgment of questions." },
+      { name: "Alan Leo", period: "1860-1917", importance: "Father of the modern revival: character-centered, Theosophical, and twice prosecuted for it." },
+      { name: "Dane Rudhyar", period: "1895-1985", importance: "Composer-philosopher who rebuilt astrology as a psychology of becoming — the chart as seed, not sentence." }
+    ],
+    sourceTexts: [
+      { title: "Enuma Anu Enlil", tradition: "Mesopotamian", note: "The seventy-tablet omen series: the sky read as the gods' correspondence with the state." },
+      { title: "Tetrabiblos", tradition: "Hellenistic", note: "Ptolemy's four books: the natural-philosophical case for celestial influence, and the tradition's anchor of respectability." },
+      { title: "Anthology", tradition: "Hellenistic", note: "Valens' nine books of working technique with over a hundred example charts — the practitioner's counterpart to Ptolemy's theory." },
+      { title: "Brihat Parashara Hora Shastra", tradition: "Jyotisha", note: "The foundational compendium of Indian natal method: houses, dashas, and the divisional charts." },
+      { title: "Great Introduction", tradition: "Perso-Arabic", note: "Abu Ma'shar's summa, the channel through which Aristotelian cosmology and Persian cycles entered the art." },
+      { title: "Christian Astrology", tradition: "Early modern", note: "Lilly's 1647 English classic — horary judgment taught by hundreds of worked examples." },
+      { title: "The Astrology of Personality", tradition: "Modern", note: "Rudhyar's 1936 reformation: the birth chart as a whole-pattern of individuation rather than a list of fates." }
+    ],
+    researchWorkbench: {
+      glossary: [
+        { term: "Ascendant", definition: "The degree of the zodiac rising at the eastern horizon for a given moment and place — the hinge on which the whole chart turns." },
+        { term: "Sect", definition: "The day/night division of Hellenistic practice: diurnal charts favor Sun, Jupiter, Saturn; nocturnal favor Moon, Venus, Mars. A planet's condition changes with the chart's sect.", register: "Hellenistic" },
+        { term: "Dignity", definition: "A planet's strength by zodiacal position — domicile, exaltation, triplicity, term, face — scored and weighed in traditional judgment." },
+        { term: "Lot (Part)", definition: "A calculated point projected from an arc between two bodies, the Lot of Fortune first among many; most reverse their formula by sect.", register: "Hellenistic" },
+        { term: "Ayanamsa", definition: "The accumulating offset between tropical and sidereal zodiacs — about 24 degrees now, growing one degree every 72 years.", register: "Sanskrit" },
+        { term: "Nakshatra", definition: "One of the 27 lunar mansions of Indian astrology, each spanning 13°20' — a finer zodiac keyed to the Moon.", register: "Sanskrit" },
+        { term: "Horary", definition: "The branch that answers a question from the chart of the moment it is asked — judgment without a birth time." },
+        { term: "Great conjunction", definition: "The Jupiter-Saturn meeting every twenty years, the clock of traditional mundane astrology's epochs." }
+      ]
+    }
+  },
+  mysticism: {
+    slug: "mysticism",
+    subtitle: "A comparative dossier on union, annihilation, and the dark: what the contemplative literatures claim, where they agree, and where the agreement may be an illusion.",
+    orientation: [
+      "Mysticism is a modern category laid over older practices: the word gathers together what Plotinus called henosis, the Sufis fana, the Kabbalists devekut, and the Christian contemplatives union — experiences of contact with, or absorption into, ultimate reality.",
+      "The literatures divide by method as much as by tradition. The cataphatic way climbs by images, names, and love; the apophatic way proceeds by subtraction — not this, not that — toward what Dionysius called the divine darkness. Most traditions keep both ladders in the same house.",
+      "Whether mystics of different traditions experience the same thing differently described, or different things shaped by their training, is the field's live quarrel — the perennialist and constructivist positions are both represented in this archive, and this page does not silently pick a side."
+    ],
+    lenses: [
+      {
+        title: "Core Motif",
+        summary: "The self thins until something else is present: union described as marriage, annihilation, deification, or darkness.",
+        points: ["Unio mystica", "Fana and baqa", "Theosis", "The dark night"]
+      },
+      {
+        title: "Two Ladders",
+        summary: "Affirmation and negation as complementary ascents — images carried up, then left behind.",
+        points: ["Cataphatic: by names and images", "Apophatic: by unknowing", "Lectio, meditatio, contemplatio", "Ecstasy and sobriety"]
+      },
+      {
+        title: "Aetherica Use",
+        summary: "The topic gathers episodes on contemplative practice, the ascent literatures, and the modern study of extraordinary experience.",
+        points: ["Episode discovery", "Transcript search", "Comparative vocabularies", "Source lists"]
+      }
+    ],
+    traditions: [
+      {
+        name: "Neoplatonic henosis",
+        period: "3rd-6th century",
+        summary: "Plotinus' return of the soul to the One — 'the flight of the alone to the Alone' — sets the grammar of ascent that Christian, Jewish, and Islamic mystics all inherit.",
+        metaphysics: ["The One beyond being", "Emanation and return", "Purification, illumination, union", "Ecstasy as standing-out of self"],
+        sourceTexts: ["Plotinus, Enneads", "Porphyry, Life of Plotinus", "Proclus, Elements of Theology"]
+      },
+      {
+        name: "Christian apophatic tradition",
+        period: "c. 500-17th century",
+        summary: "From Dionysius' divine darkness through the Cloud of Unknowing to John of the Cross: God approached by negation, and the soul's progress mapped through nights it cannot see across.",
+        metaphysics: ["Via negativa", "Purgation, illumination, union", "The dark night of sense and spirit", "Union as marriage of the soul"],
+        sourceTexts: ["Dionysius, Mystical Theology", "The Cloud of Unknowing", "John of the Cross, Dark Night of the Soul", "Teresa of Avila, Interior Castle"]
+      },
+      {
+        name: "Sufism",
+        period: "8th century-present",
+        summary: "Islam's mystical current: the annihilation of the self in God (fana) and the subsistence that follows (baqa), sung in Persian and Arabic poetry and disciplined in the orders.",
+        metaphysics: ["Fana and baqa", "Dhikr, remembrance", "The stations and states", "Wahdat al-wujud, the unity of being"],
+        sourceTexts: ["al-Hallaj, Diwan", "Rumi, Masnavi", "Ibn Arabi, Fusus al-Hikam", "Attar, Conference of the Birds"]
+      },
+      {
+        name: "Jewish mysticism",
+        period: "2nd century-present",
+        summary: "From the Merkavah riders' ascent through the palaces to the Kabbalists' devekut — cleaving to God — and the ecstatic techniques of Abulafia: union sought while insisting on the Creator's otherness.",
+        metaphysics: ["Merkavah ascent", "Devekut, cleaving", "The sefirot as ladder", "Ecstatic and theosophical Kabbalah"],
+        sourceTexts: ["Hekhalot literature", "Zohar", "Abulafia's handbooks"]
+      },
+      {
+        name: "The modern study",
+        period: "1902-present",
+        summary: "James made mysticism a subject; Underhill gave it a map; Huxley claimed a perennial core; Katz answered that every experience is shaped by its tradition. The argument is still open.",
+        metaphysics: ["Ineffability and noetic quality", "The mystic way as psychology", "Perennialism", "Constructivism"],
+        sourceTexts: ["James, Varieties of Religious Experience", "Underhill, Mysticism", "Huxley, The Perennial Philosophy", "Katz, Language, Epistemology and Mysticism"]
+      }
+    ],
+    timeline: [
+      {
+        era: "204-270",
+        title: "Plotinus and the One",
+        summary: "The Enneads describe the soul's return to its source in union beyond thought — Porphyry says his teacher attained it four times in the years he knew him. The vocabulary of Western mysticism starts here.",
+        startYear: 204,
+        endYear: 270,
+        anchors: ["Porphyry, Life of Plotinus 23", "Enneads edited c. 300"]
+      },
+      {
+        era: "c. 500",
+        title: "Dionysius names the darkness",
+        summary: "The Mystical Theology — five short chapters — teaches ascent by negation into the 'brilliant darkness,' and hands every later Christian mystic both a method and an authority mistaken for apostolic.",
+        startYear: 500,
+        endYear: 530
+      },
+      {
+        era: "858-922",
+        title: "al-Hallaj",
+        summary: "The Sufi who said 'I am the Real' — ana al-Haqq — and was executed at Baghdad for it. His death becomes Sufism's cautionary and defining story: what annihilation in God means, and what it costs to say so aloud.",
+        startYear: 858,
+        endYear: 922,
+        anchors: ["Executed at Baghdad, 922", "Massignon's four-volume study, 1922"]
+      },
+      {
+        era: "1090-1153",
+        title: "Bernard and the bridal way",
+        summary: "Bernard of Clairvaux preaches eighty-six sermons on the Song of Songs without leaving its first two chapters: mystical union read as marriage, and love made the engine of ascent for the medieval West.",
+        startYear: 1090,
+        endYear: 1153
+      },
+      {
+        era: "c. 1260-1361",
+        title: "The Rhineland masters",
+        summary: "Eckhart preaches the birth of God in the soul and the Godhead beyond God — in German, to nuns and townspeople; Tauler and Suso carry the teaching on after the papal condemnation of 1329.",
+        startYear: 1260,
+        endYear: 1361,
+        plate: {
+          image: "/images/stock/lamp-bearer",
+          alt: "A cloaked figure carrying a lantern down a wet stone path toward a lamplit town below",
+          caption: "The Rhineland teaching travelled in the vernacular — sermons carried down from the schools into kitchens and convents. In Agnes' words at the papal court: the condemned propositions kept preaching.",
+          focus: "48% 50%"
+        },
+        note: "In agro dominico (1329) condemned twenty-eight of Eckhart's propositions; he had died while the case was pending.",
+        anchors: ["Eckhart's Paris questions, 1302", "Tauler dies 1361"]
+      },
+      {
+        era: "c. 1375",
+        title: "The Cloud of Unknowing",
+        summary: "An anonymous English director tells a young contemplative to put everything created under a 'cloud of forgetting' and beat on the cloud above with 'a sharp dart of longing love' — Dionysian negation turned into plain pastoral advice.",
+        startYear: 1375,
+        endYear: 1375
+      },
+      {
+        era: "1515-1591",
+        title: "The Carmelite summit",
+        summary: "Teresa of Avila maps the soul as a castle of seven dwelling places; John of the Cross charts the nights between them. Between them they give mystical progress its most systematic map — written under the Inquisition's eye.",
+        startYear: 1515,
+        endYear: 1591,
+        anchors: ["Interior Castle, 1577", "John dies 1591; Dark Night written c. 1578-1585"]
+      },
+      {
+        era: "1207-1273",
+        title: "Rumi and the turning",
+        summary: "Jalal al-Din Rumi meets Shams of Tabriz and grief becomes the Masnavi — and a practice: his Mevlevi order makes the turning body itself the prayer. Persian Sufism's high-water mark of union sung rather than argued.",
+        startYear: 1207,
+        endYear: 1273
+      },
+      {
+        era: "1902-1911",
+        title: "Mysticism becomes a subject",
+        summary: "William James gives it four marks — ineffable, noetic, transient, passive — and Evelyn Underhill answers with a map of the whole mystic way. The academic study of mysticism begins as psychology and phenomenology at once.",
+        startYear: 1902,
+        endYear: 1911,
+        gapNote: "The interval holds no landmark in this dossier, not no mysticism: Quietism's condemnation, Hasidism's rise, and the Romantics' recoveries all fall between the Carmelites and James.",
+        anchors: ["Varieties of Religious Experience, 1902", "Underhill, Mysticism, 1911"]
+      },
+      {
+        era: "1945-1978",
+        title: "The perennialist quarrel",
+        summary: "Huxley's Perennial Philosophy claims one summit behind every tradition's path; Zaehner distinguishes the summits; Katz's 1978 essay argues there is no unmediated experience at all. The field's central argument reaches its modern form.",
+        startYear: 1945,
+        endYear: 1978,
+        anchors: ["The Perennial Philosophy, 1945", "Katz, Language, Epistemology and Mysticism, 1978"]
+      },
+      {
+        era: "1978-present",
+        title: "Contemplative studies now",
+        summary: "Neuroscience scans meditators, philosophers re-litigate constructivism, and the traditions keep producing practitioners — the conversation between laboratory, seminar, and monastery remains unresolved and productive.",
+        startYear: 1978,
+        endYear: 2024,
+        open: true
+      }
+    ],
+    figures: [
+      { name: "Plotinus", period: "204-270", importance: "The philosopher of the One, whose account of union set the terms for three religions' mystical literatures." },
+      { name: "Pseudo-Dionysius", period: "c. 500", importance: "Author of the Mystical Theology; the divine darkness and the negative way descend from these few pages." },
+      { name: "al-Hallaj", period: "858-922", importance: "Sufism's martyr of union, executed for saying aloud what the tradition holds can only be undergone." },
+      { name: "Meister Eckhart", period: "c. 1260-1328", importance: "The Rhineland's boldest voice: the birth of God in the soul, preached in the vernacular and condemned at Avignon." },
+      { name: "Rumi", period: "1207-1273", importance: "Persian Sufism's greatest poet; the Masnavi and the turning order both descend from his grief for Shams." },
+      { name: "Teresa of Avila", period: "1515-1582", importance: "Cartographer of the Interior Castle and reformer whose accounts of union are precise enough to be argued with." },
+      { name: "John of the Cross", period: "1542-1591", importance: "Poet of the dark night: the map of what contemplative progress feels like when it feels like nothing." },
+      { name: "Evelyn Underhill", period: "1875-1941", importance: "Her 1911 Mysticism organized the whole field — awakening, purgation, illumination, dark night, union — for a century of readers." }
+    ],
+    sourceTexts: [
+      { title: "Enneads", tradition: "Neoplatonic", note: "Plotinus' collected treatises; the final tractates describe union with the One directly." },
+      { title: "Mystical Theology", tradition: "Christian apophatic", note: "Dionysius' five chapters on the ascent into darkness — the negative way's charter." },
+      { title: "The Cloud of Unknowing", tradition: "English contemplative", note: "Anonymous fourteenth-century direction in the apophatic way, still in practical use." },
+      { title: "Interior Castle", tradition: "Carmelite", note: "Teresa's seven dwelling places — the most systematic first-person map of the mystic way." },
+      { title: "Dark Night of the Soul", tradition: "Carmelite", note: "John of the Cross on the purifications that feel like abandonment; the phrase every later writer borrows." },
+      { title: "Masnavi", tradition: "Sufi", note: "Rumi's six books of teaching poetry — 'the Quran in Persian' — union sung in ten thousand couplets." },
+      { title: "Varieties of Religious Experience", tradition: "Modern study", note: "James' 1902 lectures; the four marks of mystical experience begin the field's modern vocabulary." }
+    ],
+    researchWorkbench: {
+      glossary: [
+        { term: "Unio mystica", definition: "Union with the divine, the summit-term of the Christian literatures; its precise meaning — identity, marriage, participation — is exactly what the traditions dispute.", register: "Latin" },
+        { term: "Apophatic", definition: "The way of negation: approaching the divine by unsaying every name and image, into what Dionysius called brilliant darkness.", register: "Greek" },
+        { term: "Henosis", definition: "Oneness: Plotinus' term for the soul's union with the One, beyond intellect and being.", register: "Greek" },
+        { term: "Fana", definition: "Annihilation of the self in God, in Sufi teaching — followed by baqa, subsistence in God after the self's extinction.", register: "Arabic" },
+        { term: "Devekut", definition: "Cleaving to God: the Kabbalistic ideal of adhesion to the divine while the soul remains a creature.", register: "Hebrew" },
+        { term: "Theosis", definition: "Deification: the Eastern Christian teaching that salvation is participation in the divine nature.", register: "Greek" },
+        { term: "Dark night", definition: "John of the Cross' name for the purifying passages in which every consolation is withdrawn and progress feels like loss." }
+      ]
+    }
+  },
+  freemasonry: {
+    slug: "freemasonry",
+    subtitle: "A dossier on the Craft: operative roots, the grand lodge system, the rites and their degrees, and the long history of schism, recognition, and controversy.",
+    orientation: [
+      "Freemasonry is not one organization. It is a network of sovereign grand lodges, each supreme in its own territory, held together — and divided — by a system of mutual recognition. Two Masons from opposite ends of the earth may sit in the same lodge, or be forbidden to, depending on whether their grand lodges recognize one another.",
+      "The Craft's documented history runs from medieval operative stonemasons' regulations, through the admission of non-masons in the seventeenth century, to the founding of the first Grand Lodge in 1717 and everything that followed: rival rites, schisms, exposures, a kidnapping that birthed an American political party, and a French split that still divides the fraternity today.",
+      "This page keeps the strands distinct: the three Craft degrees that everything else presupposes, the appendant rites built above them, the separate and parallel histories of Prince Hall and Continental Masonry, and the difference between what grand lodges call regular, irregular, and clandestine."
+    ],
+    lenses: [
+      {
+        title: "Core Motif",
+        summary: "The building site as a school: a man is his own rough ashlar, and the tools of measurement become instruments of judgment.",
+        points: ["Rough and perfect ashlar", "Square and compasses", "The lodge as diagram", "Building as self-formation"]
+      },
+      {
+        title: "Regular and Clandestine",
+        summary: "Recognition is the fraternity's constitutional machinery — and the word 'clandestine' is a term of art, not an insult.",
+        points: ["Sovereign grand lodges", "Landmarks and recognition", "The 1877 Grand Orient split", "Prince Hall's parallel history"]
+      },
+      {
+        title: "Aetherica Use",
+        summary: "The topic gathers episodes on Masonic history, ritual, symbolism, and the Craft's entanglement with the wider esoteric current.",
+        points: ["Episode discovery", "Transcript search", "Degree structure maps", "Source lists"]
+      }
+    ],
+    traditions: [
+      {
+        name: "Craft (Blue Lodge) Masonry",
+        period: "1717-present",
+        summary: "The foundation everything else presupposes: three degrees conferred in a local lodge under a grand lodge's warrant. Whatever else a Mason joins, he is made here.",
+        metaphysics: ["Entered Apprentice — the rough ashlar", "Fellow Craft — the winding stair", "Master Mason — the legend of Hiram", "No higher authority than the third degree"],
+        sourceTexts: ["Anderson's Constitutions (1723)", "Preston, Illustrations of Masonry", "Emulation and Webb-form rituals"]
+      },
+      {
+        name: "York Rite",
+        period: "18th century-present",
+        summary: "A sequence of separate bodies — Royal Arch chapter, Cryptic council, Knights Templar commandery — completing the Craft legend and, in its final orders, requiring Christian profession.",
+        metaphysics: ["Royal Arch — the recovered Word", "Cryptic degrees — the vault", "Templar orders — chivalric Christianity", "A federation, not a single body"],
+        sourceTexts: ["Webb, Freemason's Monitor (1797)", "General Grand Chapter constitutions"]
+      },
+      {
+        name: "Scottish Rite (AASR)",
+        period: "1801-present",
+        summary: "Thirty degrees above the Craft, conferred by Supreme Councils descended from Charleston, 1801 — a philosophical library of Masonry staged as theatre, with the 33rd conferred as an honor.",
+        metaphysics: ["Lodge of Perfection, 4-14", "Rose Croix, 15-18", "Council of Kadosh, 19-30", "Consistory 31-32; the 33rd honorary"],
+        sourceTexts: ["Grand Constitutions of 1786", "Pike, Morals and Dogma (1871)"]
+      },
+      {
+        name: "Prince Hall Masonry",
+        period: "1775-present",
+        summary: "The African American grand lodge tradition, descended from Prince Hall's African Lodge, chartered from London in 1784 after American lodges refused Black candidates — a complete, parallel grand lodge system with its own rites.",
+        metaphysics: ["African Lodge No. 459", "A parallel grand lodge network", "Recognition withheld for two centuries", "Mutual recognition spreading since 1989"],
+        sourceTexts: ["African Lodge charter (1784)", "Prince Hall's charges of 1792 and 1797"]
+      },
+      {
+        name: "Continental (Liberal) Masonry",
+        period: "1877-present",
+        summary: "The tradition descending from the Grand Orient de France's 1877 decision to drop the required belief in a Supreme Being — adogmatic, often admitting women, and unrecognized by the Anglo-American grand lodges ever since.",
+        metaphysics: ["Absolute liberty of conscience", "Adogmatic lodges", "Co-Masonry and women's obediences", "A rival definition of the Craft itself"],
+        sourceTexts: ["Grand Orient constitution of 1877", "Le Droit Humain founding documents (1893)"]
+      }
+    ],
+    timeline: [
+      {
+        era: "12th-16th century",
+        title: "The operative lodge",
+        summary: "Masons building cathedrals and castles organize around the site hut — the lodge — with trade secrets, recognition tokens, and geometry passed master to apprentice. The tools later moralized were first simply used.",
+        startYear: 1150,
+        endYear: 1550,
+        plate: {
+          image: "/images/topics/freemasonry-tracing",
+          alt: "A medieval master mason kneeling on a cathedral floor, striking arcs with great dividers amid scaffolding and working crews",
+          caption: "The tracing floor: full-scale geometry struck in plaster before it was cut in stone. The compasses were the master's instrument of command — what the drawing said, the building became.",
+          focus: "50% 55%"
+        },
+        anchors: ["York Minster's tracing floor survives from the 13th century", "Regensburg ordinances of the German lodges, 1459"]
+      },
+      {
+        era: "c. 1390",
+        title: "The Regius Poem",
+        summary: "The oldest of the Old Charges: rhymed regulations for the mason trade, opening with a legend that traces geometry from Euclid to England. Craft rules and craft myth are already bound together.",
+        startYear: 1390,
+        endYear: 1390,
+        plate: {
+          image: "/images/topics/freemasonry-plumb",
+          alt: "Three masons working a wall at dusk — one on a scaffold dropping a plumb line, one levelling a course, one squaring a block",
+          caption: "Plumb, level, and square: the working trio the Old Charges regulate and the later ritual moralizes — uprightness, equality, and rectitude were tools before they were virtues.",
+          focus: "50% 45%"
+        },
+        note: "Dated on paleographic grounds; the Cooke manuscript follows c. 1410. More than a hundred Old Charges survive.",
+        anchors: ["Regius MS, British Library, c. 1390", "Cooke MS, c. 1410"]
+      },
+      {
+        era: "1598-1599",
+        title: "The Schaw Statutes",
+        summary: "William Schaw, Master of Works to the Scottish crown, issues statutes organizing Scotland's lodges as permanent institutions with records — the earliest lodge minutes in the world begin here.",
+        startYear: 1598,
+        endYear: 1599,
+        anchors: ["First Schaw Statute, December 1598", "Lodge of Edinburgh (Mary's Chapel) minutes from 1599"]
+      },
+      {
+        era: "17th century",
+        title: "The accepted masons",
+        summary: "Gentlemen with no trade connection begin joining operative lodges — 'accepted' masons. Why they wanted in, and what the lodges gave them, is the hinge question of Masonic historiography.",
+        startYear: 1600,
+        endYear: 1717,
+        plate: {
+          image: "/images/topics/freemasonry-ashlar-work",
+          alt: "A stonemason cutting a rough block with mallet and chisel in his workshop while a finished, perfect cube stands in the courtyard behind him",
+          caption: "The transition in one frame: the trade of shaping stone becoming a discipline for shaping men. The rough block under the chisel, the perfect ashlar already standing in the yard.",
+          focus: "50% 45%"
+        },
+        anchors: ["Elias Ashmole records his initiation at Warrington, 1646", "Aberdeen lodge roll of 1670 is already mostly non-operative"]
+      },
+      {
+        era: "1717",
+        title: "The first Grand Lodge",
+        summary: "Four London lodges meeting at the Goose and Gridiron alehouse form a Grand Lodge and elect a Grand Master — the moment the Craft acquires a central institution, and the calendar every later history counts from.",
+        startYear: 1717,
+        endYear: 1717,
+        note: "Some scholarship argues for 1721 as the real institutional beginning, with 1717 back-dated by Anderson. The traditional date is kept here.",
+        anchors: ["St John the Baptist's day, 24 June 1717", "Anderson's Constitutions published 1723"]
+      },
+      {
+        era: "1730",
+        title: "Exposures print the secrets",
+        summary: "Samuel Prichard's Masonry Dissected sells out in days and prints the third-degree legend of Hiram Abiff for the first time — the murdered master builder, the lost word, the raising. The secret becomes the Craft's most public possession.",
+        startYear: 1730,
+        endYear: 1730,
+        plate: {
+          image: "/images/topics/freemasonry-acacia",
+          alt: "A sprig of green acacia growing from a rough stone on which a white lambskin apron, mallet, plumb, square and compasses are laid, in a dark hall of pillars",
+          caption: "The acacia marks the grave in the legend of the third degree: the master workman slain rather than betray the Word, and the sprig that shows where the lost is to be found. Prichard put it in print in 1730; the fraternity has been explaining it ever since.",
+          focus: "50% 55%"
+        },
+        anchors: ["Masonry Dissected, October 1730", "Three editions inside a month"]
+      },
+      {
+        era: "1751-1813",
+        title: "Antients against Moderns",
+        summary: "Irish Masons in London, shut out of the first Grand Lodge's circles, erect a rival 'Antient' Grand Lodge accusing the 'Moderns' of tampering with the ritual. Two grand lodges warrant lodges against each other for sixty years.",
+        startYear: 1751,
+        endYear: 1813,
+        anchors: ["Antient Grand Lodge founded 1751", "Dermott's Ahiman Rezon, 1756"]
+      },
+      {
+        era: "1775-1784",
+        title: "Prince Hall and African Lodge",
+        summary: "Prince Hall and fourteen other free Black men are initiated in a military lodge at Boston; refused by American grand lodges, they obtain a charter directly from London in 1784 as African Lodge No. 459 — the founding of a parallel Masonry that white American grand lodges would refuse to recognize for two centuries.",
+        startYear: 1775,
+        endYear: 1784,
+        anchors: ["Initiation in Lodge No. 441 (Irish register), March 1775", "African Lodge No. 459 chartered 29 September 1784"]
+      },
+      {
+        era: "1813",
+        title: "The Union",
+        summary: "Antients and Moderns merge as the United Grand Lodge of England, standardizing ritual and defining the Craft as three degrees 'including the Holy Royal Arch.' The settlement still governs English Masonry.",
+        startYear: 1813,
+        endYear: 1813,
+        plate: {
+          image: "/images/topics/freemasonry-pillars",
+          alt: "A man standing between two colossal pillars, one of dark marble and one of light, at the porch of a temple against a stormy sunset",
+          caption: "Boaz and Jachin, the pillars of the porch — and after 1813, an image of the Craft itself: two rival bodies, one dark with age and one polished new, holding up a single roof.",
+          focus: "50% 55%"
+        },
+        anchors: ["Articles of Union, 27 December 1813", "Duke of Sussex first Grand Master of UGLE"]
+      },
+      {
+        era: "1826-1840",
+        title: "The Morgan affair",
+        summary: "William Morgan, about to publish an exposure in upstate New York, is abducted and never seen again. The scandal births the Anti-Masonic Party — the first third party in American politics — and halves American membership within a decade.",
+        startYear: 1826,
+        endYear: 1840,
+        anchors: ["Morgan abducted from Canandaigua jail, September 1826", "Anti-Masonic Party contests the presidency, 1832"]
+      },
+      {
+        era: "1877",
+        title: "The Grand Orient split",
+        summary: "The Grand Orient de France removes the requirement of belief in a Supreme Being, appealing to absolute liberty of conscience. Anglo-American grand lodges withdraw recognition — the schism that still divides world Masonry into 'regular' and 'liberal' families.",
+        startYear: 1877,
+        endYear: 1877,
+        note: "In grand lodge vocabulary, 'irregular' bodies depart from the landmarks; 'clandestine' ones lack lawful origin. Recognition, not ritual, is what the words track.",
+        anchors: ["Grand Orient convent of September 1877", "UGLE reaffirms the Basic Principles in 1929"]
+      },
+      {
+        era: "1893",
+        title: "Women enter by another door",
+        summary: "Le Droit Humain is founded in Paris as Co-Freemasonry, initiating women and men on equal terms after Maria Deraismes' initiation in 1882; women's grand lodges follow. Regular grand lodges do not admit women, and these obediences work outside recognition to this day.",
+        startYear: 1893,
+        endYear: 1893,
+        anchors: ["Maria Deraismes initiated at Le Pecq, 1882", "Le Droit Humain founded 1893"]
+      },
+      {
+        era: "1981",
+        title: "Propaganda Due",
+        summary: "Italy's P2 lodge — expelled by the Grand Orient of Italy years earlier — is exposed as a covert political network implicated in finance scandals and subversion. The affair remains the modern touchstone for Masonic conspiracy, and the clearest case of a lodge operating clandestinely in the strict sense.",
+        startYear: 1981,
+        endYear: 1981,
+        anchors: ["Membership list seized at Licio Gelli's villa, March 1981", "Italian parliamentary commission report, 1984"]
+      },
+      {
+        era: "1989-present",
+        title: "Recognition, slowly",
+        summary: "Mainstream American grand lodges begin recognizing their Prince Hall counterparts, state by state — a process still incomplete in parts of the American South. The fraternity's oldest injustice is unwound through its own constitutional machinery.",
+        startYear: 1989,
+        endYear: 2024,
+        open: true,
+        anchors: ["Connecticut extends recognition, 1989", "UGLE recognizes Prince Hall Grand Lodge of Massachusetts, 1994"]
+      }
+    ],
+    figures: [
+      { name: "William Schaw", period: "1550-1602", importance: "Master of Works to James VI whose statutes made Scottish lodges permanent record-keeping institutions — the Craft's documented pre-history begins with him." },
+      { name: "Elias Ashmole", period: "1617-1692", importance: "Antiquary and founding Royal Society fellow whose 1646 diary entry is the most famous early record of a gentleman's initiation." },
+      { name: "James Anderson", period: "c. 1679-1739", importance: "Presbyterian minister who compiled the 1723 Constitutions, replacing the old legendary histories with the Grand Lodge era's founding document." },
+      { name: "Prince Hall", period: "c. 1735-1807", importance: "Abolitionist and founder of African Lodge No. 459, from which the entire Prince Hall grand lodge system descends." },
+      { name: "Thomas Smith Webb", period: "1771-1819", importance: "Architect of the American York Rite: his Freemason's Monitor shaped the ritual worked in most United States lodges." },
+      { name: "Albert Pike", period: "1809-1891", importance: "Sovereign Grand Commander who rewrote the Scottish Rite's degrees and whose Morals and Dogma made him both the rite's philosopher and the conspiracy literature's favorite quarry." },
+      { name: "Maria Deraismes", period: "1828-1894", importance: "French feminist whose 1882 initiation broke the gender line and led to Co-Freemasonry's founding." }
+    ],
+    sourceTexts: [
+      { title: "Regius Poem (Halliwell MS)", tradition: "Old Charges", note: "The oldest Masonic document: operative regulations in rhyme, with the craft's legendary history already attached." },
+      { title: "Anderson's Constitutions", tradition: "Grand Lodge era", note: "The 1723 founding text: charges, regulations, and a rewritten traditional history for the new institution." },
+      { title: "Masonry Dissected", tradition: "Exposure", note: "Prichard's 1730 exposure — hostile, bestselling, and the first print appearance of the Hiram legend. Historians rely on what the fraternity resented." },
+      { title: "Illustrations of Masonry", tradition: "Craft", note: "William Preston's 1772 systematization of Masonic lecture and ceremony, ancestor of most English-language ritual work." },
+      { title: "Ahiman Rezon", tradition: "Antient", note: "Laurence Dermott's constitution for the rival Grand Lodge — polemical, funny, and the Antients' case in their own words." },
+      { title: "Morals and Dogma", tradition: "Scottish Rite", note: "Pike's 1871 degree commentary: a vast comparative-religion library, endlessly quoted and misquoted in controversy." }
+    ],
+    researchWorkbench: {
+      glossary: [
+        { term: "Ashlar", definition: "Building stone: rough as it leaves the quarry, perfect when squared for the wall — the Craft's central image of self-formation." },
+        { term: "Landmarks", definition: "The principles a grand lodge holds unalterable; departing from them is what makes a body 'irregular' in another's eyes." },
+        { term: "Clandestine", definition: "A term of art, not abuse: a lodge or grand lodge without lawful Masonic origin. Distinct from 'irregular,' which marks departure from the landmarks by an otherwise lawfully descended body." },
+        { term: "Recognition", definition: "The treaty system between sovereign grand lodges; it decides whose members may sit in whose lodges, and it is where every schism becomes visible." },
+        { term: "Appendant bodies", definition: "Rites and orders — York, Scottish, Shrine and the rest — built above the three Craft degrees, which they presuppose but cannot confer." },
+        { term: "Tracing board", definition: "The painted diagram on which a degree's symbols are laid out for instruction — the lodge's teaching picture, descended from the master's tracing floor." },
+        { term: "Hiram Abiff", definition: "The master builder of the third-degree legend, slain rather than betray the Word — the Craft's drama of fidelity and loss." }
+      ]
+    }
+  },
   hermeticism: {
     slug: "hermeticism",
     subtitle: "A dossier on the Hermetica, their Greco-Egyptian world, and the long afterlife of Hermes Trismegistus.",

@@ -15,7 +15,10 @@ export function TopicDossier({ dossier }: { dossier: TopicDossierData }) {
     alchemy: "Process Architecture",
     gnosticism: "Aeonology / Cosmological Architecture",
     hermeticism: "Cosmological Architecture",
-    theurgy: "Ritual Architecture"
+    theurgy: "Ritual Architecture",
+    freemasonry: "Degree Architecture",
+    mysticism: "Stations of the Way",
+    astrology: "System Architecture"
   };
   const architectureLabel = architectureLabels[dossier.slug] ?? "Cosmological Architecture";
 

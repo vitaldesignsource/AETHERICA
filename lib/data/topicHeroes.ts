@@ -21,6 +21,10 @@ export type TopicHero = {
   showMagnumOpus?: boolean;
   /** Renders the tria prima + seven planetary metals band. Alchemy-specific, opt-in per topic. */
   showPlanetaryMetals?: boolean;
+  /** Renders the degree-and-rite architecture band. Freemasonry-specific, opt-in per topic. */
+  showMasonicRites?: boolean;
+  /** Renders the glyphs / house systems / chart shapes atlas. Astrology-specific, opt-in per topic. */
+  showAstrologyAtlas?: boolean;
 };
 
 export type TopicPlate = {
@@ -39,7 +43,24 @@ export const topicHeroes: Record<string, TopicHero> = {
     kicker: "As above",
     epigraph:
       "The armillary is not a picture of the sky but a model of it — rings for the ecliptic, the equator, the meridian. To read a chart is to hold that machine in mind and ask where a body stood inside it.",
-    focus: "50% 34%"
+    focus: "50% 34%",
+    showAstrologyAtlas: true,
+    feature: {
+      image: "/images/topics/astrology-tower",
+      alt: "An astronomer with a rolled chart and dividers climbing a spiral stair inside a stone tower, armillary spheres and instruments in the niches, daylight falling through the opening far above",
+      label: "The Observatory Stair",
+      caption:
+        "Before the telescope, an observatory was a stair and a sightline: armillaries, quadrants, and rules kept in niches, and a long climb toward the open circle of sky. The astrology in this archive is the working knowledge such towers were built around.",
+      focus: "44% 55%"
+    },
+    interlude: {
+      image: "/images/stock/seven-gates",
+      alt: "Seven great circular doors of different metals stacked up a well of dark stone, a figure climbing the stair toward the lowest gate",
+      label: "The Ladder of the Planets",
+      caption:
+        "Celsus describes a mystery ladder of seven gates, each of a different metal — lead for Saturn, tin for Venus, iron for Mars, up to gold for the Sun. The planets were not distant objects but stations: something the soul passes through, in both directions.",
+      focus: "50% 60%"
+    }
   },
   hermeticism: {
     image: "/images/topics/hermeticism-thrice-great",
@@ -71,7 +92,24 @@ export const topicHeroes: Record<string, TopicHero> = {
     kicker: "Ars Regia",
     epigraph:
       "The rough ashlar and the perfect ashlar are the same stone at two moments. Every working tool on the pavement is an instrument of measurement before it is a symbol of anything.",
-    focus: "50% 44%"
+    focus: "50% 44%",
+    showMasonicRites: true,
+    feature: {
+      image: "/images/topics/freemasonry-chamber",
+      alt: "A man seated alone at a candlelit table in a stone cell, before a skull, an hourglass, bread, salt, water, and a clouded mirror",
+      label: "The Chamber of Reflection",
+      caption:
+        "In many rites the candidate waits alone in a small dark room before initiation: skull, hourglass, bread, salt, and a mirror. Nothing is taught there. The chamber only arranges a man, his time, and his face — and lets him draw his own conclusions.",
+      focus: "62% 50%"
+    },
+    interlude: {
+      image: "/images/topics/freemasonry-lodge",
+      alt: "An elderly officer in gloves lighting three candles in a dark lodge room, square and compasses inlaid on the chequered floor, working tools on a table in the foreground",
+      label: "The Lodge at Labour",
+      caption:
+        "A lodge is not the building but the men assembled; the room is furnished so that everything in sight — pavement, pillars, lights, tools — can be read. When the candles are lit, the room becomes a diagram the meeting sits inside.",
+      focus: "50% 55%"
+    }
   },
   mysticism: {
     image: "/images/topics/mysticism-ascent",
