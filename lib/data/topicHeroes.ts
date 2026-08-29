@@ -33,6 +33,38 @@ export type TopicPlate = {
 };
 
 export const topicHeroes: Record<string, TopicHero> = {
+  gnosticism: {
+    image: "/images/topics/gnosticism-sophia",
+    alt: "Weathered stone hands cradling a dark polished sphere that has been broken and rejoined along a single seam of gold",
+    kicker: "Gnosis",
+    epigraph:
+      "The Sethian and Valentinian myths both turn on a rupture in the fullness — a break in the Pleroma that the whole cosmos is arranged around. What is held here is not unbroken; it is mended, and the mend is visible.",
+    focus: "50% 42%"
+  },
+  kabbalah: {
+    image: "/images/topics/kabbalah-hexagram",
+    alt: "A hexagram cut in pale stone, set over a disc divided into quadrants of ochre, rust, olive and black",
+    kicker: "Ma'aseh Merkavah",
+    epigraph:
+      "Two triangles interlocked: what is above answered by what is below, and neither legible without the other. The figure is older and wider than any single tradition that has claimed it.",
+    focus: "50% 50%"
+  },
+  philosophy: {
+    image: "/images/topics/philosophy-sisyphus",
+    alt: "A figure braced against a vast stone sphere on a dark volcanic slope beneath a heavy sky",
+    kicker: "Φιλοσοφία",
+    epigraph:
+      "The love of wisdom was never promised as an arrival. The oldest schools describe it as a discipline practised daily against a slope that does not flatten.",
+    focus: "56% 38%"
+  },
+  theurgy: {
+    image: "/images/topics/theurgy-annunciation",
+    alt: "An engraved scene of a winged figure sounding a trumpet above a griffin, with a classical temple in the valley below",
+    kicker: "Θεουργία",
+    epigraph:
+      "Iamblichus argued against Porphyry that the gods are not reached by reasoning alone. Theurgy is divine work — action in which the soul participates rather than merely contemplates.",
+    focus: "42% 34%"
+  },
   alchemy: {
     image: "/images/topics/alchemy-ouroboros",
     alt: "A weathered stone ouroboros — a scaled dragon biting its own tail — spilling water into a dark pool within a ruined, ivy-covered arch",
