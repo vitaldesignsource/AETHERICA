@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { PageHero } from "@/components/sections/PageHero";
 import { Section } from "@/components/ui/Section";
+import { resolveSiteImage } from "@/lib/images";
 import { events } from "@/lib/data/demo";
 import { formatDate } from "@/lib/format";
 
@@ -12,8 +14,20 @@ export const metadata: Metadata = {
 };
 
 export default function EventsPage() {
+  const hero = resolveSiteImage("/images/events-bell");
+
   return (
-    <Section eyebrow="Events" title="Appearances and gatherings">
+    <>
+      <PageHero
+        eyebrow="Events"
+        title="Appearances and gatherings"
+        lede="Lectures, symposia, and live conversations. When the bell sounds, it is calling everyone within hearing."
+        imageSrc={hero}
+        imageAlt="A great bronze bell hung in a ruined stone tower, a lone figure below holding its rope as rain falls across the valley"
+        focus="50% 30%"
+      />
+    {/* The hero already carries the page title; this heading names what follows it. */}
+    <Section eyebrow="Calendar" title="Upcoming and past">
       <div className="mb-8 grid gap-4 md:grid-cols-3">
         <div className="temple-border rounded p-5">
           <h2 className="font-display text-2xl text-ivory">Upcoming List</h2>
@@ -51,5 +65,6 @@ export default function EventsPage() {
         ))}
       </div>
     </Section>
+    </>
   );
 }

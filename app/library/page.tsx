@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AccountAccess } from "@/components/personalization/AccountAccess";
 import { PersonalLibrary } from "@/components/research/PersonalLibrary";
+import { PageHero } from "@/components/sections/PageHero";
 import { Section } from "@/components/ui/Section";
+import { resolveSiteImage } from "@/lib/images";
 import { guests, topics } from "@/lib/data/demo";
 
 const archiveMilestones = [
@@ -21,8 +23,20 @@ export const metadata: Metadata = {
 };
 
 export default function LibraryPage() {
+  const hero = resolveSiteImage("/images/library-angel");
+
   return (
-    <Section eyebrow="Personal archive" title="My Archive">
+    <>
+      <PageHero
+        eyebrow="Personal archive"
+        title="My Archive"
+        lede="What you keep, and why you kept it. Saved episodes, marked passages, followed subjects, and the paths you are partway through."
+        imageSrc={hero}
+        imageAlt="A dark bronze winged figure standing in a rain-soaked cloister garden, head bowed, wildflowers caught in her hair"
+        focus="62% 32%"
+      />
+    {/* The hero already carries the page title; this heading names what follows it. */}
+    <Section eyebrow="Your collections" title="Saved, followed, and in progress">
       <div className="mb-8 grid gap-5 lg:grid-cols-[1fr_.7fr]">
         <p className="leading-8 text-parchment">
           Save episodes, bookmark timestamps, build playlists, follow topics and guests, and gather research materials into private collections.
@@ -67,5 +81,6 @@ export default function LibraryPage() {
       </div>
       <PersonalLibrary topics={topics.map((topic) => topic.title)} guests={guests.map((guest) => guest.name)} />
     </Section>
+    </>
   );
 }
