@@ -17,8 +17,14 @@ export function TopicDossier({ dossier }: { dossier: TopicDossierData }) {
     hermeticism: "Cosmological Architecture",
     theurgy: "Ritual Architecture",
     freemasonry: "Degree Architecture",
+    astrology: "System Architecture",
     mysticism: "Stations of the Way",
-    astrology: "System Architecture"
+    kabbalah: "Sefirotic Architecture",
+    philosophy: "Curriculum of the School",
+    "christian-mysticism": "Stages of the Way",
+    symbolism: "Registers of the Sign",
+    "sacred-architecture": "Orders of Proportion",
+    "western-esotericism": "Anatomy of the Current"
   };
   const architectureLabel = architectureLabels[dossier.slug] ?? "Cosmological Architecture";
 
