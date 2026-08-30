@@ -25,6 +25,8 @@ export type TopicHero = {
   showMasonicRites?: boolean;
   /** Renders the glyphs / house systems / chart shapes atlas. Astrology-specific, opt-in per topic. */
   showAstrologyAtlas?: boolean;
+  /** Renders the lineage map of the whole current. Western-esotericism's hub band. */
+  showCurrentMap?: boolean;
 };
 
 export type TopicPlate = {
@@ -173,7 +175,8 @@ export const topicHeroes: Record<string, TopicHero> = {
     kicker: "The Current",
     epigraph:
       "Not one tradition but a current running through many: Hermetic, Neoplatonic, Kabbalistic, alchemical, Rosicrucian, Masonic. What holds them together is less a doctrine than a habit of reading the world as legible.",
-    focus: "50% 46%"
+    focus: "50% 46%",
+    showCurrentMap: true
   },
   symbolism: {
     image: "/images/topics/symbolism-colossus",

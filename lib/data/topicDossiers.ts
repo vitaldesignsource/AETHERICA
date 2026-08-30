@@ -1093,15 +1093,51 @@ export const topicDossiers: Record<string, TopicDossier> = {
       }
     ],
     timeline: [
-      { era: "1st century", title: "Jewish, Platonic, and Christian seedbed", summary: "Apocalyptic, wisdom, baptismal, Platonic, and early Christian currents create the symbolic world in which later Gnostic myth develops." },
-      { era: "2nd century", title: "Great system-builders", summary: "Sethian, Valentinian, Basilidean, and related currents develop elaborate myths of emanation, fall, archons, and return." },
-      { era: "180 CE", title: "Heresiological witness", summary: "Irenaeus and other polemicists preserve hostile but important evidence for ancient Gnostic teachers and schools." },
-      { era: "3rd century", title: "Mani and global dualism", summary: "Manichaeism turns a Gnostic-style light-dark cosmology into a transregional religious movement." },
-      { era: "4th century", title: "Suppression and survival", summary: "Imperial Christianity and anti-heretical efforts marginalize many Gnostic communities, while texts survive in translation and hidden libraries." },
+      {
+        era: "1st century",
+        title: "Jewish, Platonic, and Christian seedbed",
+        summary: "Apocalyptic, wisdom, baptismal, Platonic, and early Christian currents create the symbolic world in which later Gnostic myth develops.",
+        startYear: 1,
+        endYear: 130
+      },
+      {
+        era: "2nd-3rd century",
+        title: "Great system-builders",
+        summary: "Sethian, Valentinian, Basilidean, and related currents develop elaborate myths of emanation, fall, archons, and return.",
+        startYear: 120,
+        endYear: 260,
+        anchors: ["Valentinus teaching at Rome, c. 140-160", "Basilides active in Alexandria under Hadrian, 117-138"]
+      },
+      {
+        era: "c. 180",
+        title: "Heresiological witness",
+        summary: "Irenaeus and other polemicists preserve hostile but important evidence for ancient Gnostic teachers and schools.",
+        startYear: 180,
+        endYear: 180
+      },
+      {
+        era: "216-277",
+        title: "Mani and global dualism",
+        summary: "Manichaeism turns a Gnostic-style light-dark cosmology into a transregional religious movement, carried in time from the Atlantic to the China coast.",
+        startYear: 216,
+        endYear: 277,
+        anchors: ["Mani born near Ctesiphon, 216", "Executed under Bahram I, c. 274-277"]
+      },
+      {
+        era: "4th-5th century",
+        title: "Suppression and survival",
+        summary: "Imperial Christianity and anti-heretical law marginalize the Gnostic communities, while their texts survive in Coptic translation and buried libraries.",
+        startYear: 300,
+        endYear: 450,
+        anchors: ["Nag Hammadi codices copied and buried, mid-4th century", "Theodosian anti-heretical legislation from 381"]
+      },
       {
         era: "1945",
         title: "Nag Hammadi discovery",
         summary: "A major cache of Coptic codices transforms modern study by giving direct access to texts beyond hostile summaries.",
+        startYear: 1945,
+        endYear: 1945,
+        gapNote: "Fifteen centuries in which the tradition speaks almost only through its enemies — with genuinely Gnostic currents surfacing at the margins: Manichaeism's long afterlife eastward, the Paulicians, the Bogomils, and the Cathar problem the historians still argue over.",
         plate: {
           image: "/images/topics/gnosticism-nag-hammadi",
           alt: "An Egyptian farmer crouched in a cliff hollow at sunset, examining leather-bound codices spilling from a broken clay jar",
@@ -1110,7 +1146,15 @@ export const topicDossiers: Record<string, TopicDossier> = {
           focus: "50% 55%"
         }
       },
-      { era: "Modern period", title: "Scholarly and esoteric reception", summary: "Gnostic materials enter comparative religion, depth psychology, esotericism, and modern spiritual discourse, sometimes carefully and sometimes loosely." }
+      {
+        era: "1945-present",
+        title: "Scholarly and esoteric reception",
+        summary: "Gnostic materials enter comparative religion, depth psychology, esotericism, and modern spiritual discourse, sometimes carefully and sometimes loosely.",
+        startYear: 1945,
+        endYear: 2024,
+        open: true,
+        anchors: ["Jung receives the Codex Jung (Codex I), 1953", "Complete facsimile edition finished, 1977"]
+      }
     ],
     figures: [
       { name: "Valentinus", period: "c. 100-160", importance: "A major Christian Gnostic teacher whose school shaped one of the most sophisticated aeonic systems." },

@@ -9,6 +9,8 @@ import { TopicInterlude } from "@/components/topics/TopicInterlude";
 import { MagnumOpusStages } from "@/components/topics/MagnumOpusStages";
 import { MasonicRites } from "@/components/topics/MasonicRites";
 import { AstrologyAtlas } from "@/components/topics/AstrologyAtlas";
+import { CurrentMap } from "@/components/topics/CurrentMap";
+import { TopicContinue } from "@/components/topics/TopicContinue";
 import { PlanetaryMetals } from "@/components/topics/PlanetaryMetals";
 import { Reveal } from "@/components/topics/Reveal";
 import { TopicHero } from "@/components/topics/TopicHero";
@@ -220,6 +222,11 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
             <MasonicRites />
           </Reveal>
         ) : null}
+        {hero.showCurrentMap ? (
+          <Reveal>
+            <CurrentMap />
+          </Reveal>
+        ) : null}
         {hero.showAstrologyAtlas ? (
           <Reveal>
             <AstrologyAtlas />
@@ -237,6 +244,9 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
             </Section>
           </Reveal>
         ) : null}
+        <Reveal>
+          <TopicContinue topic={topic} />
+        </Reveal>
       </>
     );
   }
