@@ -7,6 +7,15 @@ import { organizationJsonLd, podcastSeriesJsonLd, webSiteJsonLd } from "@/lib/se
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
+/**
+ * Bound how long CDNs may cache rendered HTML. Without this, Next stamps prerendered pages with
+ * s-maxage=31536000 — a full year — and Hostinger's CDN obeys it. Each deploy replaces the
+ * hash-named CSS/JS bundles, so any HTML cached before a deploy points at stylesheets that no
+ * longer exist: the page renders raw and unstyled. This is exactly what broke tablets, which sat
+ * in a different CDN device-bucket than desktops. One hour caps the damage window of any deploy.
+ */
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
