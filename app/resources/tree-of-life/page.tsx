@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { TreeOfLifeExplorer } from "@/components/resources/TreeOfLifeExplorer";
+import { PageHero } from "@/components/sections/PageHero";
 import { Section } from "@/components/ui/Section";
 import { resolveSiteImage } from "@/lib/images";
 import { episodes } from "@/lib/data/demo";
@@ -14,8 +15,20 @@ export const metadata: Metadata = {
 export default function TreeOfLifePage() {
   const plate = resolveSiteImage("/images/resources/tree-of-life-sephiroth");
 
+  const hero = resolveSiteImage("/images/resources/tree-of-life-hero");
+
   return (
-    <Section titleAs="h1" eyebrow="Resources / Qabalah" title="Tree of Life Correspondence Explorer">
+    <>
+      <PageHero
+        eyebrow="Resources / Qabalah"
+        title="Tree of Life Correspondence Explorer"
+        lede="Sephiroth and paths with their Hebrew names, divine names, angelic orders, colour scales, and symbols — every attribution labelled by the system it belongs to."
+        imageSrc={hero}
+        imageAlt="A disc of lapis and fire bearing the ten sephiroth as coloured gemstones set on a crescent, a circle, and a triangle, rimmed in gold"
+        focus="50% 42%"
+      />
+    {/* The hero above owns the h1; this names the instrument beneath it. */}
+    <Section eyebrow="The instrument" title="Select a sphere or path">
       <div className="mb-10 grid items-start gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)]">
       <div className="max-w-4xl leading-8 text-parchment">
         <p>
@@ -45,5 +58,6 @@ export default function TreeOfLifePage() {
       </div>
       <TreeOfLifeExplorer episodes={episodes} />
     </Section>
+    </>
   );
 }
