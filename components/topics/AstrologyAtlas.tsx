@@ -185,14 +185,85 @@ const CHART_SHAPES: Array<{
   }
 ];
 
+/**
+ * The zodiac as a product, not a list: four elements crossed with three modes generate the
+ * twelve signs, and most sign "keywords" are just this arithmetic said slowly.
+ */
+const ELEMENTS = [
+  { name: "Fire", note: "vital spark, spirit, initiative" },
+  { name: "Earth", note: "substance, sense, endurance" },
+  { name: "Air", note: "relation, speech, exchange" },
+  { name: "Water", note: "feeling, memory, dissolution" }
+];
+const MODES = [
+  { name: "Cardinal", note: "initiates the season" },
+  { name: "Fixed", note: "sustains its middle" },
+  { name: "Mutable", note: "hands it over" }
+];
+/** Row-major: element × mode, matching ELEMENTS and MODES order. */
+const SIGN_GRID = [
+  ["♈\uFE0E Aries", "♌\uFE0E Leo", "♐\uFE0E Sagittarius"],
+  ["♑\uFE0E Capricorn", "♉\uFE0E Taurus", "♍\uFE0E Virgo"],
+  ["♎\uFE0E Libra", "♒\uFE0E Aquarius", "♊\uFE0E Gemini"],
+  ["♋\uFE0E Cancer", "♏\uFE0E Scorpio", "♓\uFE0E Pisces"]
+];
+
+/** The twelve houses with their medieval Latin names and the planetary joys. */
+const HOUSES: Array<{
+  numeral: string;
+  latin: string;
+  english: string;
+  cls: "angular" | "succedent" | "cadent";
+  joy?: string;
+  greekName?: string;
+  blurb: string;
+}> = [
+  { numeral: "I", latin: "Vita", english: "Life", cls: "angular", joy: "☿\uFE0E Mercury", blurb: "The helm: body, temperament, appearance — the self that arrives before anything happens to it." },
+  { numeral: "II", latin: "Lucrum", english: "Gain", cls: "succedent", blurb: "Possessions and livelihood: what the life holds onto, and what holds it up." },
+  { numeral: "III", latin: "Fratres", english: "Brothers", cls: "cadent", joy: "☽\uFE0E Moon", greekName: "the Goddess", blurb: "Siblings, neighbours, short roads, letters — the daily circuit of the known." },
+  { numeral: "IV", latin: "Genitor", english: "The Parent", cls: "angular", blurb: "Parents, home, land, and the grave: foundations at the bottom of the sky, where things begin and are buried." },
+  { numeral: "V", latin: "Nati", english: "Children", cls: "succedent", joy: "♀\uFE0E Venus", greekName: "Good Fortune", blurb: "Children, pleasure, art, play — what the life makes because it delights to." },
+  { numeral: "VI", latin: "Valetudo", english: "Health", cls: "cadent", joy: "♂\uFE0E Mars", greekName: "Bad Fortune", blurb: "Illness, labour, service, and the beasts that work: the body's frictions and the work done under another's direction." },
+  { numeral: "VII", latin: "Uxor", english: "The Spouse", cls: "angular", blurb: "Marriage and partnership — and the open rival: everyone met exactly at eye level." },
+  { numeral: "VIII", latin: "Mors", english: "Death", cls: "succedent", blurb: "Death, inheritance, and other people's goods: what crosses into the life from beyond its control." },
+  { numeral: "IX", latin: "Iter", english: "The Journey", cls: "cadent", joy: "☉\uFE0E Sun", greekName: "God", blurb: "Long travel, religion, divination, higher learning — everything sought far from home." },
+  { numeral: "X", latin: "Regnum", english: "The Kingdom", cls: "angular", blurb: "Honours, authority, the public summit: the visible top of the chart and of the life." },
+  { numeral: "XI", latin: "Benefacta", english: "Good Deeds", cls: "succedent", joy: "♃\uFE0E Jupiter", greekName: "Good Spirit", blurb: "Allies, patrons, friendship, hope — help that arrives because it was earned or loved into being." },
+  { numeral: "XII", latin: "Carcer", english: "The Prison", cls: "cadent", joy: "♄\uFE0E Saturn", greekName: "Bad Spirit", blurb: "Confinement, exile, hidden enemies, self-undoing — and the retreats where all of that is faced." }
+];
+
+/** House number of each planetary joy, for the master wheel. */
+const JOYS: Array<[number, string]> = [
+  [1, "☿\uFE0E"], [3, "☽\uFE0E"], [5, "♀\uFE0E"], [6, "♂\uFE0E"], [9, "☉\uFE0E"], [11, "♃\uFE0E"], [12, "♄\uFE0E"]
+];
+
+/** The aspects as divisions of the circle, in angular order. */
+const ASPECTS: Array<{
+  glyph: string;
+  name: string;
+  angle: number;
+  family: string;
+  orb: string;
+  ptolemaic: boolean;
+  reading: string;
+}> = [
+  { glyph: "☌\uFE0E", name: "Conjunction", angle: 0, family: "the circle undivided", orb: "~8–10°", ptolemaic: true, reading: "Two planets fused into one working function. Neither easy nor hard in itself — its temper is entirely the temper of the planets joined." },
+  { glyph: "⚺\uFE0E", name: "Semisextile", angle: 30, family: "the circle ÷ 12", orb: "~2°", ptolemaic: false, reading: "Adjacent signs: neighbours that share no element or mode. A mild, nagging unlikeness more felt than seen." },
+  { glyph: "⚹\uFE0E", name: "Sextile", angle: 60, family: "the circle ÷ 6", orb: "~4–6°", ptolemaic: true, reading: "Fire with air, earth with water: compatible temperaments. Opportunity rather than gift — ease that must be invited to act." },
+  { glyph: "□\uFE0E", name: "Square", angle: 90, family: "the circle ÷ 4", orb: "~7–8°", ptolemaic: true, reading: "Signs of the same mode collide at cross-purposes. The productive crisis: friction that builds exactly the strength it demands." },
+  { glyph: "△\uFE0E", name: "Trine", angle: 120, family: "the circle ÷ 3", orb: "~8°", ptolemaic: true, reading: "Same element, effortless current. The chart's given talents — and, undisturbed, its laziest places." },
+  { glyph: "⚻\uFE0E", name: "Quincunx", angle: 150, family: "the circle ÷ 12 × 5", orb: "~2–3°", ptolemaic: false, reading: "No shared element, mode, or polarity: the blind spot. Perpetual adjustment between things with no common language." },
+  { glyph: "☍\uFE0E", name: "Opposition", angle: 180, family: "the circle halved", orb: "~8–10°", ptolemaic: true, reading: "Full awareness across an axis: confrontation, projection, partnership. What the square forces, the opposition negotiates." }
+];
+
 const CORRESPONDENCE_SPINE = [
-  { glyph: "♄\uFE0E", planet: "Saturn", day: "Saturday", metal: "Lead", domicile: "Capricorn · Aquarius", exaltation: "Libra" },
-  { glyph: "♃\uFE0E", planet: "Jupiter", day: "Thursday", metal: "Tin", domicile: "Sagittarius · Pisces", exaltation: "Cancer" },
-  { glyph: "♂\uFE0E", planet: "Mars", day: "Tuesday", metal: "Iron", domicile: "Aries · Scorpio", exaltation: "Capricorn" },
-  { glyph: "☉\uFE0E", planet: "Sun", day: "Sunday", metal: "Gold", domicile: "Leo", exaltation: "Aries" },
-  { glyph: "♀\uFE0E", planet: "Venus", day: "Friday", metal: "Copper", domicile: "Taurus · Libra", exaltation: "Pisces" },
-  { glyph: "☿\uFE0E", planet: "Mercury", day: "Wednesday", metal: "Quicksilver", domicile: "Gemini · Virgo", exaltation: "Virgo" },
-  { glyph: "☽\uFE0E", planet: "Moon", day: "Monday", metal: "Silver", domicile: "Cancer", exaltation: "Taurus" }
+  { glyph: "♄\uFE0E", planet: "Saturn", day: "Saturday", metal: "Lead", domicile: "Capricorn · Aquarius", exaltation: "Libra", detriment: "Cancer · Leo", fall: "Aries" },
+  { glyph: "♃\uFE0E", planet: "Jupiter", day: "Thursday", metal: "Tin", domicile: "Sagittarius · Pisces", exaltation: "Cancer", detriment: "Gemini · Virgo", fall: "Capricorn" },
+  { glyph: "♂\uFE0E", planet: "Mars", day: "Tuesday", metal: "Iron", domicile: "Aries · Scorpio", exaltation: "Capricorn", detriment: "Taurus · Libra", fall: "Cancer" },
+  { glyph: "☉\uFE0E", planet: "Sun", day: "Sunday", metal: "Gold", domicile: "Leo", exaltation: "Aries", detriment: "Aquarius", fall: "Libra" },
+  { glyph: "♀\uFE0E", planet: "Venus", day: "Friday", metal: "Copper", domicile: "Taurus · Libra", exaltation: "Pisces", detriment: "Aries · Scorpio", fall: "Virgo" },
+  { glyph: "☿\uFE0E", planet: "Mercury", day: "Wednesday", metal: "Quicksilver", domicile: "Gemini · Virgo", exaltation: "Virgo", detriment: "Sagittarius · Pisces", fall: "Pisces" },
+  { glyph: "☽\uFE0E", planet: "Moon", day: "Monday", metal: "Silver", domicile: "Cancer", exaltation: "Taurus", detriment: "Capricorn", fall: "Scorpio" }
 ];
 
 const INSTRUMENTS = [
@@ -287,6 +358,104 @@ function ShapeWheel({
   );
 }
 
+const pt = (deg: number, r: number, cx = 75, cy = 67) => ({
+  x: cx + r * Math.cos(rad(deg)),
+  y: cy - r * Math.sin(rad(deg))
+});
+
+/**
+ * The master wheel: twelve houses counted counterclockwise from the ascendant, the four angles
+ * named, angular houses shaded, and each planetary joy drawn in the house it delights in.
+ */
+function HousesWheel() {
+  const sector = (start: number) => {
+    const a = pt(start, 52);
+    const b = pt(start + 30, 52);
+    return `M 75 67 L ${a.x} ${a.y} A 52 52 0 0 0 ${b.x} ${b.y} Z`;
+  };
+  return (
+    <svg viewBox="0 0 150 134" className="mx-auto block w-full max-w-sm" aria-hidden="true">
+      {[0, 3, 6, 9].map((house) => (
+        <path key={house} d={sector(house * 30)} fill="rgba(181,146,85,.1)" />
+      ))}
+      <circle cx="75" cy="67" r="52" fill="none" stroke="rgba(181,146,85,.45)" strokeWidth="1.2" />
+      <circle cx="75" cy="67" r="20" fill="none" stroke="rgba(181,146,85,.2)" strokeWidth="1" />
+      {Array.from({ length: 12 }, (_, i) => {
+        const a = pt(i * 30, 52);
+        const b = pt(i * 30, 20);
+        return <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="rgba(181,146,85,.3)" strokeWidth="1" />;
+      })}
+      {Array.from({ length: 12 }, (_, i) => {
+        const c = pt(i * 30 + 15, 33);
+        return (
+          <text key={i} x={c.x} y={c.y + 2.4} textAnchor="middle" fontSize="7" fill="rgb(200,184,158)">
+            {i + 1}
+          </text>
+        );
+      })}
+      {JOYS.map(([house, glyph]) => {
+        const c = pt((house - 1) * 30 + 15, 45);
+        return (
+          <text key={house} x={c.x} y={c.y + 2.6} textAnchor="middle" fontSize="7.5" fill="rgb(181,146,85)">
+            {glyph}
+          </text>
+        );
+      })}
+      {/* The four angles pin the frame: ASC left, IC below, DSC right, MC above. */}
+      {([[0, "ASC", -2, 3], [90, "IC", 0, 9], [180, "DSC", 2, 3], [270, "MC", 0, -4]] as const).map(
+        ([deg, label, dx, dy]) => {
+          const c = pt(deg, 56);
+          return (
+            <text
+              key={label}
+              x={c.x + dx}
+              y={c.y + dy}
+              textAnchor={label === "ASC" ? "end" : label === "DSC" ? "start" : "middle"}
+              fontSize="7"
+              letterSpacing="1"
+              fill="rgb(231,221,204)"
+            >
+              {label}
+            </text>
+          );
+        }
+      )}
+    </svg>
+  );
+}
+
+/** One aspect as geometry: two bodies on the rim, the chord between them, the angle at centre. */
+function AspectWheel({ angle }: { angle: number }) {
+  const a = pt(270 - angle / 2, 40, 50, 50);
+  const b = pt(270 + angle / 2, 40, 50, 50);
+  const arcA = pt(270 - angle / 2, 13, 50, 50);
+  const arcB = pt(270 + angle / 2, 13, 50, 50);
+  return (
+    <svg viewBox="0 0 100 100" className="mx-auto block w-full max-w-28" aria-hidden="true">
+      <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(181,146,85,.4)" strokeWidth="1.2" />
+      {angle === 0 ? (
+        <>
+          <circle cx="46.5" cy="10" r="3.4" fill="rgb(181,146,85)" stroke="rgba(8,8,8,.9)" />
+          <circle cx="53.5" cy="10" r="3.4" fill="rgb(181,146,85)" stroke="rgba(8,8,8,.9)" />
+        </>
+      ) : (
+        <>
+          <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="rgba(181,146,85,.75)" strokeWidth="1.4" />
+          <path
+            d={`M ${arcA.x} ${arcA.y} A 13 13 0 ${angle > 180 ? 1 : 0} 1 ${arcB.x} ${arcB.y}`}
+            fill="none"
+            stroke="rgba(200,184,158,.5)"
+            strokeWidth="1"
+          />
+          <circle cx={a.x} cy={a.y} r="3.4" fill="rgb(181,146,85)" stroke="rgba(8,8,8,.9)" />
+          <circle cx={b.x} cy={b.y} r="3.4" fill="rgb(181,146,85)" stroke="rgba(8,8,8,.9)" />
+        </>
+      )}
+      <circle cx="50" cy="50" r="1.8" fill="rgba(181,146,85,.5)" />
+    </svg>
+  );
+}
+
 export function AstrologyAtlas() {
   return (
     <section id="astrology-atlas" className="relative isolate scroll-mt-24 overflow-hidden border-y border-gold/20 bg-black/55">
@@ -299,11 +468,12 @@ export function AstrologyAtlas() {
             The working parts of a chart
           </h2>
           <p className="mt-4 leading-8 text-parchment">
-            Four instruments of literacy: the glyphs a chart is written in, the house systems that
-            divide its circle, the shapes a whole chart makes at a glance, and the correspondence
-            spine that ties the seven classical planets to days, metals, and signs. The wheels are
-            schematic — they show how each system cuts the circle, not a cast chart. For real
-            computation, the archive&rsquo;s instruments are linked at the end.
+            Seven instruments of literacy: the glyphs a chart is written in, the arithmetic that
+            generates the twelve signs, the houses and their meanings, the systems that argue over
+            where their cusps fall, the aspects that let planets speak to one another, the shapes a
+            whole chart makes at a glance, and the correspondence spine with the essential
+            dignities. The wheels are schematic — they show how each system cuts the circle, not a
+            cast chart. For real computation, the archive&rsquo;s instruments are linked at the end.
           </p>
         </div>
 
@@ -335,7 +505,84 @@ export function AstrologyAtlas() {
           ))}
         </ul>
 
-        {/* ----------------------------------------------- 2 · house systems */}
+        {/* -------------------------------------------- 2 · the sign generator */}
+        <h3 className="mt-14 font-display text-2xl text-ivory">Four elements × three modes</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-parchment/85">
+          The zodiac is not a list of twelve personalities but a product of two smaller alphabets:
+          four elements crossed with three modes. Most sign &ldquo;keywords&rdquo; are this
+          arithmetic said slowly — Aries is nothing more mysterious than fire behaving cardinally.
+        </p>
+        <div className="mt-5 overflow-x-auto">
+          <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+            <thead>
+              <tr className="text-[.7rem] uppercase tracking-[.16em] text-gold">
+                <th className="border-b border-gold/25 px-3 py-2.5 font-normal">Element</th>
+                {MODES.map((mode) => (
+                  <th key={mode.name} className="border-b border-gold/25 px-3 py-2.5 font-normal">
+                    {mode.name}
+                    <span className="block text-[.62rem] normal-case tracking-normal text-limestone">{mode.note}</span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {ELEMENTS.map((element, row) => (
+                <tr key={element.name}>
+                  <th scope="row" className="border-b border-gold/10 px-3 py-2.5 text-left font-normal">
+                    <span className="font-display text-base text-ivory">{element.name}</span>
+                    <span className="block text-[.66rem] text-limestone">{element.note}</span>
+                  </th>
+                  {SIGN_GRID[row].map((cell) => (
+                    <td key={cell} className="border-b border-gold/10 px-3 py-2.5 text-parchment">
+                      <span className="mr-1.5 font-serif text-lg text-gold" aria-hidden="true">{cell.split(" ")[0]}</span>
+                      {cell.split(" ")[1]}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* ------------------------------------------------ 3 · twelve houses */}
+        <h3 className="mt-14 font-display text-2xl text-ivory">The twelve houses</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-parchment/85">
+          Signs describe <em className="text-parchment">how</em>; houses say{" "}
+          <em className="text-parchment">where</em> — twelve departments of a life, counted
+          counterclockwise from the ascendant. The shaded quarters are the angular houses, where
+          the chart touches its own frame and planets act at full strength; each gold glyph sits in
+          the house where tradition says that planet{" "}
+          <em className="text-parchment">rejoices</em> — the doctrine of the joys, which is also
+          where the houses&rsquo; oldest names come from.
+        </p>
+        <div className="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)]">
+          <div className="temple-border rounded bg-black/40 p-5">
+            <HousesWheel />
+            <p className="mt-3 text-center text-[.7rem] leading-5 text-limestone">
+              Angular · shaded — succedent follow — cadent fall away.
+              <span className="block">Joys: ☿&#xFE0E; I · ☽&#xFE0E; III · ♀&#xFE0E; V · ♂&#xFE0E; VI · ☉&#xFE0E; IX · ♃&#xFE0E; XI · ♄&#xFE0E; XII</span>
+            </p>
+          </div>
+          <ul role="list" className="grid gap-2 sm:grid-cols-2">
+            {HOUSES.map((house) => (
+              <li key={house.numeral} className="rounded border border-gold/15 bg-black/40 p-3">
+                <p className="flex flex-wrap items-baseline gap-x-2">
+                  <span className="font-display text-lg text-gold">{house.numeral}</span>
+                  <span className="font-display text-base text-ivory">{house.latin}</span>
+                  <span className="text-[.7rem] text-parchment/75">{house.english}</span>
+                </p>
+                <p className="mt-0.5 text-[.62rem] uppercase tracking-[.16em] text-limestone">
+                  {house.cls}
+                  {house.joy ? <span className="text-gold"> · joy of {house.joy}</span> : null}
+                  {house.greekName ? <span> · &ldquo;{house.greekName}&rdquo;</span> : null}
+                </p>
+                <p className="mt-1.5 text-xs leading-5 text-parchment/85">{house.blurb}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* ----------------------------------------------- 4 · house systems */}
         <h3 className="mt-14 font-display text-2xl text-ivory">Seven ways to cut the circle</h3>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-parchment/85">
           Houses assign the sky&rsquo;s twelve departments of life. Systems differ on what exactly
@@ -353,7 +600,37 @@ export function AstrologyAtlas() {
           ))}
         </ul>
 
-        {/* ------------------------------------------------ 3 · chart shapes */}
+        {/* ---------------------------------------------------- 5 · aspects */}
+        <h3 className="mt-14 font-display text-2xl text-ivory">The grammar of aspect</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-parchment/85">
+          Aspects are how planets address one another: each is a whole-number division of the
+          circle, which is why astrologers speak of them as harmonics. The five Ptolemaic aspects
+          descend from sign geometry — trines join signs of one element, squares signs of one mode
+          — and the older doctrine counted them sign to sign before degrees entered it. An orb is
+          the allowance either side of exactness; a planet moving <em className="text-parchment">toward</em>{" "}
+          perfection of an aspect is applying, and its promise is still ahead — moving away, it is
+          separating, and the matter is already done.
+        </p>
+        <ul role="list" className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {ASPECTS.map((aspect) => (
+            <li key={aspect.name} className="temple-border rounded bg-black/40 p-4">
+              <AspectWheel angle={aspect.angle} />
+              <p className="mt-1 text-center">
+                <span className="mr-2 font-serif text-2xl text-gold" aria-hidden="true">{aspect.glyph}</span>
+                <span className="font-display text-lg text-ivory">{aspect.name}</span>
+              </p>
+              <p className="text-center text-[.66rem] uppercase tracking-[.16em] text-gold">
+                {aspect.angle}° · {aspect.family}
+              </p>
+              <p className="mt-1 text-center text-[.64rem] uppercase tracking-[.12em] text-limestone">
+                {aspect.ptolemaic ? "Ptolemaic" : "minor"} · orb {aspect.orb}
+              </p>
+              <p className="mt-2.5 text-xs leading-5 text-parchment/85">{aspect.reading}</p>
+            </li>
+          ))}
+        </ul>
+
+        {/* ------------------------------------------------ 6 · chart shapes */}
         <h3 className="mt-14 font-display text-2xl text-ivory">The seven shapes of a chart</h3>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-parchment/85">
           Before reading any single placement, Marc Edmund Jones taught reading the whole
@@ -392,17 +669,23 @@ export function AstrologyAtlas() {
           where the interpretation starts.
         </p>
 
-        {/* --------------------------------------- 4 · correspondence spine */}
-        <h3 className="mt-14 font-display text-2xl text-ivory">The correspondence spine</h3>
+        {/* ------------------------- 7 · correspondence spine & dignities */}
+        <h3 className="mt-14 font-display text-2xl text-ivory">The correspondence spine &amp; essential dignities</h3>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-parchment/85">
           The seven classical planets in Chaldean order, with the attributions the whole Western
-          system hangs from. The full tables live in the{" "}
+          system hangs from — now including the four essential dignities. A planet in its{" "}
+          <em className="text-parchment">domicile</em> rules the ground it stands on; in{" "}
+          <em className="text-parchment">exaltation</em> it is an honoured guest; in{" "}
+          <em className="text-parchment">detriment</em>, opposite its home, it works in a place
+          built on contrary principles; in <em className="text-parchment">fall</em>, opposite its
+          exaltation, its dignity is inverted. Condition first, meaning second: this is the oldest
+          rule of judgment. The full tables live in the{" "}
           <Link href="/resources/planetary-correspondences" className="focus-ring text-gold underline-offset-4 hover:underline">
             correspondence explorer
           </Link>.
         </p>
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+          <table className="w-full min-w-[820px] border-collapse text-left text-sm">
             <thead>
               <tr className="text-[.7rem] uppercase tracking-[.16em] text-gold">
                 <th className="border-b border-gold/25 px-3 py-2.5 font-normal">Planet</th>
@@ -410,6 +693,8 @@ export function AstrologyAtlas() {
                 <th className="border-b border-gold/25 px-3 py-2.5 font-normal">Metal</th>
                 <th className="border-b border-gold/25 px-3 py-2.5 font-normal">Domicile</th>
                 <th className="border-b border-gold/25 px-3 py-2.5 font-normal">Exaltation</th>
+                <th className="border-b border-gold/25 px-3 py-2.5 font-normal">Detriment</th>
+                <th className="border-b border-gold/25 px-3 py-2.5 font-normal">Fall</th>
               </tr>
             </thead>
             <tbody>
@@ -423,13 +708,15 @@ export function AstrologyAtlas() {
                   <td className="border-b border-gold/10 px-3 py-2.5">{row.metal}</td>
                   <td className="border-b border-gold/10 px-3 py-2.5">{row.domicile}</td>
                   <td className="border-b border-gold/10 px-3 py-2.5">{row.exaltation}</td>
+                  <td className="border-b border-gold/10 px-3 py-2.5 text-parchment/75">{row.detriment}</td>
+                  <td className="border-b border-gold/10 px-3 py-2.5 text-parchment/75">{row.fall}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
 
-        {/* -------------------------------------------------- 5 · instruments */}
+        {/* -------------------------------------------------- 8 · instruments */}
         <div className="mt-12 rounded border border-gold/25 bg-gold/[.06] p-6">
           <p className="text-xs uppercase tracking-[.24em] text-gold">Work it, not just read it</p>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-parchment">
