@@ -160,7 +160,7 @@ export function ContactForm({ recipientEmail }: ContactFormProps) {
           {recipientEmail}
         </a>
         <button
-          className="focus-ring inline-flex items-center justify-center gap-2 rounded border border-gold/40 bg-gold px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-black transition hover:bg-ivory"
+          className="focus-ring inline-flex items-center justify-center gap-2 rounded border border-crimson bg-crimson px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-ivory transition hover:border-blood hover:bg-blood"
           type="submit"
         >
           <Send className="h-4 w-4" aria-hidden="true" />
